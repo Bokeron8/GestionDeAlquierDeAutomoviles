@@ -15,6 +15,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ListaCategoriaVista listaCategoria;
         private CargaClienteVista cargaCliente;
         private ListaClienteVista listaCliente;
+        private CargaEmpleadoVista cargaEmpleado;
+        private ListaEmpleadoVista listaEmpleado;
         private CargaEstadoVista cargaEstado;
         private ListaEstadoVista listaEstado;
         private CargaRolVista cargaRol;
@@ -33,6 +35,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaCategoria = new ListaCategoriaVista();
             cargaCliente = new CargaClienteVista();
             listaCliente = new ListaClienteVista();
+            cargaEmpleado = new CargaEmpleadoVista();
+            listaEmpleado = new ListaEmpleadoVista();
             cargaEstado = new CargaEstadoVista();
             listaEstado = new ListaEstadoVista();
             cargaRol = new CargaRolVista();
@@ -95,6 +99,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaCliente);
+        }
+
+        private void CargarEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaEmpleado);
+        }
+
+        private void ListarEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaEmpleado);
         }
 
         private void CargarEstadoToolStripMenuItem_Click(object sender, EventArgs e)

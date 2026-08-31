@@ -33,6 +33,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             clientesToolStripMenuItem = new ToolStripMenuItem();
             cargarClienteToolStripMenuItem = new ToolStripMenuItem();
             listarClientesToolStripMenuItem = new ToolStripMenuItem();
+            empleadosToolStripMenuItem = new ToolStripMenuItem();
+            cargarEmpleadoToolStripMenuItem = new ToolStripMenuItem();
+            listarEmpleadosToolStripMenuItem = new ToolStripMenuItem();
             estadosToolStripMenuItem = new ToolStripMenuItem();
             cargarEstadoToolStripMenuItem = new ToolStripMenuItem();
             listarEstadosToolStripMenuItem = new ToolStripMenuItem();
@@ -49,7 +52,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
@@ -166,6 +169,28 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listarClientesToolStripMenuItem.Text = "Listar Clientes";
             listarClientesToolStripMenuItem.Click += ListarClientesToolStripMenuItem_Click;
             //
+            // empleadosToolStripMenuItem
+            //
+            empleadosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarEmpleadoToolStripMenuItem, listarEmpleadosToolStripMenuItem });
+            empleadosToolStripMenuItem.ForeColor = Color.White;
+            empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
+            empleadosToolStripMenuItem.Size = new Size(81, 20);
+            empleadosToolStripMenuItem.Text = "Empleados";
+            //
+            // cargarEmpleadoToolStripMenuItem
+            //
+            cargarEmpleadoToolStripMenuItem.Name = "cargarEmpleadoToolStripMenuItem";
+            cargarEmpleadoToolStripMenuItem.Size = new Size(168, 22);
+            cargarEmpleadoToolStripMenuItem.Text = "Cargar Empleado";
+            cargarEmpleadoToolStripMenuItem.Click += CargarEmpleadoToolStripMenuItem_Click;
+            //
+            // listarEmpleadosToolStripMenuItem
+            //
+            listarEmpleadosToolStripMenuItem.Name = "listarEmpleadosToolStripMenuItem";
+            listarEmpleadosToolStripMenuItem.Size = new Size(168, 22);
+            listarEmpleadosToolStripMenuItem.Text = "Listar Empleados";
+            listarEmpleadosToolStripMenuItem.Click += ListarEmpleadosToolStripMenuItem_Click;
+            //
             // estadosToolStripMenuItem
             //
             estadosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarEstadoToolStripMenuItem, listarEstadosToolStripMenuItem });
@@ -280,6 +305,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ToolStripMenuItem clientesToolStripMenuItem;
         private ToolStripMenuItem cargarClienteToolStripMenuItem;
         private ToolStripMenuItem listarClientesToolStripMenuItem;
+        private ToolStripMenuItem empleadosToolStripMenuItem;
+        private ToolStripMenuItem cargarEmpleadoToolStripMenuItem;
+        private ToolStripMenuItem listarEmpleadosToolStripMenuItem;
         private ToolStripMenuItem estadosToolStripMenuItem;
         private ToolStripMenuItem cargarEstadoToolStripMenuItem;
         private ToolStripMenuItem listarEstadosToolStripMenuItem;
