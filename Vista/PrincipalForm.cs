@@ -21,6 +21,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ListaReservaVista listaReserva;
         private CargaAlquilerVista cargaAlquiler;
         private ListaAlquilerVista listaAlquiler;
+        private CargaDanioVista cargaDanio;
+        private ListaDanioVista listaDanio;
         private CargaEstadoVista cargaEstado;
         private ListaEstadoVista listaEstado;
         private CargaRolVista cargaRol;
@@ -45,6 +47,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaReserva = new ListaReservaVista();
             cargaAlquiler = new CargaAlquilerVista();
             listaAlquiler = new ListaAlquilerVista();
+            cargaDanio = new CargaDanioVista();
+            listaDanio = new ListaDanioVista();
             cargaEstado = new CargaEstadoVista();
             listaEstado = new ListaEstadoVista();
             cargaRol = new CargaRolVista();
@@ -137,6 +141,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaAlquiler);
+        }
+
+        private void CargarDanioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaDanio);
+        }
+
+        private void ListarDaniosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaDanio);
         }
 
         private void CargarEstadoToolStripMenuItem_Click(object sender, EventArgs e)

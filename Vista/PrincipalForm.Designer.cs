@@ -42,6 +42,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             alquileresToolStripMenuItem = new ToolStripMenuItem();
             cargarAlquilerToolStripMenuItem = new ToolStripMenuItem();
             listarAlquileresToolStripMenuItem = new ToolStripMenuItem();
+            daniosToolStripMenuItem = new ToolStripMenuItem();
+            cargarDanioToolStripMenuItem = new ToolStripMenuItem();
+            listarDaniosToolStripMenuItem = new ToolStripMenuItem();
             estadosToolStripMenuItem = new ToolStripMenuItem();
             cargarEstadoToolStripMenuItem = new ToolStripMenuItem();
             listarEstadosToolStripMenuItem = new ToolStripMenuItem();
@@ -58,7 +61,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
@@ -241,6 +244,28 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listarAlquileresToolStripMenuItem.Text = "Listar Alquileres";
             listarAlquileresToolStripMenuItem.Click += ListarAlquileresToolStripMenuItem_Click;
             //
+            // daniosToolStripMenuItem
+            //
+            daniosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarDanioToolStripMenuItem, listarDaniosToolStripMenuItem });
+            daniosToolStripMenuItem.ForeColor = Color.White;
+            daniosToolStripMenuItem.Name = "daniosToolStripMenuItem";
+            daniosToolStripMenuItem.Size = new Size(54, 20);
+            daniosToolStripMenuItem.Text = "Daños";
+            //
+            // cargarDanioToolStripMenuItem
+            //
+            cargarDanioToolStripMenuItem.Name = "cargarDanioToolStripMenuItem";
+            cargarDanioToolStripMenuItem.Size = new Size(146, 22);
+            cargarDanioToolStripMenuItem.Text = "Cargar Daño";
+            cargarDanioToolStripMenuItem.Click += CargarDanioToolStripMenuItem_Click;
+            //
+            // listarDaniosToolStripMenuItem
+            //
+            listarDaniosToolStripMenuItem.Name = "listarDaniosToolStripMenuItem";
+            listarDaniosToolStripMenuItem.Size = new Size(146, 22);
+            listarDaniosToolStripMenuItem.Text = "Listar Daños";
+            listarDaniosToolStripMenuItem.Click += ListarDaniosToolStripMenuItem_Click;
+            //
             // estadosToolStripMenuItem
             //
             estadosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarEstadoToolStripMenuItem, listarEstadosToolStripMenuItem });
@@ -364,6 +389,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ToolStripMenuItem alquileresToolStripMenuItem;
         private ToolStripMenuItem cargarAlquilerToolStripMenuItem;
         private ToolStripMenuItem listarAlquileresToolStripMenuItem;
+        private ToolStripMenuItem daniosToolStripMenuItem;
+        private ToolStripMenuItem cargarDanioToolStripMenuItem;
+        private ToolStripMenuItem listarDaniosToolStripMenuItem;
         private ToolStripMenuItem estadosToolStripMenuItem;
         private ToolStripMenuItem cargarEstadoToolStripMenuItem;
         private ToolStripMenuItem listarEstadosToolStripMenuItem;
