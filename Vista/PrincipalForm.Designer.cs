@@ -30,6 +30,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             categoriasToolStripMenuItem = new ToolStripMenuItem();
             cargarCategoriaToolStripMenuItem = new ToolStripMenuItem();
             listarCategoriasToolStripMenuItem = new ToolStripMenuItem();
+            estadosToolStripMenuItem = new ToolStripMenuItem();
+            cargarEstadoToolStripMenuItem = new ToolStripMenuItem();
+            listarEstadosToolStripMenuItem = new ToolStripMenuItem();
+            rolesToolStripMenuItem = new ToolStripMenuItem();
+            cargarRolToolStripMenuItem = new ToolStripMenuItem();
+            listarRolesToolStripMenuItem = new ToolStripMenuItem();
             panelHeader = new Panel();
             lblTitulo = new Label();
             panelContenido = new Panel();
@@ -40,7 +46,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
@@ -135,6 +141,50 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listarCategoriasToolStripMenuItem.Text = "Listar Categorias";
             listarCategoriasToolStripMenuItem.Click += ListarCategoriasToolStripMenuItem_Click;
             //
+            // estadosToolStripMenuItem
+            //
+            estadosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarEstadoToolStripMenuItem, listarEstadosToolStripMenuItem });
+            estadosToolStripMenuItem.ForeColor = Color.White;
+            estadosToolStripMenuItem.Name = "estadosToolStripMenuItem";
+            estadosToolStripMenuItem.Size = new Size(60, 20);
+            estadosToolStripMenuItem.Text = "Estados";
+            //
+            // cargarEstadoToolStripMenuItem
+            //
+            cargarEstadoToolStripMenuItem.Name = "cargarEstadoToolStripMenuItem";
+            cargarEstadoToolStripMenuItem.Size = new Size(160, 22);
+            cargarEstadoToolStripMenuItem.Text = "Cargar Estado";
+            cargarEstadoToolStripMenuItem.Click += CargarEstadoToolStripMenuItem_Click;
+            //
+            // listarEstadosToolStripMenuItem
+            //
+            listarEstadosToolStripMenuItem.Name = "listarEstadosToolStripMenuItem";
+            listarEstadosToolStripMenuItem.Size = new Size(160, 22);
+            listarEstadosToolStripMenuItem.Text = "Listar Estados";
+            listarEstadosToolStripMenuItem.Click += ListarEstadosToolStripMenuItem_Click;
+            //
+            // rolesToolStripMenuItem
+            //
+            rolesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarRolToolStripMenuItem, listarRolesToolStripMenuItem });
+            rolesToolStripMenuItem.ForeColor = Color.White;
+            rolesToolStripMenuItem.Name = "rolesToolStripMenuItem";
+            rolesToolStripMenuItem.Size = new Size(48, 20);
+            rolesToolStripMenuItem.Text = "Roles";
+            //
+            // cargarRolToolStripMenuItem
+            //
+            cargarRolToolStripMenuItem.Name = "cargarRolToolStripMenuItem";
+            cargarRolToolStripMenuItem.Size = new Size(144, 22);
+            cargarRolToolStripMenuItem.Text = "Cargar Rol";
+            cargarRolToolStripMenuItem.Click += CargarRolToolStripMenuItem_Click;
+            //
+            // listarRolesToolStripMenuItem
+            //
+            listarRolesToolStripMenuItem.Name = "listarRolesToolStripMenuItem";
+            listarRolesToolStripMenuItem.Size = new Size(144, 22);
+            listarRolesToolStripMenuItem.Text = "Listar Roles";
+            listarRolesToolStripMenuItem.Click += ListarRolesToolStripMenuItem_Click;
+            //
             // panelHeader
             //
             panelHeader.BackColor = Color.FromArgb(68, 68, 102);
@@ -202,6 +252,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ToolStripMenuItem categoriasToolStripMenuItem;
         private ToolStripMenuItem cargarCategoriaToolStripMenuItem;
         private ToolStripMenuItem listarCategoriasToolStripMenuItem;
+        private ToolStripMenuItem estadosToolStripMenuItem;
+        private ToolStripMenuItem cargarEstadoToolStripMenuItem;
+        private ToolStripMenuItem listarEstadosToolStripMenuItem;
+        private ToolStripMenuItem rolesToolStripMenuItem;
+        private ToolStripMenuItem cargarRolToolStripMenuItem;
+        private ToolStripMenuItem listarRolesToolStripMenuItem;
         private Panel panelHeader;
         private Label lblTitulo;
         private Panel panelContenido;
