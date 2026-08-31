@@ -9,6 +9,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ListaVehiculoVista listaVehiculo;
         private CargaMarcaVista cargaMarca;
         private ListaMarcaVista listaMarca;
+        private CargaModeloVista cargaModelo;
+        private ListaModeloVista listaModelo;
+        private CargaCategoriaVista cargaCategoria;
+        private ListaCategoriaVista listaCategoria;
 
         public PrincipalForm()
         {
@@ -17,6 +21,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaVehiculo = new ListaVehiculoVista();
             cargaMarca = new CargaMarcaVista();
             listaMarca = new ListaMarcaVista();
+            cargaModelo = new CargaModeloVista();
+            listaModelo = new ListaModeloVista();
+            cargaCategoria = new CargaCategoriaVista();
+            listaCategoria = new ListaCategoriaVista();
             MostrarUserControl(cargaVehiculo);
         }
 
@@ -45,6 +53,26 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarMarcasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaMarca);
+        }
+
+        private void CargarModeloToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaModelo);
+        }
+
+        private void ListarModelosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaModelo);
+        }
+
+        private void CargarCategoriaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaCategoria);
+        }
+
+        private void ListarCategoriasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaCategoria);
         }
     }
 }
