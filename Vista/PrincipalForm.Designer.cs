@@ -18,40 +18,72 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void InitializeComponent()
         {
             menuStrip = new MenuStrip();
+            vehiculosToolStripMenuItem = new ToolStripMenuItem();
             cargarVehiculoToolStripMenuItem = new ToolStripMenuItem();
             listarVehiculosToolStripMenuItem = new ToolStripMenuItem();
+            marcasToolStripMenuItem = new ToolStripMenuItem();
+            cargarMarcaToolStripMenuItem = new ToolStripMenuItem();
+            listarMarcasToolStripMenuItem = new ToolStripMenuItem();
             panelHeader = new Panel();
             lblTitulo = new Label();
             panelContenido = new Panel();
             menuStrip.SuspendLayout();
             panelHeader.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // menuStrip
-            // 
+            //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { cargarVehiculoToolStripMenuItem, listarVehiculosToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip";
-            // 
+            //
+            // vehiculosToolStripMenuItem
+            //
+            vehiculosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarVehiculoToolStripMenuItem, listarVehiculosToolStripMenuItem });
+            vehiculosToolStripMenuItem.ForeColor = Color.White;
+            vehiculosToolStripMenuItem.Name = "vehiculosToolStripMenuItem";
+            vehiculosToolStripMenuItem.Size = new Size(78, 20);
+            vehiculosToolStripMenuItem.Text = "Vehiculos";
+            //
             // cargarVehiculoToolStripMenuItem
-            // 
-            cargarVehiculoToolStripMenuItem.ForeColor = Color.White;
+            //
             cargarVehiculoToolStripMenuItem.Name = "cargarVehiculoToolStripMenuItem";
-            cargarVehiculoToolStripMenuItem.Size = new Size(103, 20);
+            cargarVehiculoToolStripMenuItem.Size = new Size(170, 22);
             cargarVehiculoToolStripMenuItem.Text = "Cargar Vehiculo";
             cargarVehiculoToolStripMenuItem.Click += CargarVehiculoToolStripMenuItem_Click;
-            // 
+            //
             // listarVehiculosToolStripMenuItem
-            // 
-            listarVehiculosToolStripMenuItem.ForeColor = Color.White;
+            //
             listarVehiculosToolStripMenuItem.Name = "listarVehiculosToolStripMenuItem";
-            listarVehiculosToolStripMenuItem.Size = new Size(110, 20);
+            listarVehiculosToolStripMenuItem.Size = new Size(170, 22);
             listarVehiculosToolStripMenuItem.Text = "Listar Vehiculos";
             listarVehiculosToolStripMenuItem.Click += ListarVehiculosToolStripMenuItem_Click;
+            //
+            // marcasToolStripMenuItem
+            //
+            marcasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarMarcaToolStripMenuItem, listarMarcasToolStripMenuItem });
+            marcasToolStripMenuItem.ForeColor = Color.White;
+            marcasToolStripMenuItem.Name = "marcasToolStripMenuItem";
+            marcasToolStripMenuItem.Size = new Size(57, 20);
+            marcasToolStripMenuItem.Text = "Marcas";
+            //
+            // cargarMarcaToolStripMenuItem
+            //
+            cargarMarcaToolStripMenuItem.Name = "cargarMarcaToolStripMenuItem";
+            cargarMarcaToolStripMenuItem.Size = new Size(152, 22);
+            cargarMarcaToolStripMenuItem.Text = "Cargar Marca";
+            cargarMarcaToolStripMenuItem.Click += CargarMarcaToolStripMenuItem_Click;
+            //
+            // listarMarcasToolStripMenuItem
+            //
+            listarMarcasToolStripMenuItem.Name = "listarMarcasToolStripMenuItem";
+            listarMarcasToolStripMenuItem.Size = new Size(152, 22);
+            listarMarcasToolStripMenuItem.Text = "Listar Marcas";
+            listarMarcasToolStripMenuItem.Click += ListarMarcasToolStripMenuItem_Click;
             // 
             // panelHeader
             // 
@@ -108,8 +140,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         #endregion
 
         private MenuStrip menuStrip;
+        private ToolStripMenuItem vehiculosToolStripMenuItem;
         private ToolStripMenuItem cargarVehiculoToolStripMenuItem;
         private ToolStripMenuItem listarVehiculosToolStripMenuItem;
+        private ToolStripMenuItem marcasToolStripMenuItem;
+        private ToolStripMenuItem cargarMarcaToolStripMenuItem;
+        private ToolStripMenuItem listarMarcasToolStripMenuItem;
         private Panel panelHeader;
         private Label lblTitulo;
         private Panel panelContenido;

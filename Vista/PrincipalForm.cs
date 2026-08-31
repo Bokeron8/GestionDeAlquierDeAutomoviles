@@ -7,12 +7,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
     {
         private CargaVehiculoVista cargaVehiculo;
         private ListaVehiculoVista listaVehiculo;
+        private CargaMarcaVista cargaMarca;
+        private ListaMarcaVista listaMarca;
 
         public PrincipalForm()
         {
             InitializeComponent();
             cargaVehiculo = new CargaVehiculoVista();
             listaVehiculo = new ListaVehiculoVista();
+            cargaMarca = new CargaMarcaVista();
+            listaMarca = new ListaMarcaVista();
             MostrarUserControl(cargaVehiculo);
         }
 
@@ -31,6 +35,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarVehiculosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaVehiculo);
+        }
+
+        private void CargarMarcaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaMarca);
+        }
+
+        private void ListarMarcasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaMarca);
         }
     }
 }
