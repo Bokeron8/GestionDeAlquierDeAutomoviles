@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GestionDeAlquierDeAutomoviles.Vista
@@ -8,6 +9,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaVehiculoVista()
         {
             InitializeComponent();
+            CargarImagen();
+        }
+
+        private void CargarImagen()
+        {
+            string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recursos", "auto.png");
+            if (File.Exists(ruta))
+            {
+                pbAuto.Image = Image.FromFile(ruta);
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbModelo = new ComboBox();
             lblCategoria = new Label();
             cbCategoria = new ComboBox();
+            pbAuto = new PictureBox();
             btnGuardar = new Button();
             SuspendLayout();
             //
@@ -155,6 +156,15 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbCategoria.Size = new Size(310, 25);
             cbCategoria.TabIndex = 3;
             //
+            // pbAuto
+            //
+            pbAuto.Location = new Point(25, 265);
+            pbAuto.Name = "pbAuto";
+            pbAuto.Size = new Size(200, 130);
+            pbAuto.SizeMode = PictureBoxSizeMode.Zoom;
+            pbAuto.TabIndex = 5;
+            pbAuto.TabStop = false;
+            //
             // btnGuardar
             //
             btnGuardar.BackColor = Color.FromArgb(51, 51, 76);
@@ -177,6 +187,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(separador);
             Controls.Add(panelIzquierda);
             Controls.Add(panelDerecha);
+            Controls.Add(pbAuto);
             Controls.Add(btnGuardar);
             Name = "CargaVehiculoVista";
             Size = new Size(784, 411);
@@ -199,5 +210,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblCategoria;
         private ComboBox cbCategoria;
         private Button btnGuardar;
+        private PictureBox pbAuto;
     }
 }
