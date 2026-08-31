@@ -17,105 +17,133 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void InitializeComponent()
         {
-            LMatricula = new Label();
-            LAnio = new Label();
-            TBMatricula = new TextBox();
-            TBAnio = new TextBox();
-            BGuardarVehiculo = new Button();
-            CBModelo = new ComboBox();
-            CBCategoria = new ComboBox();
-            LModelo = new Label();
-            LCategoria = new Label();
+            lblTitulo = new Label();
+            lblMatricula = new Label();
+            lblAnio = new Label();
+            txtMatricula = new TextBox();
+            txtAnio = new TextBox();
+            btnGuardar = new Button();
+            cbModelo = new ComboBox();
+            cbCategoria = new ComboBox();
+            lblModelo = new Label();
+            lblCategoria = new Label();
             SuspendLayout();
             // 
-            // LMatricula
+            // lblTitulo
             // 
-            LMatricula.AutoSize = true;
-            LMatricula.Location = new Point(61, 52);
-            LMatricula.Name = "LMatricula";
-            LMatricula.Size = new Size(57, 15);
-            LMatricula.TabIndex = 0;
-            LMatricula.Text = "Matricula";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(51, 51, 76);
+            lblTitulo.Location = new Point(20, 15);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(200, 21);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Registrar Nuevo Vehiculo";
             // 
-            // LAnio
+            // lblMatricula
             // 
-            LAnio.AutoSize = true;
-            LAnio.Location = new Point(61, 112);
-            LAnio.Name = "LAnio";
-            LAnio.Size = new Size(29, 15);
-            LAnio.TabIndex = 1;
-            LAnio.Text = "Anio";
+            lblMatricula.AutoSize = true;
+            lblMatricula.Font = new Font("Segoe UI", 10F);
+            lblMatricula.Location = new Point(40, 70);
+            lblMatricula.Name = "lblMatricula";
+            lblMatricula.Size = new Size(70, 19);
+            lblMatricula.TabIndex = 1;
+            lblMatricula.Text = "Matricula:";
             // 
-            // TBMatricula
+            // txtMatricula
             // 
-            TBMatricula.Location = new Point(139, 52);
-            TBMatricula.Name = "TBMatricula";
-            TBMatricula.Size = new Size(100, 23);
-            TBMatricula.TabIndex = 2;
+            txtMatricula.Font = new Font("Segoe UI", 10F);
+            txtMatricula.Location = new Point(150, 67);
+            txtMatricula.Name = "txtMatricula";
+            txtMatricula.Size = new Size(150, 25);
+            txtMatricula.TabIndex = 2;
             // 
-            // TBAnio
+            // lblAnio
             // 
-            TBAnio.Location = new Point(139, 109);
-            TBAnio.Name = "TBAnio";
-            TBAnio.Size = new Size(100, 23);
-            TBAnio.TabIndex = 3;
+            lblAnio.AutoSize = true;
+            lblAnio.Font = new Font("Segoe UI", 10F);
+            lblAnio.Location = new Point(40, 115);
+            lblAnio.Name = "lblAnio";
+            lblAnio.Size = new Size(38, 19);
+            lblAnio.TabIndex = 3;
+            lblAnio.Text = "Anio:";
             // 
-            // BGuardarVehiculo
+            // txtAnio
             // 
-            BGuardarVehiculo.Location = new Point(224, 245);
-            BGuardarVehiculo.Name = "BGuardarVehiculo";
-            BGuardarVehiculo.Size = new Size(253, 65);
-            BGuardarVehiculo.TabIndex = 4;
-            BGuardarVehiculo.Text = "Guardar nuevo vehiculo";
-            BGuardarVehiculo.UseVisualStyleBackColor = true;
+            txtAnio.Font = new Font("Segoe UI", 10F);
+            txtAnio.Location = new Point(150, 112);
+            txtAnio.Name = "txtAnio";
+            txtAnio.Size = new Size(150, 25);
+            txtAnio.TabIndex = 4;
             // 
-            // CBModelo
+            // lblModelo
             // 
-            CBModelo.FormattingEnabled = true;
-            CBModelo.Location = new Point(428, 52);
-            CBModelo.Name = "CBModelo";
-            CBModelo.Size = new Size(121, 23);
-            CBModelo.TabIndex = 5;
+            lblModelo.AutoSize = true;
+            lblModelo.Font = new Font("Segoe UI", 10F);
+            lblModelo.Location = new Point(370, 70);
+            lblModelo.Name = "lblModelo";
+            lblModelo.Size = new Size(58, 19);
+            lblModelo.TabIndex = 5;
+            lblModelo.Text = "Modelo:";
             // 
-            // CBCategoria
+            // cbModelo
             // 
-            CBCategoria.FormattingEnabled = true;
-            CBCategoria.Location = new Point(428, 104);
-            CBCategoria.Name = "CBCategoria";
-            CBCategoria.Size = new Size(121, 23);
-            CBCategoria.TabIndex = 6;
+            cbModelo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbModelo.Font = new Font("Segoe UI", 10F);
+            cbModelo.FormattingEnabled = true;
+            cbModelo.Location = new Point(440, 67);
+            cbModelo.Name = "cbModelo";
+            cbModelo.Size = new Size(180, 25);
+            cbModelo.TabIndex = 6;
             // 
-            // LModelo
+            // lblCategoria
             // 
-            LModelo.AutoSize = true;
-            LModelo.Location = new Point(338, 52);
-            LModelo.Name = "LModelo";
-            LModelo.Size = new Size(48, 15);
-            LModelo.TabIndex = 7;
-            LModelo.Text = "Modelo";
+            lblCategoria.AutoSize = true;
+            lblCategoria.Font = new Font("Segoe UI", 10F);
+            lblCategoria.Location = new Point(370, 115);
+            lblCategoria.Name = "lblCategoria";
+            lblCategoria.Size = new Size(69, 19);
+            lblCategoria.TabIndex = 7;
+            lblCategoria.Text = "Categoria:";
             // 
-            // LCategoria
+            // cbCategoria
             // 
-            LCategoria.AutoSize = true;
-            LCategoria.Location = new Point(338, 109);
-            LCategoria.Name = "LCategoria";
-            LCategoria.Size = new Size(58, 15);
-            LCategoria.TabIndex = 8;
-            LCategoria.Text = "Categoria";
+            cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCategoria.Font = new Font("Segoe UI", 10F);
+            cbCategoria.FormattingEnabled = true;
+            cbCategoria.Location = new Point(440, 112);
+            cbCategoria.Name = "cbCategoria";
+            cbCategoria.Size = new Size(180, 25);
+            cbCategoria.TabIndex = 8;
+            // 
+            // btnGuardar
+            // 
+            btnGuardar.BackColor = Color.FromArgb(51, 51, 76);
+            btnGuardar.FlatStyle = FlatStyle.Flat;
+            btnGuardar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnGuardar.ForeColor = Color.White;
+            btnGuardar.Location = new Point(230, 190);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new Size(200, 40);
+            btnGuardar.TabIndex = 9;
+            btnGuardar.Text = "Guardar Vehiculo";
+            btnGuardar.UseVisualStyleBackColor = false;
             // 
             // CargaVehiculoVista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(LCategoria);
-            Controls.Add(LModelo);
-            Controls.Add(CBCategoria);
-            Controls.Add(CBModelo);
-            Controls.Add(BGuardarVehiculo);
-            Controls.Add(TBAnio);
-            Controls.Add(TBMatricula);
-            Controls.Add(LAnio);
-            Controls.Add(LMatricula);
+            BackColor = Color.FromArgb(240, 240, 245);
+            Controls.Add(lblTitulo);
+            Controls.Add(lblMatricula);
+            Controls.Add(txtMatricula);
+            Controls.Add(lblAnio);
+            Controls.Add(txtAnio);
+            Controls.Add(lblModelo);
+            Controls.Add(cbModelo);
+            Controls.Add(lblCategoria);
+            Controls.Add(cbCategoria);
+            Controls.Add(btnGuardar);
             Name = "CargaVehiculoVista";
             Size = new Size(784, 411);
             ResumeLayout(false);
@@ -124,14 +152,15 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         #endregion
 
-        private Label LMatricula;
-        private Label LAnio;
-        private TextBox TBMatricula;
-        private TextBox TBAnio;
-        private Button BGuardarVehiculo;
-        private ComboBox CBModelo;
-        private ComboBox CBCategoria;
-        private Label LModelo;
-        private Label LCategoria;
+        private Label lblTitulo;
+        private Label lblMatricula;
+        private Label lblAnio;
+        private TextBox txtMatricula;
+        private TextBox txtAnio;
+        private Button btnGuardar;
+        private ComboBox cbModelo;
+        private ComboBox cbCategoria;
+        private Label lblModelo;
+        private Label lblCategoria;
     }
 }

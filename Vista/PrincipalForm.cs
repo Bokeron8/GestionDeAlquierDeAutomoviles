@@ -13,6 +13,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             InitializeComponent();
             cargaVehiculo = new CargaVehiculoVista();
             listaVehiculo = new ListaVehiculoVista();
+            MostrarUserControl(cargaVehiculo);
         }
 
         private void MostrarUserControl(UserControl uc)
