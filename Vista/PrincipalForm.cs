@@ -17,6 +17,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ListaClienteVista listaCliente;
         private CargaEmpleadoVista cargaEmpleado;
         private ListaEmpleadoVista listaEmpleado;
+        private CargaReservaVista cargaReserva;
+        private ListaReservaVista listaReserva;
+        private CargaAlquilerVista cargaAlquiler;
+        private ListaAlquilerVista listaAlquiler;
         private CargaEstadoVista cargaEstado;
         private ListaEstadoVista listaEstado;
         private CargaRolVista cargaRol;
@@ -37,6 +41,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaCliente = new ListaClienteVista();
             cargaEmpleado = new CargaEmpleadoVista();
             listaEmpleado = new ListaEmpleadoVista();
+            cargaReserva = new CargaReservaVista();
+            listaReserva = new ListaReservaVista();
+            cargaAlquiler = new CargaAlquilerVista();
+            listaAlquiler = new ListaAlquilerVista();
             cargaEstado = new CargaEstadoVista();
             listaEstado = new ListaEstadoVista();
             cargaRol = new CargaRolVista();
@@ -109,6 +117,26 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaEmpleado);
+        }
+
+        private void CargarReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaReserva);
+        }
+
+        private void ListarReservasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaReserva);
+        }
+
+        private void CargarAlquilerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(cargaAlquiler);
+        }
+
+        private void ListarAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(listaAlquiler);
         }
 
         private void CargarEstadoToolStripMenuItem_Click(object sender, EventArgs e)

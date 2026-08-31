@@ -36,6 +36,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             empleadosToolStripMenuItem = new ToolStripMenuItem();
             cargarEmpleadoToolStripMenuItem = new ToolStripMenuItem();
             listarEmpleadosToolStripMenuItem = new ToolStripMenuItem();
+            reservasToolStripMenuItem = new ToolStripMenuItem();
+            cargarReservaToolStripMenuItem = new ToolStripMenuItem();
+            listarReservasToolStripMenuItem = new ToolStripMenuItem();
+            alquileresToolStripMenuItem = new ToolStripMenuItem();
+            cargarAlquilerToolStripMenuItem = new ToolStripMenuItem();
+            listarAlquileresToolStripMenuItem = new ToolStripMenuItem();
             estadosToolStripMenuItem = new ToolStripMenuItem();
             cargarEstadoToolStripMenuItem = new ToolStripMenuItem();
             listarEstadosToolStripMenuItem = new ToolStripMenuItem();
@@ -52,7 +58,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
@@ -191,6 +197,50 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listarEmpleadosToolStripMenuItem.Text = "Listar Empleados";
             listarEmpleadosToolStripMenuItem.Click += ListarEmpleadosToolStripMenuItem_Click;
             //
+            // reservasToolStripMenuItem
+            //
+            reservasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarReservaToolStripMenuItem, listarReservasToolStripMenuItem });
+            reservasToolStripMenuItem.ForeColor = Color.White;
+            reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
+            reservasToolStripMenuItem.Size = new Size(63, 20);
+            reservasToolStripMenuItem.Text = "Reservas";
+            //
+            // cargarReservaToolStripMenuItem
+            //
+            cargarReservaToolStripMenuItem.Name = "cargarReservaToolStripMenuItem";
+            cargarReservaToolStripMenuItem.Size = new Size(156, 22);
+            cargarReservaToolStripMenuItem.Text = "Cargar Reserva";
+            cargarReservaToolStripMenuItem.Click += CargarReservaToolStripMenuItem_Click;
+            //
+            // listarReservasToolStripMenuItem
+            //
+            listarReservasToolStripMenuItem.Name = "listarReservasToolStripMenuItem";
+            listarReservasToolStripMenuItem.Size = new Size(156, 22);
+            listarReservasToolStripMenuItem.Text = "Listar Reservas";
+            listarReservasToolStripMenuItem.Click += ListarReservasToolStripMenuItem_Click;
+            //
+            // alquileresToolStripMenuItem
+            //
+            alquileresToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarAlquilerToolStripMenuItem, listarAlquileresToolStripMenuItem });
+            alquileresToolStripMenuItem.ForeColor = Color.White;
+            alquileresToolStripMenuItem.Name = "alquileresToolStripMenuItem";
+            alquileresToolStripMenuItem.Size = new Size(76, 20);
+            alquileresToolStripMenuItem.Text = "Alquileres";
+            //
+            // cargarAlquilerToolStripMenuItem
+            //
+            cargarAlquilerToolStripMenuItem.Name = "cargarAlquilerToolStripMenuItem";
+            cargarAlquilerToolStripMenuItem.Size = new Size(166, 22);
+            cargarAlquilerToolStripMenuItem.Text = "Cargar Alquiler";
+            cargarAlquilerToolStripMenuItem.Click += CargarAlquilerToolStripMenuItem_Click;
+            //
+            // listarAlquileresToolStripMenuItem
+            //
+            listarAlquileresToolStripMenuItem.Name = "listarAlquileresToolStripMenuItem";
+            listarAlquileresToolStripMenuItem.Size = new Size(166, 22);
+            listarAlquileresToolStripMenuItem.Text = "Listar Alquileres";
+            listarAlquileresToolStripMenuItem.Click += ListarAlquileresToolStripMenuItem_Click;
+            //
             // estadosToolStripMenuItem
             //
             estadosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cargarEstadoToolStripMenuItem, listarEstadosToolStripMenuItem });
@@ -308,6 +358,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ToolStripMenuItem empleadosToolStripMenuItem;
         private ToolStripMenuItem cargarEmpleadoToolStripMenuItem;
         private ToolStripMenuItem listarEmpleadosToolStripMenuItem;
+        private ToolStripMenuItem reservasToolStripMenuItem;
+        private ToolStripMenuItem cargarReservaToolStripMenuItem;
+        private ToolStripMenuItem listarReservasToolStripMenuItem;
+        private ToolStripMenuItem alquileresToolStripMenuItem;
+        private ToolStripMenuItem cargarAlquilerToolStripMenuItem;
+        private ToolStripMenuItem listarAlquileresToolStripMenuItem;
         private ToolStripMenuItem estadosToolStripMenuItem;
         private ToolStripMenuItem cargarEstadoToolStripMenuItem;
         private ToolStripMenuItem listarEstadosToolStripMenuItem;
