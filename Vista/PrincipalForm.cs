@@ -64,19 +64,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelContenido.Controls.Add(uc);
         }
 
-        private void CargarVehiculoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaVehiculo);
-        }
-
         private void ListarVehiculosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaVehiculo);
-        }
-
-        private void CargarMarcaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaMarca);
         }
 
         private void ListarMarcasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,19 +74,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(listaMarca);
         }
 
-        private void CargarModeloToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaModelo);
-        }
-
         private void ListarModelosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaModelo);
-        }
-
-        private void CargarCategoriaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaCategoria);
         }
 
         private void ListarCategoriasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -104,19 +84,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(listaCategoria);
         }
 
-        private void CargarClienteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaCliente);
-        }
-
         private void ListarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaCliente);
-        }
-
-        private void CargarEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaEmpleado);
         }
 
         private void ListarEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,19 +105,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(uc);
         }
 
-        private void CargarReservaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaReserva);
-        }
-
         private void ListarReservasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaReserva);
-        }
-
-        private void CargarAlquilerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaAlquiler);
         }
 
         private void ListarAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -155,29 +115,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(listaAlquiler);
         }
 
-        private void CargarDanioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaDanio);
-        }
-
         private void ListarDaniosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaDanio);
         }
 
-        private void CargarEstadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaEstado);
-        }
-
         private void ListarEstadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaEstado);
-        }
-
-        private void CargarRolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarUserControl(cargaRol);
         }
 
         private void ListarRolesToolStripMenuItem_Click(object sender, EventArgs e)
