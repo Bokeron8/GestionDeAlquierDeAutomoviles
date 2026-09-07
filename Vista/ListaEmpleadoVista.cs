@@ -74,7 +74,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 return;
             }
 
-            int id = Convert.ToInt32(dgvEmpleados.CurrentRow.Cells["id_empleado"].Value);
+            int id = Convert.ToInt32(dgvEmpleados.CurrentRow.Cells["IdEmpleado"].Value);
             var emp = _controller.BuscarPorId(id);
             if (emp == null) return;
 
@@ -90,10 +90,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 return;
             }
 
-            int id = Convert.ToInt32(dgvEmpleados.CurrentRow.Cells["id_empleado"].Value);
-            string nombre = dgvEmpleados.CurrentRow.Cells["nombre"].Value?.ToString() ?? "";
-            string apellido = dgvEmpleados.CurrentRow.Cells["apellido"].Value?.ToString() ?? "";
-            bool activo = Convert.ToBoolean(dgvEmpleados.CurrentRow.Cells["activo"].Value);
+            int id = Convert.ToInt32(dgvEmpleados.CurrentRow.Cells["IdEmpleado"].Value);
+            string nombre = dgvEmpleados.CurrentRow.Cells["Nombre"].Value?.ToString() ?? "";
+            string apellido = dgvEmpleados.CurrentRow.Cells["Apellido"].Value?.ToString() ?? "";
+            bool activo = Convert.ToBoolean(dgvEmpleados.CurrentRow.Cells["Activo"].Value);
 
             if (activo)
             {

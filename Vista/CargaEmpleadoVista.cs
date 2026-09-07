@@ -20,6 +20,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public void SetEmpleado(Empleado emp)
         {
             _empleadoEditar = emp;
+            chkActivo.Visible = true;
             txtNombre.Text = emp.Nombre;
             txtApellido.Text = emp.Apellido;
             txtDni.Text = emp.Dni;
@@ -48,7 +49,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbRol.DataSource = roles;
             cbRol.DisplayMember = "NombreRol";
             cbRol.ValueMember = "IdRol";
-            chkActivo.Checked = true;
+            chkActivo.Visible = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -113,6 +114,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtUsuario.Clear();
             txtContrasenia.Clear();
             chkActivo.Checked = true;
+            chkActivo.Visible = false;
             lblTitulo.Text = "Agregar Empleado";
             btnGuardar.Text = "Guardar Empleado";
         }
