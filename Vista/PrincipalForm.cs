@@ -6,28 +6,28 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 {
     public partial class PrincipalForm : Form
     {
-        private CargaVehiculoVista cargaVehiculo;
-        private ListaVehiculoVista listaVehiculo;
-        private CargaMarcaVista cargaMarca;
-        private ListaMarcaVista listaMarca;
-        private CargaModeloVista cargaModelo;
-        private ListaModeloVista listaModelo;
-        private CargaCategoriaVista cargaCategoria;
-        private ListaCategoriaVista listaCategoria;
-        private CargaClienteVista cargaCliente;
-        private ListaClienteVista listaCliente;
-        private CargaEmpleadoVista cargaEmpleado;
-        private ListaEmpleadoVista listaEmpleado;
-        private CargaReservaVista cargaReserva;
-        private ListaReservaVista listaReserva;
-        private CargaAlquilerVista cargaAlquiler;
-        private ListaAlquilerVista listaAlquiler;
-        private CargaDanioVista cargaDanio;
-        private ListaDanioVista listaDanio;
-        private CargaEstadoVista cargaEstado;
-        private ListaEstadoVista listaEstado;
-        private CargaRolVista cargaRol;
-        private ListaRolVista listaRol;
+        public CargaVehiculoVista cargaVehiculo;
+        public ListaVehiculoVista listaVehiculo;
+        public CargaMarcaVista cargaMarca;
+        public ListaMarcaVista listaMarca;
+        public CargaModeloVista cargaModelo;
+        public ListaModeloVista listaModelo;
+        public CargaCategoriaVista cargaCategoria;
+        public ListaCategoriaVista listaCategoria;
+        public CargaClienteVista cargaCliente;
+        public ListaClienteVista listaCliente;
+        public CargaEmpleadoVista cargaEmpleado;
+        public ListaEmpleadoVista listaEmpleado;
+        public CargaReservaVista cargaReserva;
+        public ListaReservaVista listaReserva;
+        public CargaAlquilerVista cargaAlquiler;
+        public ListaAlquilerVista listaAlquiler;
+        public CargaDanioVista cargaDanio;
+        public ListaDanioVista listaDanio;
+        public CargaEstadoVista cargaEstado;
+        public ListaEstadoVista listaEstado;
+        public CargaRolVista cargaRol;
+        public ListaRolVista listaRol;
 
         public PrincipalForm()
         {
@@ -128,6 +128,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             cargaEmpleado.SetEmpleado(emp);
             MostrarUserControl(cargaEmpleado);
+        }
+
+        public void MostrarCarga(UserControl uc)
+        {
+            MostrarUserControl(uc);
         }
 
         private void CargarReservaToolStripMenuItem_Click(object sender, EventArgs e)

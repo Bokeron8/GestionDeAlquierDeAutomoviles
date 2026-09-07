@@ -20,6 +20,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo = new Label();
             dgvVehiculos = new DataGridView();
             btnRecargar = new Button();
+            btnAgregar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).BeginInit();
             SuspendLayout();
             // 
@@ -57,6 +58,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvVehiculos.Size = new Size(870, 380);
             dgvVehiculos.TabIndex = 1;
             // 
+            // btnAgregar
+            //
+            btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAgregar.BackColor = Color.FromArgb(51, 51, 76);
+            btnAgregar.FlatStyle = FlatStyle.Flat;
+            btnAgregar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAgregar.ForeColor = Color.White;
+            btnAgregar.Location = new Point(25, 395);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(130, 35);
+            btnAgregar.TabIndex = 3;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = false;
+            //
             // btnRecargar
             // 
             btnRecargar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -79,6 +94,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(lblTitulo);
             Controls.Add(dgvVehiculos);
             Controls.Add(btnRecargar);
+            Controls.Add(btnAgregar);
             Name = "ListaVehiculoVista";
             Size = new Size(900, 445);
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).EndInit();
@@ -91,5 +107,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblTitulo;
         private DataGridView dgvVehiculos;
         private Button btnRecargar;
+        private Button btnAgregar;
     }
 }

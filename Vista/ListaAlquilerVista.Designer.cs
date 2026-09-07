@@ -58,6 +58,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvAlquileres.Size = new Size(700, 320);
             dgvAlquileres.TabIndex = 1;
             //
+            // btnAgregar
+            //
+            btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAgregar.BackColor = Color.FromArgb(51, 51, 76);
+            btnAgregar.FlatStyle = FlatStyle.Flat;
+            btnAgregar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAgregar.ForeColor = Color.White;
+            btnAgregar.Location = new Point(25, 395);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(130, 35);
+            btnAgregar.TabIndex = 3;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = false;
+            //
             // btnEditar
             //
             btnEditar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -65,10 +79,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar.FlatStyle = FlatStyle.Flat;
             btnEditar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnEditar.ForeColor = Color.White;
-            btnEditar.Location = new Point(25, 395);
+            btnEditar.Location = new Point(170, 395);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(130, 35);
-            btnEditar.TabIndex = 2;
+            btnEditar.TabIndex = 3;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = false;
             //
@@ -79,6 +93,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(dgvAlquileres);
+            Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
             Name = "ListaAlquilerVista";
             Size = new Size(750, 450);
@@ -92,5 +107,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblTitulo;
         private DataGridView dgvAlquileres;
         private Button btnEditar;
+        private Button btnAgregar;
     }
 }

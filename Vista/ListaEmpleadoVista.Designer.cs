@@ -21,6 +21,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvEmpleados = new DataGridView();
             btnEditar = new Button();
             btnEliminar = new Button();
+            btnAgregar = new Button();
             txtBuscar = new TextBox();
             lblBuscar = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvEmpleados).BeginInit();
@@ -61,6 +62,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvEmpleados.Size = new Size(700, 320);
             dgvEmpleados.TabIndex = 1;
             //
+            // btnAgregar
+            //
+            btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAgregar.BackColor = Color.FromArgb(51, 51, 76);
+            btnAgregar.FlatStyle = FlatStyle.Flat;
+            btnAgregar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAgregar.ForeColor = Color.White;
+            btnAgregar.Location = new Point(25, 395);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(130, 35);
+            btnAgregar.TabIndex = 3;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = false;
+            //
             // btnEditar
             //
             btnEditar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -68,10 +83,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar.FlatStyle = FlatStyle.Flat;
             btnEditar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnEditar.ForeColor = Color.White;
-            btnEditar.Location = new Point(25, 395);
+            btnEditar.Location = new Point(170, 395);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(130, 35);
-            btnEditar.TabIndex = 2;
+            btnEditar.TabIndex = 3;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = false;
             //
@@ -82,10 +97,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar.FlatStyle = FlatStyle.Flat;
             btnEliminar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(170, 395);
+            btnEliminar.Location = new Point(315, 395);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(130, 35);
-            btnEliminar.TabIndex = 3;
+            btnEliminar.TabIndex = 4;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
             //
@@ -117,6 +132,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(dgvEmpleados);
+            Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
             Controls.Add(txtBuscar);
@@ -133,6 +149,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblTitulo;
         private DataGridView dgvEmpleados;
         private Button btnEditar;
+        private Button btnAgregar;
         private Button btnEliminar;
         private TextBox txtBuscar;
         private Label lblBuscar;

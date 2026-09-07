@@ -14,8 +14,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             InitializeComponent();
             Load += ListaEmpleadoVista_Load;
+            btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            var parentForm = FindForm() as PrincipalForm;
+            parentForm?.cargaEmpleado.LimpiarFormulario();
+            parentForm?.MostrarCarga(parentForm.cargaEmpleado);
         }
 
         private void ListaEmpleadoVista_Load(object sender, EventArgs e)
