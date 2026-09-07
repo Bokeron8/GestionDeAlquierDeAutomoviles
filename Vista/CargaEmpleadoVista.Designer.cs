@@ -43,6 +43,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtUsuario = new TextBox();
             lblContrasenia = new Label();
             txtContrasenia = new TextBox();
+            chkActivo = new CheckBox();
             btnGuardar = new Button();
             SuspendLayout();
             //
@@ -194,6 +195,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelDerecha.Controls.Add(txtUsuario);
             panelDerecha.Controls.Add(lblContrasenia);
             panelDerecha.Controls.Add(txtContrasenia);
+            panelDerecha.Controls.Add(chkActivo);
             panelDerecha.Location = new Point(385, 70);
             panelDerecha.Name = "panelDerecha";
             panelDerecha.Size = new Size(340, 340);
@@ -317,6 +319,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtContrasenia.TabIndex = 11;
             txtContrasenia.UseSystemPasswordChar = true;
             //
+            // chkActivo
+            //
+            chkActivo.AutoSize = true;
+            chkActivo.Font = new Font("Segoe UI", 9F);
+            chkActivo.ForeColor = Color.FromArgb(51, 51, 76);
+            chkActivo.Location = new Point(15, 330);
+            chkActivo.Name = "chkActivo";
+            chkActivo.Size = new Size(70, 20);
+            chkActivo.TabIndex = 12;
+            chkActivo.Text = "Activo";
+            chkActivo.UseVisualStyleBackColor = true;
+            //
             // btnGuardar
             //
             btnGuardar.BackColor = Color.FromArgb(51, 51, 76);
@@ -374,6 +388,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtUsuario;
         private Label lblContrasenia;
         private TextBox txtContrasenia;
+        private CheckBox chkActivo;
         private Button btnGuardar;
     }
 }

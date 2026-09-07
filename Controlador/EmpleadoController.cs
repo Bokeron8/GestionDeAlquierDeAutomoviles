@@ -15,6 +15,11 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Empleado.ObtenerPorId(id);
         }
 
+        public List<Empleado> Buscar(string termino)
+        {
+            return Empleado.Buscar(termino);
+        }
+
         public int Guardar(Empleado emp)
         {
             return Empleado.Guardar(emp);

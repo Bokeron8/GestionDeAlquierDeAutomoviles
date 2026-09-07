@@ -22,6 +22,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar = new Button();
             btnEditar = new Button();
             btnEliminar = new Button();
+            txtBuscar = new TextBox();
+            lblBuscar = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvEmpleados).BeginInit();
             SuspendLayout();
             //
@@ -102,6 +104,27 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
             //
+            // txtBuscar
+            //
+            txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtBuscar.Font = new Font("Segoe UI", 10F);
+            txtBuscar.Location = new Point(550, 22);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(175, 25);
+            txtBuscar.TabIndex = 5;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            //
+            // lblBuscar
+            //
+            lblBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblBuscar.AutoSize = true;
+            lblBuscar.Font = new Font("Segoe UI", 10F);
+            lblBuscar.Location = new Point(490, 25);
+            lblBuscar.Name = "lblBuscar";
+            lblBuscar.Size = new Size(50, 19);
+            lblBuscar.TabIndex = 6;
+            lblBuscar.Text = "Buscar:";
+            //
             // ListaEmpleadoVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -112,6 +135,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
+            Controls.Add(txtBuscar);
+            Controls.Add(lblBuscar);
             Name = "ListaEmpleadoVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvEmpleados).EndInit();
@@ -126,5 +151,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnAgregar;
         private Button btnEditar;
         private Button btnEliminar;
+        private TextBox txtBuscar;
+        private Label lblBuscar;
     }
 }

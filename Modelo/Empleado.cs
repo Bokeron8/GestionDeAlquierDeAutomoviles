@@ -39,6 +39,22 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
         }
 
+        public static List<Empleado> Buscar(string termino)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT * FROM Empleado 
+                  WHERE activo = 1 
+                  AND (nombre LIKE @termino OR apellido LIKE @termino OR dni LIKE @termino) 
+                  ORDER BY nombre",
+                [new SqlParameter("@termino", $"%{termino}%")]);
+            var lista = new List<Empleado>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(Map(row));
+            }
+            return lista;
+        }
+
         public static int Guardar(Empleado emp)
         {
             if (emp.IdEmpleado == 0)
@@ -87,6 +103,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         {
             int rows = DatabaseHelper.ExecuteNonQuery(
                 "UPDATE Empleado SET activo = 0 WHERE id_empleado = @id",
+                [new SqlParameter("@id", id)]);
+            return rows > 0;
+        }
+
+        public static bool Restaurar(int id)
+        {
+            int rows = DatabaseHelper.ExecuteNonQuery(
+                "UPDATE Empleado SET activo = 1 WHERE id_empleado = @id",
                 [new SqlParameter("@id", id)]);
             return rows > 0;
         }

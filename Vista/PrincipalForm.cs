@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using GestionDeAlquierDeAutomoviles.Modelo;
 
 namespace GestionDeAlquierDeAutomoviles.Vista
 {
@@ -121,6 +122,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaEmpleado);
+        }
+
+        public void CargarEdicionEmpleado(Empleado emp)
+        {
+            cargaEmpleado.SetEmpleado(emp);
+            MostrarUserControl(cargaEmpleado);
         }
 
         private void CargarReservaToolStripMenuItem_Click(object sender, EventArgs e)
