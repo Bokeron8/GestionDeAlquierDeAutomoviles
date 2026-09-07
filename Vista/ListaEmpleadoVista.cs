@@ -8,7 +8,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
     public partial class ListaEmpleadoVista : UserControl
     {
         private readonly EmpleadoController _controller = new();
-        private CargaEmpleadoVista? _cargaVista;
 
         public ListaEmpleadoVista()
         {

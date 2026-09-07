@@ -102,7 +102,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
         }
 
-        private void LimpiarFormulario()
+        public void LimpiarFormulario()
         {
             _empleadoEditar = null;
             txtNombre.Clear();

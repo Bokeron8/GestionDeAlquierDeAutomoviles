@@ -20,6 +20,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo = new Label();
             dgvAlquileres = new DataGridView();
             btnEditar = new Button();
+            btnAgregar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAlquileres).BeginInit();
             SuspendLayout();
             //
@@ -68,7 +69,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Location = new Point(25, 395);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(130, 35);
-            btnAgregar.TabIndex = 3;
+            btnAgregar.TabIndex = 2;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
             //
