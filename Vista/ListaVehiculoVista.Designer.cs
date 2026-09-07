@@ -19,24 +19,25 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             lblTitulo = new Label();
             dgvVehiculos = new DataGridView();
-            btnRecargar = new Button();
+            btnEditar = new Button();
+            btnEliminar = new Button();
             btnAgregar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).BeginInit();
             SuspendLayout();
-            // 
+            //
             // lblTitulo
-            // 
+            //
             lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.FromArgb(51, 51, 76);
-            lblTitulo.Location = new Point(15, 15);
+            lblTitulo.Location = new Point(25, 20);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(180, 21);
+            lblTitulo.Size = new Size(180, 25);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Listado de Vehiculos";
-            // 
+            //
             // dgvVehiculos
-            // 
+            //
             dgvVehiculos.AllowUserToAddRows = false;
             dgvVehiculos.AllowUserToDeleteRows = false;
             dgvVehiculos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -51,13 +52,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvVehiculos.DefaultCellStyle.SelectionBackColor = Color.FromArgb(200, 200, 220);
             dgvVehiculos.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvVehiculos.EnableHeadersVisualStyles = false;
-            dgvVehiculos.Location = new Point(15, 50);
+            dgvVehiculos.Location = new Point(25, 60);
             dgvVehiculos.Name = "dgvVehiculos";
             dgvVehiculos.ReadOnly = true;
             dgvVehiculos.RowHeadersVisible = false;
-            dgvVehiculos.Size = new Size(870, 380);
+            dgvVehiculos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVehiculos.Size = new Size(700, 320);
             dgvVehiculos.TabIndex = 1;
-            // 
+            //
             // btnAgregar
             //
             btnAgregar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -72,31 +74,46 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
             //
-            // btnRecargar
-            // 
-            btnRecargar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnRecargar.BackColor = Color.FromArgb(51, 51, 76);
-            btnRecargar.FlatStyle = FlatStyle.Flat;
-            btnRecargar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnRecargar.ForeColor = Color.White;
-            btnRecargar.Location = new Point(750, 10);
-            btnRecargar.Name = "btnRecargar";
-            btnRecargar.Size = new Size(135, 32);
-            btnRecargar.TabIndex = 2;
-            btnRecargar.Text = "Recargar";
-            btnRecargar.UseVisualStyleBackColor = false;
-            // 
+            // btnEditar
+            //
+            btnEditar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnEditar.BackColor = Color.FromArgb(51, 51, 76);
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnEditar.ForeColor = Color.White;
+            btnEditar.Location = new Point(170, 395);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(130, 35);
+            btnEditar.TabIndex = 3;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = false;
+            //
+            // btnEliminar
+            //
+            btnEliminar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnEliminar.BackColor = Color.FromArgb(180, 40, 40);
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnEliminar.ForeColor = Color.White;
+            btnEliminar.Location = new Point(315, 395);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(130, 35);
+            btnEliminar.TabIndex = 4;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = false;
+            //
             // ListaVehiculoVista
-            // 
+            //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(dgvVehiculos);
-            Controls.Add(btnRecargar);
             Controls.Add(btnAgregar);
+            Controls.Add(btnEditar);
+            Controls.Add(btnEliminar);
             Name = "ListaVehiculoVista";
-            Size = new Size(900, 445);
+            Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -106,7 +123,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private Label lblTitulo;
         private DataGridView dgvVehiculos;
-        private Button btnRecargar;
+        private Button btnEditar;
         private Button btnAgregar;
+        private Button btnEliminar;
     }
 }
