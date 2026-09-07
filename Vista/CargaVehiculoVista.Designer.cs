@@ -24,6 +24,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtMatricula = new TextBox();
             lblAnio = new Label();
             txtAnio = new TextBox();
+            lblChasis = new Label();
+            txtChasis = new TextBox();
+            lblColor = new Label();
+            txtColor = new TextBox();
             panelDerecha = new Panel();
             lblModelo = new Label();
             cbModelo = new ComboBox();
@@ -61,9 +65,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(txtMatricula);
             panelIzquierda.Controls.Add(lblAnio);
             panelIzquierda.Controls.Add(txtAnio);
+            panelIzquierda.Controls.Add(lblChasis);
+            panelIzquierda.Controls.Add(txtChasis);
+            panelIzquierda.Controls.Add(lblColor);
+            panelIzquierda.Controls.Add(txtColor);
             panelIzquierda.Location = new Point(25, 75);
             panelIzquierda.Name = "panelIzquierda";
-            panelIzquierda.Size = new Size(345, 180);
+            panelIzquierda.Size = new Size(345, 280);
             panelIzquierda.TabIndex = 2;
             //
             // lblMatricula
@@ -103,6 +111,44 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtAnio.Name = "txtAnio";
             txtAnio.Size = new Size(305, 25);
             txtAnio.TabIndex = 3;
+            //
+            // lblChasis
+            //
+            lblChasis.AutoSize = true;
+            lblChasis.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblChasis.ForeColor = Color.FromArgb(51, 51, 76);
+            lblChasis.Location = new Point(20, 160);
+            lblChasis.Name = "lblChasis";
+            lblChasis.Size = new Size(75, 19);
+            lblChasis.TabIndex = 4;
+            lblChasis.Text = "Chasis";
+            //
+            // txtChasis
+            //
+            txtChasis.Font = new Font("Segoe UI", 10F);
+            txtChasis.Location = new Point(20, 188);
+            txtChasis.Name = "txtChasis";
+            txtChasis.Size = new Size(305, 25);
+            txtChasis.TabIndex = 5;
+            //
+            // lblColor
+            //
+            lblColor.AutoSize = true;
+            lblColor.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblColor.ForeColor = Color.FromArgb(51, 51, 76);
+            lblColor.Location = new Point(20, 225);
+            lblColor.Name = "lblColor";
+            lblColor.Size = new Size(54, 19);
+            lblColor.TabIndex = 6;
+            lblColor.Text = "Color";
+            //
+            // txtColor
+            //
+            txtColor.Font = new Font("Segoe UI", 10F);
+            txtColor.Location = new Point(20, 253);
+            txtColor.Name = "txtColor";
+            txtColor.Size = new Size(305, 25);
+            txtColor.TabIndex = 7;
             //
             // panelDerecha
             //
@@ -163,7 +209,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelInferior.BackColor = Color.FromArgb(240, 240, 245);
             panelInferior.Controls.Add(pbAuto);
             panelInferior.Controls.Add(btnGuardar);
-            panelInferior.Location = new Point(25, 270);
+            panelInferior.Location = new Point(25, 360);
             panelInferior.Name = "panelInferior";
             panelInferior.Size = new Size(700, 140);
             panelInferior.TabIndex = 4;
@@ -201,7 +247,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(panelDerecha);
             Controls.Add(panelInferior);
             Name = "CargaVehiculoVista";
-            Size = new Size(750, 430);
+            Size = new Size(750, 530);
             ((System.ComponentModel.ISupportInitialize)pbAuto).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -216,6 +262,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtMatricula;
         private Label lblAnio;
         private TextBox txtAnio;
+        private Label lblChasis;
+        private TextBox txtChasis;
+        private Label lblColor;
+        private TextBox txtColor;
         private Panel panelDerecha;
         private Label lblModelo;
         private ComboBox cbModelo;

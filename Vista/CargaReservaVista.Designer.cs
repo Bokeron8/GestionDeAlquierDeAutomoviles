@@ -26,6 +26,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblVehiculo = new Label();
             cbEmpleado = new ComboBox();
             lblEmpleado = new Label();
+            lblPrecioDiarioPactado = new Label();
+            numPrecioDiarioPactado = new NumericUpDown();
             panelDerecha = new Panel();
             cbEstado = new ComboBox();
             lblEstado = new Label();
@@ -34,6 +36,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaFin = new DateTimePicker();
             lblFechaFin = new Label();
             btnGuardar = new Button();
+            ((System.ComponentModel.ISupportInitialize)numPrecioDiarioPactado).BeginInit();
             SuspendLayout();
             //
             // lblTitulo
@@ -64,9 +67,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(lblVehiculo);
             panelIzquierda.Controls.Add(cbEmpleado);
             panelIzquierda.Controls.Add(lblEmpleado);
+            panelIzquierda.Controls.Add(lblPrecioDiarioPactado);
+            panelIzquierda.Controls.Add(numPrecioDiarioPactado);
             panelIzquierda.Location = new Point(25, 70);
             panelIzquierda.Name = "panelIzquierda";
-            panelIzquierda.Size = new Size(345, 230);
+            panelIzquierda.Size = new Size(345, 280);
             panelIzquierda.TabIndex = 2;
             //
             // cbCliente
@@ -131,6 +136,27 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblEmpleado.Size = new Size(62, 15);
             lblEmpleado.TabIndex = 5;
             lblEmpleado.Text = "Empleado";
+            //
+            // lblPrecioDiarioPactado
+            //
+            lblPrecioDiarioPactado.AutoSize = true;
+            lblPrecioDiarioPactado.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblPrecioDiarioPactado.ForeColor = Color.FromArgb(51, 51, 76);
+            lblPrecioDiarioPactado.Location = new Point(15, 195);
+            lblPrecioDiarioPactado.Name = "lblPrecioDiarioPactado";
+            lblPrecioDiarioPactado.Size = new Size(120, 15);
+            lblPrecioDiarioPactado.TabIndex = 6;
+            lblPrecioDiarioPactado.Text = "Precio Diario";
+            //
+            // numPrecioDiarioPactado
+            //
+            numPrecioDiarioPactado.Font = new Font("Segoe UI", 9F);
+            numPrecioDiarioPactado.Location = new Point(15, 215);
+            numPrecioDiarioPactado.Name = "numPrecioDiarioPactado";
+            numPrecioDiarioPactado.Size = new Size(310, 23);
+            numPrecioDiarioPactado.TabIndex = 7;
+            numPrecioDiarioPactado.DecimalPlaces = 2;
+            numPrecioDiarioPactado.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             //
             // panelDerecha
             //
@@ -213,7 +239,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(265, 320);
+            btnGuardar.Location = new Point(265, 370);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 4;
@@ -231,7 +257,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(panelDerecha);
             Controls.Add(btnGuardar);
             Name = "CargaReservaVista";
-            Size = new Size(750, 400);
+            Size = new Size(750, 450);
+            ((System.ComponentModel.ISupportInitialize)numPrecioDiarioPactado).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -247,6 +274,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblVehiculo;
         private ComboBox cbEmpleado;
         private Label lblEmpleado;
+        private Label lblPrecioDiarioPactado;
+        private NumericUpDown numPrecioDiarioPactado;
         private Panel panelDerecha;
         private ComboBox cbEstado;
         private Label lblEstado;

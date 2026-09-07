@@ -39,6 +39,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaContratacion = new DateTimePicker();
             cbRol = new ComboBox();
             lblRol = new Label();
+            lblUsuario = new Label();
+            txtUsuario = new TextBox();
+            lblContrasenia = new Label();
+            txtContrasenia = new TextBox();
             btnGuardar = new Button();
             SuspendLayout();
             //
@@ -186,9 +190,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelDerecha.Controls.Add(dtpFechaContratacion);
             panelDerecha.Controls.Add(cbRol);
             panelDerecha.Controls.Add(lblRol);
+            panelDerecha.Controls.Add(lblUsuario);
+            panelDerecha.Controls.Add(txtUsuario);
+            panelDerecha.Controls.Add(lblContrasenia);
+            panelDerecha.Controls.Add(txtContrasenia);
             panelDerecha.Location = new Point(385, 70);
             panelDerecha.Name = "panelDerecha";
-            panelDerecha.Size = new Size(340, 280);
+            panelDerecha.Size = new Size(340, 340);
             panelDerecha.TabIndex = 3;
             //
             // lblTelefono
@@ -270,13 +278,52 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblRol.TabIndex = 7;
             lblRol.Text = "Rol";
             //
+            // lblUsuario
+            //
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblUsuario.ForeColor = Color.FromArgb(51, 51, 76);
+            lblUsuario.Location = new Point(15, 225);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(52, 15);
+            lblUsuario.TabIndex = 8;
+            lblUsuario.Text = "Usuario";
+            //
+            // txtUsuario
+            //
+            txtUsuario.Font = new Font("Segoe UI", 9F);
+            txtUsuario.Location = new Point(15, 245);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(305, 23);
+            txtUsuario.TabIndex = 9;
+            //
+            // lblContrasenia
+            //
+            lblContrasenia.AutoSize = true;
+            lblContrasenia.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblContrasenia.ForeColor = Color.FromArgb(51, 51, 76);
+            lblContrasenia.Location = new Point(15, 275);
+            lblContrasenia.Name = "lblContrasenia";
+            lblContrasenia.Size = new Size(76, 15);
+            lblContrasenia.TabIndex = 10;
+            lblContrasenia.Text = "Contraseña";
+            //
+            // txtContrasenia
+            //
+            txtContrasenia.Font = new Font("Segoe UI", 9F);
+            txtContrasenia.Location = new Point(15, 295);
+            txtContrasenia.Name = "txtContrasenia";
+            txtContrasenia.Size = new Size(305, 23);
+            txtContrasenia.TabIndex = 11;
+            txtContrasenia.UseSystemPasswordChar = true;
+            //
             // btnGuardar
             //
             btnGuardar.BackColor = Color.FromArgb(51, 51, 76);
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(265, 370);
+            btnGuardar.Location = new Point(265, 420);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 4;
@@ -294,7 +341,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(panelDerecha);
             Controls.Add(btnGuardar);
             Name = "CargaEmpleadoVista";
-            Size = new Size(750, 440);
+            Size = new Size(750, 500);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -323,6 +370,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private DateTimePicker dtpFechaContratacion;
         private ComboBox cbRol;
         private Label lblRol;
+        private Label lblUsuario;
+        private TextBox txtUsuario;
+        private Label lblContrasenia;
+        private TextBox txtContrasenia;
         private Button btnGuardar;
     }
 }

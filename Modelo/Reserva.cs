@@ -3,6 +3,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
     public class Reserva
     {
         public int IdReserva { get; set; }
+        public decimal PrecioDiarioPactado { get; set; }
         public DateTime FechaSolicitud { get; set; }
         public DateTime FechaInicioReserva { get; set; }
         public DateTime FechaFinReserva { get; set; }
