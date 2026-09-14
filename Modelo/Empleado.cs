@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using GestionDeAlquierDeAutomoviles;
@@ -97,6 +99,43 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                         new SqlParameter("@id_empleado", emp.IdEmpleado)
                     ]);
             }
+        }
+
+        public static bool EsDniDuplicado(string dni, int? idExcluir = null)
+        {
+            string query = "SELECT COUNT(*) FROM Empleado WHERE dni = @dni";
+            var parameters = new List<SqlParameter> { new SqlParameter("@dni", dni) };
+            if (idExcluir.HasValue)
+            {
+                query += " AND id_empleado <> @idExcluir";
+                parameters.Add(new SqlParameter("@idExcluir", idExcluir.Value));
+            }
+            return Convert.ToInt32(DatabaseHelper.ExecuteScalar(query, parameters.ToArray())) > 0;
+        }
+
+        public static bool EsCorreoDuplicado(string correo, int? idExcluir = null)
+        {
+            if (string.IsNullOrWhiteSpace(correo)) return false;
+            string query = "SELECT COUNT(*) FROM Empleado WHERE correo = @correo";
+            var parameters = new List<SqlParameter> { new SqlParameter("@correo", correo) };
+            if (idExcluir.HasValue)
+            {
+                query += " AND id_empleado <> @idExcluir";
+                parameters.Add(new SqlParameter("@idExcluir", idExcluir.Value));
+            }
+            return Convert.ToInt32(DatabaseHelper.ExecuteScalar(query, parameters.ToArray())) > 0;
+        }
+
+        public static bool EsUsuarioDuplicado(string usuario, int? idExcluir = null)
+        {
+            string query = "SELECT COUNT(*) FROM Empleado WHERE usuario = @usuario";
+            var parameters = new List<SqlParameter> { new SqlParameter("@usuario", usuario) };
+            if (idExcluir.HasValue)
+            {
+                query += " AND id_empleado <> @idExcluir";
+                parameters.Add(new SqlParameter("@idExcluir", idExcluir.Value));
+            }
+            return Convert.ToInt32(DatabaseHelper.ExecuteScalar(query, parameters.ToArray())) > 0;
         }
 
         public static bool Eliminar(int id)

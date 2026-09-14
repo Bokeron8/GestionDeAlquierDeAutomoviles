@@ -83,6 +83,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                         emp.Contrasenia = nuevaContrasenia;
                 }
 
+                var errores = _controller.ValidarEmpleado(emp, esNuevo: _empleadoEditar == null);
+                if (errores.Count > 0)
+                {
+                    MessageBox.Show(string.Join("\n", errores), "Errores de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 int rows = _controller.Guardar(emp);
                 if (rows > 0)
                 {
