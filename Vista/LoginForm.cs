@@ -17,7 +17,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void TxtContrasenia_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                BtnIniciarSesion.PerformClick();
+                btnIniciarSesion.PerformClick();
         }
 
         private void TxtUsuario_KeyDown(object sender, KeyEventArgs e)
