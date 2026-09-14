@@ -154,6 +154,17 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return rows > 0;
         }
 
+        public static Empleado? ValidarLogin(string usuario, string contrasenia)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                "SELECT * FROM Empleado WHERE usuario = @usuario AND contrasenia = @contrasenia AND activo = 1",
+                [
+                    new SqlParameter("@usuario", usuario),
+                    new SqlParameter("@contrasenia", contrasenia)
+                ]);
+            return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
+        }
+
         private static Empleado Map(DataRow row)
         {
             return new Empleado
