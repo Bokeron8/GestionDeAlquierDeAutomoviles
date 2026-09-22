@@ -129,6 +129,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(listaEstado);
         }
 
+        private void CerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void ListarRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaRol);

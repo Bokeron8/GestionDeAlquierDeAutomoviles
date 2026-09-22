@@ -39,7 +39,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem, cerrarSesionToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
@@ -134,6 +134,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             rolesToolStripMenuItem.Text = "Roles";
             rolesToolStripMenuItem.Click += ListarRolesToolStripMenuItem_Click;
             //
+            // cerrarSesionToolStripMenuItem
+            //
+            cerrarSesionToolStripMenuItem.ForeColor = Color.White;
+            cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            cerrarSesionToolStripMenuItem.Size = new Size(92, 20);
+            cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
+            cerrarSesionToolStripMenuItem.Click += CerrarSesionToolStripMenuItem_Click;
+            //
             // panelHeader
             //
             panelHeader.BackColor = Color.FromArgb(68, 68, 102);
@@ -220,6 +228,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ToolStripMenuItem daniosToolStripMenuItem;
         private ToolStripMenuItem estadosToolStripMenuItem;
         private ToolStripMenuItem rolesToolStripMenuItem;
+        private ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private Panel panelHeader;
         private Label lblTitulo;
         private Panel panelContenido;
