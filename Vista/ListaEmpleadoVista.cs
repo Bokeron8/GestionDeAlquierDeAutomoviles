@@ -38,8 +38,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
             if (dgvEmpleados.Columns["contrasenia"] != null)
                 dgvEmpleados.Columns["contrasenia"].Visible = false;
-            if (dgvEmpleados.Columns["usuario"] != null)
-                dgvEmpleados.Columns["usuario"].Visible = false;
             if (dgvEmpleados.Columns["id_empleado"] != null)
             {
                 dgvEmpleados.Columns["id_empleado"].HeaderText = "ID";
@@ -116,15 +114,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
             else
             {
-                var result = MessageBox.Show(
-                    $"¿Desea restaurar al empleado {nombre} {apellido}?",
-                    "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
-                {
-                    Empleado.Restaurar(id);
-                    CargarDatos();
-                    txtBuscar_TextChanged(sender, e);
-                }
+                MessageBox.Show(
+                    $"El empleado {nombre} {apellido} ya se encuentra dado de baja.",
+                    "Empleado inactivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
