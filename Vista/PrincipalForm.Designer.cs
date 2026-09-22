@@ -29,6 +29,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             daniosToolStripMenuItem = new ToolStripMenuItem();
             estadosToolStripMenuItem = new ToolStripMenuItem();
             rolesToolStripMenuItem = new ToolStripMenuItem();
+            cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             panelHeader = new Panel();
             lblTitulo = new Label();
             panelContenido = new Panel();
