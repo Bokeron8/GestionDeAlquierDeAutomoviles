@@ -190,10 +190,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void ConfigurarMenuPorRol()
         {
-            bool esAdmin => _idRol == 1;
-            bool esRecepcionista => _idRol == 2;
-            bool esMecanico => _idRol == 3;
-            bool esGerente => _idRol == 4;
+            bool esAdmin = _idRol == 1;
+            bool esRecepcionista = _idRol == 2;
+            bool esMecanico = _idRol == 3;
+            bool esGerente = _idRol == 4;
 
             vehiculosToolStripMenuItem.Visible = true;
             marcasToolStripMenuItem.Visible = esAdmin || esGerente;

@@ -4,11 +4,11 @@ using GestionDeAlquierDeAutomoviles.Modelo;
 
 namespace GestionDeAlquierDeAutomoviles.Vista
 {
-public partial class LoginForm : Form
-{
-    public Empleado? EmpleadoLogueado { get; private set; }
+    public partial class LoginForm : Form
+    {
+        public Empleado? EmpleadoLogueado { get; private set; }
 
-    public LoginForm()
+        public LoginForm()
         {
             InitializeComponent();
             btnIniciarSesion.Click += BtnIniciarSesion_Click;
@@ -42,6 +42,7 @@ public partial class LoginForm : Form
             var emp = Empleado.ValidarLogin(usuario, contrasenia);
             if (emp != null)
             {
+                EmpleadoLogueado = emp;
                 DialogResult = DialogResult.OK;
                 Close();
             }
