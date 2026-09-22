@@ -132,7 +132,5 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                     "Alquiler inactivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        }
     }
 }
