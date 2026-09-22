@@ -49,7 +49,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbRol.DataSource = roles;
             cbRol.DisplayMember = "NombreRol";
             cbRol.ValueMember = "IdRol";
-            chkActivo.Visible = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
