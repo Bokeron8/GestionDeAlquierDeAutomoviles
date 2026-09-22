@@ -8,10 +8,17 @@ namespace GestionDeAlquierDeAutomoviles
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            var loginForm = new LoginForm();
-            if (loginForm.ShowDialog() == DialogResult.OK)
+            while (true)
             {
-                Application.Run(new PrincipalForm(loginForm.EmpleadoLogueado));
+                var loginForm = new LoginForm();
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new PrincipalForm(loginForm.EmpleadoLogueado));
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }
