@@ -104,6 +104,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(cargaEmpleado);
         }
 
+        public void CargarEdicionAlquiler(int id)
+        {
+            cargaAlquiler.SetAlquiler(id);
+            MostrarUserControl(cargaAlquiler);
+        }
+
         public void MostrarCarga(UserControl uc)
         {
             MostrarUserControl(uc);

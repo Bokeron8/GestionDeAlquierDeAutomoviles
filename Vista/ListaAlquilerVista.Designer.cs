@@ -20,7 +20,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo = new Label();
             dgvAlquileres = new DataGridView();
             btnEditar = new Button();
+            btnEliminar = new Button();
             btnAgregar = new Button();
+            txtBuscar = new TextBox();
+            lblBuscar = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvAlquileres).BeginInit();
             SuspendLayout();
             //
@@ -69,7 +72,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Location = new Point(25, 395);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(130, 35);
-            btnAgregar.TabIndex = 2;
+            btnAgregar.TabIndex = 3;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = false;
             //
@@ -87,6 +90,41 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = false;
             //
+            // btnEliminar
+            //
+            btnEliminar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnEliminar.BackColor = Color.FromArgb(180, 40, 40);
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnEliminar.ForeColor = Color.White;
+            btnEliminar.Location = new Point(315, 395);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(130, 35);
+            btnEliminar.TabIndex = 4;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = false;
+            //
+            // txtBuscar
+            //
+            txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtBuscar.Font = new Font("Segoe UI", 10F);
+            txtBuscar.Location = new Point(550, 22);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(175, 25);
+            txtBuscar.TabIndex = 5;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            //
+            // lblBuscar
+            //
+            lblBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblBuscar.AutoSize = true;
+            lblBuscar.Font = new Font("Segoe UI", 10F);
+            lblBuscar.Location = new Point(490, 25);
+            lblBuscar.Name = "lblBuscar";
+            lblBuscar.Size = new Size(50, 19);
+            lblBuscar.TabIndex = 6;
+            lblBuscar.Text = "Buscar:";
+            //
             // ListaAlquilerVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -96,6 +134,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(dgvAlquileres);
             Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
+            Controls.Add(btnEliminar);
+            Controls.Add(txtBuscar);
+            Controls.Add(lblBuscar);
             Name = "ListaAlquilerVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvAlquileres).EndInit();
@@ -109,5 +150,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private DataGridView dgvAlquileres;
         private Button btnEditar;
         private Button btnAgregar;
+        private Button btnEliminar;
+        private TextBox txtBuscar;
+        private Label lblBuscar;
     }
 }
