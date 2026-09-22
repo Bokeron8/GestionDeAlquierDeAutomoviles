@@ -188,6 +188,26 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         #endregion
 
+        private void ConfigurarMenuPorRol()
+        {
+            bool esAdmin => _idRol == 1;
+            bool esRecepcionista => _idRol == 2;
+            bool esMecanico => _idRol == 3;
+            bool esGerente => _idRol == 4;
+
+            vehiculosToolStripMenuItem.Visible = true;
+            marcasToolStripMenuItem.Visible = esAdmin || esGerente;
+            modelosToolStripMenuItem.Visible = esAdmin || esGerente;
+            categoriasToolStripMenuItem.Visible = esAdmin || esGerente;
+            clientesToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
+            empleadosToolStripMenuItem.Visible = esAdmin || esGerente;
+            reservasToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
+            alquileresToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
+            daniosToolStripMenuItem.Visible = esAdmin || esRecepcionista || esMecanico || esGerente;
+            estadosToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
+            rolesToolStripMenuItem.Visible = esAdmin || esGerente;
+        }
+
         private MenuStrip menuStrip;
         private ToolStripMenuItem vehiculosToolStripMenuItem;
         private ToolStripMenuItem marcasToolStripMenuItem;

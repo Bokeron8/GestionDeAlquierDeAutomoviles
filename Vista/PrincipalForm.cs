@@ -29,9 +29,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaRolVista cargaRol;
         public ListaRolVista listaRol;
 
-        public PrincipalForm()
+        private readonly int _idRol;
+
+        public PrincipalForm(Empleado? empleado = null)
         {
             InitializeComponent();
+            _idRol = empleado?.IdRol ?? 0;
             cargaVehiculo = new CargaVehiculoVista();
             listaVehiculo = new ListaVehiculoVista();
             cargaMarca = new CargaMarcaVista();
@@ -54,6 +57,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaEstado = new ListaEstadoVista();
             cargaRol = new CargaRolVista();
             listaRol = new ListaRolVista();
+            ConfigurarMenuPorRol();
             MostrarUserControl(cargaVehiculo);
         }
 
