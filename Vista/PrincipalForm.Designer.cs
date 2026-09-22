@@ -208,13 +208,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             marcasToolStripMenuItem.Visible = esAdmin || esGerente;
             modelosToolStripMenuItem.Visible = esAdmin || esGerente;
             categoriasToolStripMenuItem.Visible = esAdmin || esGerente;
-            clientesToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
+            clientesToolStripMenuItem.Visible = esAdmin || esRecepcionista;
             empleadosToolStripMenuItem.Visible = esAdmin || esGerente;
-            reservasToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
-            alquileresToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
-            daniosToolStripMenuItem.Visible = esAdmin || esRecepcionista || esMecanico || esGerente;
-            estadosToolStripMenuItem.Visible = esAdmin || esRecepcionista || esGerente;
-            rolesToolStripMenuItem.Visible = esAdmin || esGerente;
+            reservasToolStripMenuItem.Visible = esAdmin || esRecepcionista;
+            alquileresToolStripMenuItem.Visible = esAdmin || esRecepcionista;
+            daniosToolStripMenuItem.Visible = esAdmin || esMecanico;
+            estadosToolStripMenuItem.Visible = esAdmin || esRecepcionista;
+            rolesToolStripMenuItem.Visible = esAdmin;
         }
 
         private MenuStrip menuStrip;
