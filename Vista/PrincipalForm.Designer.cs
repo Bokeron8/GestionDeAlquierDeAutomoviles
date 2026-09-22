@@ -204,7 +204,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             bool esMecanico = _idRol == 3;
             bool esGerente = _idRol == 4;
 
-            vehiculosToolStripMenuItem.Visible = true;
+            vehiculosToolStripMenuItem.Visible = esAdmin || esGerente;
             marcasToolStripMenuItem.Visible = esAdmin || esGerente;
             modelosToolStripMenuItem.Visible = esAdmin || esGerente;
             categoriasToolStripMenuItem.Visible = esAdmin || esGerente;
@@ -213,7 +213,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             reservasToolStripMenuItem.Visible = esAdmin || esRecepcionista;
             alquileresToolStripMenuItem.Visible = esAdmin || esRecepcionista;
             daniosToolStripMenuItem.Visible = esAdmin || esMecanico;
-            estadosToolStripMenuItem.Visible = esAdmin || esRecepcionista;
+            estadosToolStripMenuItem.Visible = esAdmin;
             rolesToolStripMenuItem.Visible = esAdmin;
         }
 
