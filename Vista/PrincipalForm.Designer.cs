@@ -30,6 +30,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             estadosToolStripMenuItem = new ToolStripMenuItem();
             rolesToolStripMenuItem = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
+            reportesToolStripMenuItem = new ToolStripMenuItem();
             panelHeader = new Panel();
             lblTitulo = new Label();
             panelContenido = new Panel();
@@ -40,7 +41,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem, cerrarSesionToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem, cerrarSesionToolStripMenuItem, reportesToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
@@ -135,6 +136,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             rolesToolStripMenuItem.Text = "Roles";
             rolesToolStripMenuItem.Click += ListarRolesToolStripMenuItem_Click;
             //
+            // reportesToolStripMenuItem
+            //
+            reportesToolStripMenuItem.ForeColor = Color.White;
+            reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            reportesToolStripMenuItem.Size = new Size(75, 20);
+            reportesToolStripMenuItem.Text = "Reportes";
+            reportesToolStripMenuItem.Click += MostrarReporteToolStripMenuItem_Click;
+            //
             // cerrarSesionToolStripMenuItem
             //
             cerrarSesionToolStripMenuItem.ForeColor = Color.White;
@@ -215,6 +224,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             daniosToolStripMenuItem.Visible = esAdmin || esMecanico;
             estadosToolStripMenuItem.Visible = esAdmin;
             rolesToolStripMenuItem.Visible = esAdmin;
+            reportesToolStripMenuItem.Visible = esGerente;
         }
 
         private MenuStrip menuStrip;
@@ -229,6 +239,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private ToolStripMenuItem daniosToolStripMenuItem;
         private ToolStripMenuItem estadosToolStripMenuItem;
         private ToolStripMenuItem rolesToolStripMenuItem;
+        private ToolStripMenuItem reportesToolStripMenuItem;
         private ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private Panel panelHeader;
         private Label lblTitulo;

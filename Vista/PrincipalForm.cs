@@ -28,6 +28,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ListaEstadoVista listaEstado;
         public CargaRolVista cargaRol;
         public ListaRolVista listaRol;
+        public ReporteVista reporteVista;
 
         private readonly int _idRol;
 
@@ -57,6 +58,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaEstado = new ListaEstadoVista();
             cargaRol = new CargaRolVista();
             listaRol = new ListaRolVista();
+            reporteVista = new ReporteVista();
             ConfigurarMenuPorRol();
             MostrarUserControl(cargaVehiculo);
         }
@@ -143,6 +145,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaRol);
+        }
+
+        private void MostrarReporteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarUserControl(reporteVista);
         }
     }
 }
