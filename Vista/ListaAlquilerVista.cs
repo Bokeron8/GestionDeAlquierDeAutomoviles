@@ -61,6 +61,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             if (dgvAlquileres.Columns["Activo"] != null)
             {
                 dgvAlquileres.Columns["Activo"].HeaderText = "Activo";
+                dgvAlquileres.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvAlquileres.Columns["Activo"].Width = 60;
             }
             if (dgvAlquileres.Columns["IdReserva"] != null)

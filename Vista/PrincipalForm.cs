@@ -60,8 +60,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaRol = new ListaRolVista();
             reporteVista = new ReporteVista();
             ConfigurarMenuPorRol();
-            cargaVehiculo.LimpiarFormulario();
             MostrarUserControl(cargaVehiculo);
+            cargaVehiculo.LimpiarFormulario();
         }
 
         private void MostrarUserControl(UserControl uc)
@@ -73,38 +73,38 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void ListarVehiculosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaVehiculo.Refrescar();
             MostrarUserControl(listaVehiculo);
+            listaVehiculo.Refrescar();
         }
 
         private void ListarMarcasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaMarca.Refrescar();
             MostrarUserControl(listaMarca);
+            listaMarca.Refrescar();
         }
 
         private void ListarModelosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaModelo.Refrescar();
             MostrarUserControl(listaModelo);
+            listaModelo.Refrescar();
         }
 
         private void ListarCategoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaCategoria.Refrescar();
             MostrarUserControl(listaCategoria);
+            listaCategoria.Refrescar();
         }
 
         private void ListarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaCliente.Refrescar();
             MostrarUserControl(listaCliente);
+            listaCliente.Refrescar();
         }
 
         private void ListarEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaEmpleado.Refrescar();
             MostrarUserControl(listaEmpleado);
+            listaEmpleado.Refrescar();
         }
 
         public void CargarEdicionEmpleado(Empleado emp)
@@ -162,14 +162,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void ListarReservasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaReserva.Refrescar();
             MostrarUserControl(listaReserva);
+            listaReserva.Refrescar();
         }
 
         private void ListarAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listaAlquiler.Refrescar();
             MostrarUserControl(listaAlquiler);
+            listaAlquiler.Refrescar();
         }
 
         private void ListarDaniosToolStripMenuItem_Click(object sender, EventArgs e)

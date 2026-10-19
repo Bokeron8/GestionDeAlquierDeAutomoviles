@@ -50,6 +50,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             if (dgvEmpleados.Columns["activo"] != null)
             {
                 dgvEmpleados.Columns["activo"].HeaderText = "Activo";
+                dgvEmpleados.Columns["activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvEmpleados.Columns["activo"].Width = 60;
             }
             if (dgvEmpleados.Columns["fecha_nacimiento"] != null)

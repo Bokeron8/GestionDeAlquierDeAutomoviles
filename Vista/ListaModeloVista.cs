@@ -43,6 +43,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             if (dgvModelos.Columns["Activo"] != null)
             {
                 dgvModelos.Columns["Activo"].HeaderText = "Activo";
+                dgvModelos.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvModelos.Columns["Activo"].Width = 60;
             }
         }
