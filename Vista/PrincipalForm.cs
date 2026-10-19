@@ -124,6 +124,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(cargaReserva);
         }
 
+        public void CargarEdicionMarca(Marca marca)
+        {
+            cargaMarca.SetMarca(marca);
+            MostrarUserControl(cargaMarca);
+        }
+
+        public void CargarEdicionModelo(ModeloVehiculo modelo)
+        {
+            cargaModelo.SetModelo(modelo);
+            MostrarUserControl(cargaModelo);
+        }
+
+        public void CargarEdicionCategoria(Categoria cat)
+        {
+            cargaCategoria.SetCategoria(cat);
+            MostrarUserControl(cargaCategoria);
+        }
+
         public void CargarEdicionAlquiler(int id)
         {
             cargaAlquiler.SetAlquiler(id);

@@ -18,15 +18,61 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             var lista = new List<ModeloVehiculo>();
             foreach (DataRow row in dt.Rows)
             {
-                lista.Add(new ModeloVehiculo
-                {
-                    IdModelo = Convert.ToInt32(row["id_modelo"]),
-                    NombreModelo = row["modelo"].ToString()!,
-                    IdMarca = Convert.ToInt32(row["id_marca"]),
-                    Activo = Convert.ToBoolean(row["activo"])
-                });
+                lista.Add(Map(row));
             }
             return lista;
+        }
+
+        public static ModeloVehiculo? ObtenerPorId(int id)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                "SELECT * FROM Modelo WHERE id_modelo = @id",
+                [new SqlParameter("@id", id)]);
+            return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
+        }
+
+        public static int Guardar(ModeloVehiculo m)
+        {
+            if (m.IdModelo == 0)
+            {
+                return DatabaseHelper.ExecuteNonQuery(
+                    @"INSERT INTO Modelo (modelo, id_marca, activo) VALUES (@modelo, @id_marca, @activo)",
+                    [
+                        new SqlParameter("@modelo", m.NombreModelo),
+                        new SqlParameter("@id_marca", m.IdMarca),
+                        new SqlParameter("@activo", m.Activo)
+                    ]);
+            }
+            else
+            {
+                return DatabaseHelper.ExecuteNonQuery(
+                    @"UPDATE Modelo SET modelo = @modelo, id_marca = @id_marca, activo = @activo WHERE id_modelo = @id_modelo",
+                    [
+                        new SqlParameter("@modelo", m.NombreModelo),
+                        new SqlParameter("@id_marca", m.IdMarca),
+                        new SqlParameter("@activo", m.Activo),
+                        new SqlParameter("@id_modelo", m.IdModelo)
+                    ]);
+            }
+        }
+
+        public static bool Eliminar(int id)
+        {
+            int rows = DatabaseHelper.ExecuteNonQuery(
+                "UPDATE Modelo SET activo = 0 WHERE id_modelo = @id",
+                [new SqlParameter("@id", id)]);
+            return rows > 0;
+        }
+
+        private static ModeloVehiculo Map(DataRow row)
+        {
+            return new ModeloVehiculo
+            {
+                IdModelo = Convert.ToInt32(row["id_modelo"]),
+                NombreModelo = row["modelo"].ToString()!,
+                IdMarca = Convert.ToInt32(row["id_marca"]),
+                Activo = Convert.ToBoolean(row["activo"])
+            };
         }
     }
 }
