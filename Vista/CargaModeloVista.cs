@@ -13,13 +13,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaModeloVista()
         {
             InitializeComponent();
-            Load += CargaModeloVista_Load;
             btnGuardar.Click += btnGuardar_Click;
-        }
-
-        private void CargaModeloVista_Load(object sender, EventArgs e)
-        {
-            CargarMarcas();
         }
 
         private void CargarMarcas()
@@ -46,6 +40,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo.Text = "Agregar Modelo";
             btnGuardar.Text = "Guardar Modelo";
             txtNombre.Clear();
+            CargarMarcas();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

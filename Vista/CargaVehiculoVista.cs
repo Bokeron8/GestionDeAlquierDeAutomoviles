@@ -14,7 +14,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaVehiculoVista()
         {
             InitializeComponent();
-            Load += CargaVehiculoVista_Load;
             btnGuardar.Click += btnGuardar_Click;
             CargarImagen();
         }
@@ -26,11 +25,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             {
                 pbAuto.Image = Image.FromFile(ruta);
             }
-        }
-
-        private void CargaVehiculoVista_Load(object sender, EventArgs e)
-        {
-            CargarCombos();
         }
 
         private void CargarCombos()
@@ -71,6 +65,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtChasis.Clear();
             txtColor.Clear();
             txtAnio.Clear();
+            CargarCombos();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

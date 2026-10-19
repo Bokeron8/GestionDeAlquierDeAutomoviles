@@ -13,13 +13,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaReservaVista()
         {
             InitializeComponent();
-            Load += CargaReservaVista_Load;
             btnGuardar.Click += btnGuardar_Click;
-        }
-
-        private void CargaReservaVista_Load(object sender, EventArgs e)
-        {
-            CargarCombos();
         }
 
         private void CargarCombos()
@@ -71,6 +65,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             numPrecioDiarioPactado.Value = 0;
             dtpFechaInicio.Value = DateTime.Today;
             dtpFechaFin.Value = DateTime.Today.AddDays(1);
+            CargarCombos();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

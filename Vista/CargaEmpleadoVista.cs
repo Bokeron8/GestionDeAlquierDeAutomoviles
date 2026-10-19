@@ -13,7 +13,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaEmpleadoVista()
         {
             InitializeComponent();
-            Load += CargaEmpleadoVista_Load;
             btnGuardar.Click += btnGuardar_Click;
         }
 
@@ -33,17 +32,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtUsuario.Text = emp.Usuario ?? "";
             txtContrasenia.Text = emp.Contrasenia ?? "";
 
-            var roles = _controller.ObtenerRoles();
-            cbRol.DataSource = roles;
-            cbRol.DisplayMember = "NombreRol";
-            cbRol.ValueMember = "IdRol";
+            CargarRoles();
             cbRol.SelectedValue = emp.IdRol;
 
             lblTitulo.Text = "Editar Empleado";
             btnGuardar.Text = "Actualizar Empleado";
         }
 
-        private void CargaEmpleadoVista_Load(object sender, EventArgs e)
+        private void CargarRoles()
         {
             var roles = _controller.ObtenerRoles();
             cbRol.DataSource = roles;
@@ -123,6 +119,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             chkActivo.Visible = false;
             lblTitulo.Text = "Agregar Empleado";
             btnGuardar.Text = "Guardar Empleado";
+            CargarRoles();
         }
     }
 }

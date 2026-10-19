@@ -60,6 +60,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaRol = new ListaRolVista();
             reporteVista = new ReporteVista();
             ConfigurarMenuPorRol();
+            cargaVehiculo.LimpiarFormulario();
             MostrarUserControl(cargaVehiculo);
         }
 

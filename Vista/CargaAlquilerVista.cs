@@ -13,13 +13,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public CargaAlquilerVista()
         {
             InitializeComponent();
-            Load += CargaAlquilerVista_Load;
             btnGuardar.Click += btnGuardar_Click;
-        }
-
-        private void CargaAlquilerVista_Load(object sender, EventArgs e)
-        {
-            CargarReservas();
         }
 
         private void CargarReservas()
@@ -59,6 +53,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCombustibleEntrada.Clear();
             txtKilometrajeEntrada.Clear();
             txtMontoMora.Clear();
+            CargarReservas();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
