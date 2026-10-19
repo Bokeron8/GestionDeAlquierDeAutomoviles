@@ -1,13 +1,15 @@
 using System;
-using System.Data;
+using System.Linq;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using GestionDeAlquierDeAutomoviles;
+using GestionDeAlquierDeAutomoviles.Controlador;
+using GestionDeAlquierDeAutomoviles.Modelo;
 
 namespace GestionDeAlquierDeAutomoviles.Vista
 {
     public partial class ListaAlquilerVista : UserControl
     {
+        private readonly AlquilerController _controller = new();
+
         public ListaAlquilerVista()
         {
             InitializeComponent();
@@ -31,55 +33,51 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void CargarDatos()
         {
-            var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Alquiler ORDER BY id_alquiler DESC");
+            var lista = _controller.Listar();
             dgvAlquileres.DataSource = null;
-            dgvAlquileres.DataSource = dt;
+            dgvAlquileres.DataSource = lista;
 
-            if (dgvAlquileres.Columns["id_alquiler"] != null)
+            if (dgvAlquileres.Columns["IdAlquiler"] != null)
             {
-                dgvAlquileres.Columns["id_alquiler"].HeaderText = "ID";
-                dgvAlquileres.Columns["id_alquiler"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvAlquileres.Columns["id_alquiler"].Width = 50;
+                dgvAlquileres.Columns["IdAlquiler"].HeaderText = "ID";
+                dgvAlquileres.Columns["IdAlquiler"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvAlquileres.Columns["IdAlquiler"].Width = 50;
             }
-            if (dgvAlquileres.Columns["fechaEntregaReal"] != null)
-                dgvAlquileres.Columns["fechaEntregaReal"].HeaderText = "F. Entrega";
-            if (dgvAlquileres.Columns["fechaEntregaDevolucion"] != null)
-                dgvAlquileres.Columns["fechaEntregaDevolucion"].HeaderText = "F. Devolución";
-            if (dgvAlquileres.Columns["combustibleSalida"] != null)
-                dgvAlquileres.Columns["combustibleSalida"].HeaderText = "Comb. Salida";
-            if (dgvAlquileres.Columns["combustibleEntrada"] != null)
-                dgvAlquileres.Columns["combustibleEntrada"].HeaderText = "Comb. Entrada";
-            if (dgvAlquileres.Columns["kilometrajeSalida"] != null)
-                dgvAlquileres.Columns["kilometrajeSalida"].HeaderText = "Km. Salida";
-            if (dgvAlquileres.Columns["kilometrajeEntrada"] != null)
-                dgvAlquileres.Columns["kilometrajeEntrada"].HeaderText = "Km. Entrada";
-            if (dgvAlquileres.Columns["montoMora"] != null)
-                dgvAlquileres.Columns["montoMora"].HeaderText = "Mora";
-            if (dgvAlquileres.Columns["activo"] != null)
+            if (dgvAlquileres.Columns["FechaEntregaReal"] != null)
+                dgvAlquileres.Columns["FechaEntregaReal"].HeaderText = "F. Entrega";
+            if (dgvAlquileres.Columns["FechaEntregaDevolucion"] != null)
+                dgvAlquileres.Columns["FechaEntregaDevolucion"].HeaderText = "F. Devolución";
+            if (dgvAlquileres.Columns["CombustibleSalida"] != null)
+                dgvAlquileres.Columns["CombustibleSalida"].HeaderText = "Comb. Salida";
+            if (dgvAlquileres.Columns["CombustibleEntrada"] != null)
+                dgvAlquileres.Columns["CombustibleEntrada"].HeaderText = "Comb. Entrada";
+            if (dgvAlquileres.Columns["KilometrajeSalida"] != null)
+                dgvAlquileres.Columns["KilometrajeSalida"].HeaderText = "Km. Salida";
+            if (dgvAlquileres.Columns["KilometrajeEntrada"] != null)
+                dgvAlquileres.Columns["KilometrajeEntrada"].HeaderText = "Km. Entrada";
+            if (dgvAlquileres.Columns["MontoMora"] != null)
+                dgvAlquileres.Columns["MontoMora"].HeaderText = "Mora";
+            if (dgvAlquileres.Columns["Activo"] != null)
             {
-                dgvAlquileres.Columns["activo"].HeaderText = "Activo";
-                dgvAlquileres.Columns["activo"].Width = 60;
+                dgvAlquileres.Columns["Activo"].HeaderText = "Activo";
+                dgvAlquileres.Columns["Activo"].Width = 60;
             }
-            if (dgvAlquileres.Columns["id_reserva"] != null)
-                dgvAlquileres.Columns["id_reserva"].HeaderText = "ID Reserva";
+            if (dgvAlquileres.Columns["IdReserva"] != null)
+                dgvAlquileres.Columns["IdReserva"].HeaderText = "ID Reserva";
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             string termino = txtBuscar.Text.Trim();
-            if (string.IsNullOrEmpty(termino))
+            var lista = _controller.Listar();
+            if (!string.IsNullOrEmpty(termino))
             {
-                CargarDatos();
-                return;
+                lista = lista.Where(a => 
+                    a.IdAlquiler.ToString().Contains(termino) || 
+                    a.IdReserva.ToString().Contains(termino)).ToList();
             }
-            var dt = DatabaseHelper.ExecuteQuery(
-                @"SELECT * FROM Alquiler 
-                  WHERE CAST(id_alquiler AS VARCHAR) LIKE @termino 
-                  OR CAST(id_reserva AS VARCHAR) LIKE @termino 
-                  ORDER BY id_alquiler DESC",
-                [new SqlParameter("@termino", $"%{termino}%")]);
             dgvAlquileres.DataSource = null;
-            dgvAlquileres.DataSource = dt;
+            dgvAlquileres.DataSource = lista;
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -90,11 +88,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 return;
             }
 
-            int id = Convert.ToInt32(dgvAlquileres.CurrentRow.Cells["id_alquiler"].Value);
-            var dt = DatabaseHelper.ExecuteQuery(
-                "SELECT * FROM Alquiler WHERE id_alquiler = @id",
-                [new SqlParameter("@id", id)]);
-            if (dt.Rows.Count == 0) return;
+            int id = Convert.ToInt32(dgvAlquileres.CurrentRow.Cells["IdAlquiler"].Value);
+            var alq = _controller.BuscarPorId(id);
+            if (alq == null) return;
 
             var parentForm = FindForm() as PrincipalForm;
             parentForm?.CargarEdicionAlquiler(id);
@@ -108,28 +104,23 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 return;
             }
 
-            int id = Convert.ToInt32(dgvAlquileres.CurrentRow.Cells["id_alquiler"].Value);
-            bool activo = Convert.ToBoolean(dgvAlquileres.CurrentRow.Cells["activo"].Value);
+            int id = Convert.ToInt32(dgvAlquileres.CurrentRow.Cells["IdAlquiler"].Value);
+            bool activo = Convert.ToBoolean(dgvAlquileres.CurrentRow.Cells["Activo"].Value);
 
             if (activo)
             {
                 var result = MessageBox.Show(
-                    $"¿Desea dar de baja al alquiler ID {id}?",
+                    $"¿Desea dar de baja el alquiler #{id}?",
                     "Confirmar baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    DatabaseHelper.ExecuteNonQuery(
-                        "UPDATE Alquiler SET activo = 0 WHERE id_alquiler = @id",
-                        [new SqlParameter("@id", id)]);
+                    _controller.Eliminar(id);
                     CargarDatos();
-                    txtBuscar_TextChanged(sender, e);
                 }
             }
             else
             {
-                MessageBox.Show(
-                    $"El alquiler ID {id} ya se encuentra dado de baja.",
-                    "Alquiler inactivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"El alquiler #{id} ya se encuentra inactivo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

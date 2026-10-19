@@ -106,6 +106,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(cargaEmpleado);
         }
 
+        public void CargarEdicionVehiculo(Vehiculo veh)
+        {
+            cargaVehiculo.SetVehiculo(veh);
+            MostrarUserControl(cargaVehiculo);
+        }
+
+        public void CargarEdicionCliente(Cliente cli)
+        {
+            cargaCliente.SetCliente(cli);
+            MostrarUserControl(cargaCliente);
+        }
+
+        public void CargarEdicionReserva(Reserva res)
+        {
+            cargaReserva.SetReserva(res);
+            MostrarUserControl(cargaReserva);
+        }
+
         public void CargarEdicionAlquiler(int id)
         {
             cargaAlquiler.SetAlquiler(id);
