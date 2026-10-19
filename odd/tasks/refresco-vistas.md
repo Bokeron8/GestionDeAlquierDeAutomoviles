@@ -31,6 +31,21 @@ not fired: every file change is a mechanical rename/removal, no research needed.
 - [x] 2. Unit 2 — combos: move combo loading to `LimpiarFormulario()` in the 5 `Carga*Vista`
       with combos; startup `LimpiarFormulario()` for `cargaVehiculo`.
 
+## Post-fix regression (reported by user running the app on Windows)
+`NullReferenceException` in `ListaMarcaVista.Refrescar()` at the `Width = 60` assignment
+(`DataGridViewBand.set_Thickness`), thrown from the menu handler.
+
+Root cause: `Refrescar()` was called *before* `MostrarUserControl()`, so the grid had no
+parent/layout when `Width` was assigned while `AutoSizeColumnsMode = Fill` was active
+(`ListaMarcaVista.Designer.cs:44`). Evidence from the same failing run: the `IdMarca`
+column set `AutoSizeMode = None` before `Width`, and that line did not throw; the `Activo`
+column set `Width` directly with `Fill` still active and threw.
+
+Fix (commit e0be406):
+- Order inverted in all 8 menu handlers: show the control, then `Refrescar()`.
+- `AutoSizeMode = None` set before every fixed `Width` (the proven-safe sequence from the
+  `IdMarca` column), so the assignment no longer depends on grid layout state.
+
 ## Verification evidence
 - Commit 8e3ce6b: build 0 errors (warnings 160 -> 152). `~/.dotnet/dotnet build`.
 - Commit 4a40e10: build 0 errors (147 warnings); no `Load +=` left in Lista*/Carga* views;
