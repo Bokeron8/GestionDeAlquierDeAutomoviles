@@ -48,6 +48,18 @@ namespace GestionDeAlquierDeAutomoviles
             }
         }
 
+        public static int ExecuteNonQuery(string query, SqlParameter[] parameters, SqlConnection conn, SqlTransaction transaction)
+        {
+            using (var cmd = new SqlCommand(query, conn, transaction))
+            {
+                if (parameters != null && parameters.Length > 0)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
         public static object ExecuteScalar(string query, SqlParameter[] parameters = null)
         {
             using (var conn = GetConnection())
@@ -59,6 +71,18 @@ namespace GestionDeAlquierDeAutomoviles
                 }
 
                 conn.Open();
+                return cmd.ExecuteScalar();
+            }
+        }
+
+        public static object ExecuteScalar(string query, SqlParameter[] parameters, SqlConnection conn, SqlTransaction transaction)
+        {
+            using (var cmd = new SqlCommand(query, conn, transaction))
+            {
+                if (parameters != null && parameters.Length > 0)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
                 return cmd.ExecuteScalar();
             }
         }
