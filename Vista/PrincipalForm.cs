@@ -72,31 +72,37 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void ListarVehiculosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaVehiculo.Refrescar();
             MostrarUserControl(listaVehiculo);
         }
 
         private void ListarMarcasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaMarca.Refrescar();
             MostrarUserControl(listaMarca);
         }
 
         private void ListarModelosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaModelo.Refrescar();
             MostrarUserControl(listaModelo);
         }
 
         private void ListarCategoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaCategoria.Refrescar();
             MostrarUserControl(listaCategoria);
         }
 
         private void ListarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaCliente.Refrescar();
             MostrarUserControl(listaCliente);
         }
 
         private void ListarEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaEmpleado.Refrescar();
             MostrarUserControl(listaEmpleado);
         }
 
@@ -155,11 +161,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void ListarReservasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaReserva.Refrescar();
             MostrarUserControl(listaReserva);
         }
 
         private void ListarAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listaAlquiler.Refrescar();
             MostrarUserControl(listaAlquiler);
         }
 

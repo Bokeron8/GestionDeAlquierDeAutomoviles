@@ -12,7 +12,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ListaEmpleadoVista()
         {
             InitializeComponent();
-            Load += ListaEmpleadoVista_Load;
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
@@ -25,14 +24,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             parentForm?.MostrarCarga(parentForm.cargaEmpleado);
         }
 
-        private void ListaEmpleadoVista_Load(object sender, EventArgs e)
+        public void Refrescar()
         {
-            CargarDatos();
-        }
-
-        private void CargarDatos()
-        {
-            var lista = _controller.Listar();
+            string termino = txtBuscar.Text.Trim();
+            var lista = string.IsNullOrEmpty(termino)
+                ? _controller.Listar()
+                : _controller.Buscar(termino);
             dgvEmpleados.DataSource = null;
             dgvEmpleados.DataSource = lista;
 
@@ -63,12 +60,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            string termino = txtBuscar.Text.Trim();
-            var lista = string.IsNullOrEmpty(termino)
-                ? _controller.Listar()
-                : _controller.Buscar(termino);
-            dgvEmpleados.DataSource = null;
-            dgvEmpleados.DataSource = lista;
+            Refrescar();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -108,8 +100,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 if (result == DialogResult.Yes)
                 {
                     _controller.Eliminar(id);
-                    CargarDatos();
-                    txtBuscar_TextChanged(sender, e);
+                    Refrescar();
                 }
             }
             else

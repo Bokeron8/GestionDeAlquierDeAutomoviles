@@ -13,15 +13,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ListaAlquilerVista()
         {
             InitializeComponent();
-            Load += ListaAlquilerVista_Load;
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
-        }
-
-        private void ListaAlquilerVista_Load(object sender, EventArgs e)
-        {
-            CargarDatos();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -31,9 +25,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             parentForm?.MostrarCarga(parentForm.cargaAlquiler);
         }
 
-        private void CargarDatos()
+        public void Refrescar()
         {
+            string termino = txtBuscar.Text.Trim();
             var lista = _controller.Listar();
+            if (!string.IsNullOrEmpty(termino))
+            {
+                lista = lista.Where(a =>
+                    a.IdAlquiler.ToString().Contains(termino) ||
+                    a.IdReserva.ToString().Contains(termino)).ToList();
+            }
             dgvAlquileres.DataSource = null;
             dgvAlquileres.DataSource = lista;
 
@@ -68,16 +69,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            string termino = txtBuscar.Text.Trim();
-            var lista = _controller.Listar();
-            if (!string.IsNullOrEmpty(termino))
-            {
-                lista = lista.Where(a => 
-                    a.IdAlquiler.ToString().Contains(termino) || 
-                    a.IdReserva.ToString().Contains(termino)).ToList();
-            }
-            dgvAlquileres.DataSource = null;
-            dgvAlquileres.DataSource = lista;
+            Refrescar();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -115,7 +107,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 if (result == DialogResult.Yes)
                 {
                     _controller.Eliminar(id);
-                    CargarDatos();
+                    Refrescar();
                 }
             }
             else

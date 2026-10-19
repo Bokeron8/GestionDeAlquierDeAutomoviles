@@ -12,15 +12,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ListaMarcaVista()
         {
             InitializeComponent();
-            Load += ListaMarcaVista_Load;
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
-        }
-
-        private void ListaMarcaVista_Load(object sender, EventArgs e)
-        {
-            CargarDatos();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -30,7 +24,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             parentForm?.MostrarCarga(parentForm.cargaMarca);
         }
 
-        private void CargarDatos()
+        public void Refrescar()
         {
             var lista = _controller.Listar();
             dgvMarcas.DataSource = null;
@@ -87,7 +81,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 if (result == DialogResult.Yes)
                 {
                     _controller.Eliminar(id);
-                    CargarDatos();
+                    Refrescar();
                 }
             }
             else

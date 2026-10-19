@@ -13,15 +13,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ListaClienteVista()
         {
             InitializeComponent();
-            Load += ListaClienteVista_Load;
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
-        }
-
-        private void ListaClienteVista_Load(object sender, EventArgs e)
-        {
-            CargarDatos();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -31,7 +25,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             parentForm?.MostrarCarga(parentForm.cargaCliente);
         }
 
-        private void CargarDatos()
+        public void Refrescar()
         {
             var lista = _controller.Listar();
             dgvClientes.DataSource = null;
@@ -103,7 +97,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 if (result == DialogResult.Yes)
                 {
                     _controller.Eliminar(id);
-                    CargarDatos();
+                    Refrescar();
                 }
             }
             else
