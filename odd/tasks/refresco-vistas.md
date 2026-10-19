@@ -26,10 +26,17 @@ Inline direct (mechanical, already-understood edits; no unresolved design). Writ
 not fired: every file change is a mechanical rename/removal, no research needed.
 
 ## Tasks
-- [ ] 1. Unit 1 — lists: replace `*_Load` with `public void Refrescar()` in the 8 `Lista*Vista`;
+- [x] 1. Unit 1 — lists: replace `*_Load` with `public void Refrescar()` in the 8 `Lista*Vista`;
       filter-aware refresh in Empleado/Alquiler; PrincipalForm menu handlers call `Refrescar()`.
-- [ ] 2. Unit 2 — combos: move combo loading to `LimpiarFormulario()` in the 5 `Carga*Vista`
+- [x] 2. Unit 2 — combos: move combo loading to `LimpiarFormulario()` in the 5 `Carga*Vista`
       with combos; startup `LimpiarFormulario()` for `cargaVehiculo`.
+
+## Verification evidence
+- Commit 8e3ce6b: build 0 errors (warnings 160 -> 152). `~/.dotnet/dotnet build`.
+- Commit 4a40e10: build 0 errors (147 warnings); no `Load +=` left in Lista*/Carga* views;
+  no `CargarDatos` references remain.
+- `gentle-ai review assess`: risk high, `review_due: high_risk` — native review NOT run:
+  the opencode runtime is not eligible (only claude-code/codex). Ordinary checks only.
 
 ## Acceptance criteria
 - `~/.dotnet/dotnet build` reports 0 errors.
