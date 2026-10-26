@@ -51,8 +51,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvClientes.Columns["NroLicencia"].HeaderText = "N° Licencia";
             if (dgvClientes.Columns["VencimientoLicencia"] != null)
                 dgvClientes.Columns["VencimientoLicencia"].HeaderText = "Venc. Licencia";
-            if (dgvClientes.Columns["EstadoIdentidad"] != null)
-                dgvClientes.Columns["EstadoIdentidad"].HeaderText = "Identidad";
+            if (dgvClientes.Columns["Provincia"] != null)
+                dgvClientes.Columns["Provincia"].HeaderText = "Provincia";
             if (dgvClientes.Columns["Activo"] != null)
             {
                 dgvClientes.Columns["Activo"].HeaderText = "Activo";

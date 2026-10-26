@@ -78,7 +78,7 @@ CREATE TABLE Cliente
   correo VARCHAR(100) UNIQUE NOT NULL,
   nroLicencia VARCHAR(50) NOT NULL,
   vencimientoLicencia DATE NOT NULL,
-  estadoIdentidad VARCHAR(50) NOT NULL,
+  provincia VARCHAR(50) NOT NULL,
   activo BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (id_cliente)
 );

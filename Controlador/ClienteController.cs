@@ -27,6 +27,8 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
                 errores.Add("El correo electrónico no tiene un formato válido.");
             if (string.IsNullOrWhiteSpace(cli.NroLicencia))
                 errores.Add("El número de licencia es obligatorio.");
+            if (string.IsNullOrWhiteSpace(cli.Provincia))
+                errores.Add("La provincia es obligatoria.");
 
             if (cli.FechaNacimiento > DateTime.Today)
                 errores.Add("La fecha de nacimiento no puede ser futura.");

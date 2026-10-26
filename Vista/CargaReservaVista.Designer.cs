@@ -157,6 +157,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             numPrecioDiarioPactado.TabIndex = 7;
             numPrecioDiarioPactado.DecimalPlaces = 2;
             numPrecioDiarioPactado.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            numPrecioDiarioPactado.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
             //
             // panelDerecha
             //

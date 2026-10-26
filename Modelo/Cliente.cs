@@ -17,7 +17,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public string Correo { get; set; }
         public string NroLicencia { get; set; }
         public DateTime VencimientoLicencia { get; set; }
-        public string EstadoIdentidad { get; set; }
+        public string Provincia { get; set; }
         public bool Activo { get; set; }
 
         public static List<Cliente> ObtenerTodos()
@@ -44,8 +44,8 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             if (c.IdCliente == 0)
             {
                 return DatabaseHelper.ExecuteNonQuery(
-                    @"INSERT INTO Cliente (nombre, apellido, dni, fecha_nacimiento, direccion, telefono, correo, nroLicencia, vencimientoLicencia, estadoIdentidad, activo) 
-                      VALUES (@nombre, @apellido, @dni, @fecha_nacimiento, @direccion, @telefono, @correo, @nroLicencia, @vencimientoLicencia, @estadoIdentidad, @activo)",
+                    @"INSERT INTO Cliente (nombre, apellido, dni, fecha_nacimiento, direccion, telefono, correo, nroLicencia, vencimientoLicencia, provincia, activo) 
+                      VALUES (@nombre, @apellido, @dni, @fecha_nacimiento, @direccion, @telefono, @correo, @nroLicencia, @vencimientoLicencia, @provincia, @activo)",
                     [
                         new SqlParameter("@nombre", c.Nombre),
                         new SqlParameter("@apellido", c.Apellido),
@@ -56,14 +56,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                         new SqlParameter("@correo", c.Correo),
                         new SqlParameter("@nroLicencia", c.NroLicencia),
                         new SqlParameter("@vencimientoLicencia", c.VencimientoLicencia),
-                        new SqlParameter("@estadoIdentidad", c.EstadoIdentidad),
+                        new SqlParameter("@provincia", c.Provincia),
                         new SqlParameter("@activo", c.Activo)
                     ]);
             }
             else
             {
                 return DatabaseHelper.ExecuteNonQuery(
-                    @"UPDATE Cliente SET nombre=@nombre, apellido=@apellido, dni=@dni, fecha_nacimiento=@fecha_nacimiento, direccion=@direccion, telefono=@telefono, correo=@correo, nroLicencia=@nroLicencia, vencimientoLicencia=@vencimientoLicencia, estadoIdentidad=@estadoIdentidad, activo=@activo WHERE id_cliente=@id_cliente",
+                    @"UPDATE Cliente SET nombre=@nombre, apellido=@apellido, dni=@dni, fecha_nacimiento=@fecha_nacimiento, direccion=@direccion, telefono=@telefono, correo=@correo, nroLicencia=@nroLicencia, vencimientoLicencia=@vencimientoLicencia, provincia=@provincia, activo=@activo WHERE id_cliente=@id_cliente",
                     [
                         new SqlParameter("@nombre", c.Nombre),
                         new SqlParameter("@apellido", c.Apellido),
@@ -74,7 +74,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                         new SqlParameter("@correo", c.Correo),
                         new SqlParameter("@nroLicencia", c.NroLicencia),
                         new SqlParameter("@vencimientoLicencia", c.VencimientoLicencia),
-                        new SqlParameter("@estadoIdentidad", c.EstadoIdentidad),
+                        new SqlParameter("@provincia", c.Provincia),
                         new SqlParameter("@activo", c.Activo),
                         new SqlParameter("@id_cliente", c.IdCliente)
                     ]);
@@ -128,7 +128,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 Correo = row["correo"].ToString()!,
                 NroLicencia = row["nroLicencia"].ToString()!,
                 VencimientoLicencia = Convert.ToDateTime(row["vencimientoLicencia"]),
-                EstadoIdentidad = row["estadoIdentidad"].ToString()!,
+                Provincia = row["provincia"].ToString()!,
                 Activo = Convert.ToBoolean(row["activo"])
             };
         }

@@ -39,8 +39,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtNroLicencia = new TextBox();
             lblVencimientoLicencia = new Label();
             dtpVencimientoLicencia = new DateTimePicker();
-            lblEstadoIdentidad = new Label();
-            txtEstadoIdentidad = new TextBox();
+            lblProvincia = new Label();
+            txtProvincia = new TextBox();
             btnGuardar = new Button();
             SuspendLayout();
             //
@@ -188,8 +188,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelDerecha.Controls.Add(txtNroLicencia);
             panelDerecha.Controls.Add(lblVencimientoLicencia);
             panelDerecha.Controls.Add(dtpVencimientoLicencia);
-            panelDerecha.Controls.Add(lblEstadoIdentidad);
-            panelDerecha.Controls.Add(txtEstadoIdentidad);
+            panelDerecha.Controls.Add(lblProvincia);
+            panelDerecha.Controls.Add(txtProvincia);
             panelDerecha.Location = new Point(385, 70);
             panelDerecha.Name = "panelDerecha";
             panelDerecha.Size = new Size(340, 280);
@@ -272,24 +272,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpVencimientoLicencia.Size = new Size(305, 23);
             dtpVencimientoLicencia.TabIndex = 7;
             //
-            // lblEstadoIdentidad
+            // lblProvincia
             //
-            lblEstadoIdentidad.AutoSize = true;
-            lblEstadoIdentidad.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblEstadoIdentidad.ForeColor = Color.FromArgb(51, 51, 76);
-            lblEstadoIdentidad.Location = new Point(15, 215);
-            lblEstadoIdentidad.Name = "lblEstadoIdentidad";
-            lblEstadoIdentidad.Size = new Size(95, 15);
-            lblEstadoIdentidad.TabIndex = 8;
-            lblEstadoIdentidad.Text = "Estado Identidad";
+            lblProvincia.AutoSize = true;
+            lblProvincia.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblProvincia.ForeColor = Color.FromArgb(51, 51, 76);
+            lblProvincia.Location = new Point(15, 215);
+            lblProvincia.Name = "lblProvincia";
+            lblProvincia.Size = new Size(95, 15);
+            lblProvincia.TabIndex = 8;
+            lblProvincia.Text = "Provincia";
             //
-            // txtEstadoIdentidad
+            // txtProvincia
             //
-            txtEstadoIdentidad.Font = new Font("Segoe UI", 9F);
-            txtEstadoIdentidad.Location = new Point(15, 235);
-            txtEstadoIdentidad.Name = "txtEstadoIdentidad";
-            txtEstadoIdentidad.Size = new Size(305, 23);
-            txtEstadoIdentidad.TabIndex = 9;
+            txtProvincia.Font = new Font("Segoe UI", 9F);
+            txtProvincia.Location = new Point(15, 235);
+            txtProvincia.Name = "txtProvincia";
+            txtProvincia.Size = new Size(305, 23);
+            txtProvincia.TabIndex = 9;
             //
             // btnGuardar
             //
@@ -344,8 +344,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtNroLicencia;
         private Label lblVencimientoLicencia;
         private DateTimePicker dtpVencimientoLicencia;
-        private Label lblEstadoIdentidad;
-        private TextBox txtEstadoIdentidad;
+        private Label lblProvincia;
+        private TextBox txtProvincia;
         private Button btnGuardar;
     }
 }

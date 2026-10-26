@@ -31,7 +31,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCorreo.Text = cli.Correo;
             txtNroLicencia.Text = cli.NroLicencia;
             dtpVencimientoLicencia.Value = cli.VencimientoLicencia;
-            txtEstadoIdentidad.Text = cli.EstadoIdentidad;
+            txtProvincia.Text = cli.Provincia;
         }
 
         public void LimpiarFormulario()
@@ -49,7 +49,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCorreo.Clear();
             txtNroLicencia.Clear();
             dtpVencimientoLicencia.Value = DateTime.Today.AddYears(1);
-            txtEstadoIdentidad.Clear();
+            txtProvincia.Clear();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 cli.Correo = txtCorreo.Text.Trim();
                 cli.NroLicencia = txtNroLicencia.Text.Trim();
                 cli.VencimientoLicencia = dtpVencimientoLicencia.Value;
-                cli.EstadoIdentidad = string.IsNullOrWhiteSpace(txtEstadoIdentidad.Text) ? "Verificado" : txtEstadoIdentidad.Text.Trim();
+                cli.Provincia = txtProvincia.Text.Trim();
                 cli.Activo = true;
 
                 var errores = _controller.ValidarCliente(cli, esNuevo: _clienteEditar == null);
