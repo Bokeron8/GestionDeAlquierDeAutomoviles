@@ -13,6 +13,9 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
                 errores.Add("El nombre del modelo es obligatorio.");
             if (modelo.IdMarca <= 0)
                 errores.Add("Debe seleccionar una marca.");
+            if (!string.IsNullOrWhiteSpace(modelo.NombreModelo) && modelo.IdMarca > 0
+                && ModeloVehiculo.EsNombreDuplicado(modelo.NombreModelo, modelo.IdMarca, modelo.IdModelo == 0 ? null : modelo.IdModelo))
+                errores.Add("Ya existe un modelo con ese nombre para esa marca.");
             return errores;
         }
 

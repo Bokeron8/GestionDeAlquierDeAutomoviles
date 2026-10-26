@@ -11,6 +11,8 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             var errores = new List<string>();
             if (string.IsNullOrWhiteSpace(cat.Nombre))
                 errores.Add("El nombre de la categoría es obligatorio.");
+            else if (Categoria.EsNombreDuplicado(cat.Nombre, cat.IdCategoria == 0 ? null : cat.IdCategoria))
+                errores.Add("Ya existe una categoría con ese nombre.");
             return errores;
         }
 

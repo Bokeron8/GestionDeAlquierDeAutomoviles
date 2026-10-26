@@ -11,6 +11,8 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             var errores = new List<string>();
             if (string.IsNullOrWhiteSpace(marca.Nombre))
                 errores.Add("El nombre de la marca es obligatorio.");
+            else if (Marca.EsNombreDuplicado(marca.Nombre, marca.IdMarca == 0 ? null : marca.IdMarca))
+                errores.Add("Ya existe una marca con ese nombre.");
             return errores;
         }
 
