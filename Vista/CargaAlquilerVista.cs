@@ -18,7 +18,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void CargarReservas()
         {
-            var reservas = _controller.ObtenerReservas();
+            var reservas = _controller.ObtenerReservasDisponibles(_alquilerId);
             cbReserva.DataSource = reservas;
             cbReserva.DisplayMember = "IdReserva";
             cbReserva.ValueMember = "IdReserva";

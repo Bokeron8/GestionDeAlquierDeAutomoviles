@@ -29,6 +29,30 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return lista;
         }
 
+        /// <summary>
+        /// Returns the reservations that can still be rented: active ones with no active
+        /// rental recorded, plus the reservation currently assigned to the rental being
+        /// edited (idReservaActual) so it never disappears from its own combo.
+        /// </summary>
+        public static List<Reserva> ObtenerDisponiblesParaAlquiler(int idReservaActual = 0)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT * FROM Reserva r
+                  WHERE r.id_reserva = @idReservaActual
+                     OR (r.activo = 1
+                         AND NOT EXISTS (SELECT 1 FROM Alquiler a
+                                         WHERE a.id_reserva = r.id_reserva
+                                           AND a.activo = 1))
+                  ORDER BY r.fecha_inicio_reserva DESC",
+                [new SqlParameter("@idReservaActual", idReservaActual)]);
+            var lista = new List<Reserva>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(Map(row));
+            }
+            return lista;
+        }
+
         public static Reserva? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(

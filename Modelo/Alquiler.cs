@@ -37,6 +37,24 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
         }
 
+        /// <summary>
+        /// True when the reservation already has an active rental, ignoring the rental
+        /// passed in idAlquilerExcluir so an edit does not collide with itself.
+        /// </summary>
+        public static bool TieneAlquilerActivo(int idReserva, int idAlquilerExcluir = 0)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT COUNT(*) AS total FROM Alquiler
+                  WHERE id_reserva = @id_reserva
+                    AND activo = 1
+                    AND id_alquiler <> @id_alquiler",
+                [
+                    new SqlParameter("@id_reserva", idReserva),
+                    new SqlParameter("@id_alquiler", idAlquilerExcluir)
+                ]);
+            return dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0]["total"]) > 0;
+        }
+
         public static int Guardar(Alquiler a)
         {
             if (a.IdAlquiler == 0)

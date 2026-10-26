@@ -89,3 +89,10 @@ ALTER TABLE Categoria ADD CONSTRAINT UQ_Categoria_Nombre      UNIQUE (nombre);
 ALTER TABLE Estado    ADD CONSTRAINT UQ_Estado_Nombre         UNIQUE (nombre);
 ALTER TABLE Rol       ADD CONSTRAINT UQ_Rol_Rol               UNIQUE (rol);
 ALTER TABLE Modelo    ADD CONSTRAINT UQ_Modelo_Marca_Modelo   UNIQUE (id_marca, modelo);
+
+-- 13. Una reserva no puede tener dos alquileres activos
+-- El filtro WHERE activo = 1 deja reutilizar la reserva si el alquiler se dio de baja.
+-- Verificar antes de ejecutar (si devuelve filas, hay duplicados y el CREATE va a fallar):
+--   SELECT id_reserva, COUNT(*) FROM Alquiler WHERE activo = 1 GROUP BY id_reserva HAVING COUNT(*) > 1;
+
+CREATE UNIQUE INDEX UX_Alquiler_Reserva_Activo ON Alquiler(id_reserva) WHERE activo = 1;

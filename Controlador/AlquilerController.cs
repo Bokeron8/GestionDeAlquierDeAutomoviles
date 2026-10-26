@@ -13,6 +13,8 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
 
             if (alq.IdReserva <= 0)
                 errores.Add("Debe asociar una reserva válida.");
+            else if (Alquiler.TieneAlquilerActivo(alq.IdReserva, alq.IdAlquiler))
+                errores.Add("La reserva seleccionada ya tiene un alquiler activo asociado.");
             if (alq.CombustibleSalida < 0 || alq.CombustibleSalida > 100)
                 errores.Add("El porcentaje de combustible de salida debe estar entre 0 y 100.");
             if (alq.KilometrajeSalida < 0)
@@ -89,9 +91,9 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Alquiler.Eliminar(id);
         }
 
-        public List<Reserva> ObtenerReservas()
+        public List<Reserva> ObtenerReservasDisponibles(int idReservaActual = 0)
         {
-            return Reserva.ObtenerTodos();
+            return Reserva.ObtenerDisponiblesParaAlquiler(idReservaActual);
         }
     }
 }
