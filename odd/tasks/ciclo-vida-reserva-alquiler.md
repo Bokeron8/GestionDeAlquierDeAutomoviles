@@ -44,11 +44,32 @@ de punta a punta, sin migración de esquema.
 
 ## Tasks
 
-- T1 — S1, S2, S3, S4: constantes de estado, solapamiento, quitar combo de estado, empleado de sesión.
-- T2 — S6, S7, S5 (servicio): entrega transaccional con transición a En Curso, combos y validaciones de entrega.
-- T3 — S8, S9: `DevolucionVista` + transacción de devolución + finalización de la reserva.
-- T4 — S5, S10, S11, S12: botones dinámicos, Confirmar, baja como Cancelada, nombres en listas.
-- T5 — Cierre: log, espejo en Engram, checklist de verificación manual.
+- ☑ T1 — S1, S2, S3, S4: constantes de estado, solapamiento, quitar combo de estado, empleado de sesión. → `a8d7e71`
+- ☑ T2 — S6, S7: entrega transaccional con transición a En Curso, combos y validaciones de entrega. → `01e1f1b`
+- ☑ T3 — S8, S9, S12 (alquileres): `DevolucionVista`, transacción de devolución, finalización de la reserva, entrada desde la lista. → `724fa5e`
+- ☑ T4 — S5, S10, S11, S12 (reservas): Confirmar, botones dinámicos, baja como Cancelada, nombres de estado. → `d83619b`
+- ☑ T5 — Cierre: log, espejo en Engram, checklist de verificación manual.
+
+## Verification
+
+Observado en este entorno:
+
+- Revisión cruzada de cada transición contra la spec y `grep` de referencias a controles/métodos eliminados: sin residuos
+  (`cbEstado`, `cbEmpleado`, `txtMontoMora`, `btnEliminar` de alquileres, `Alquiler.Eliminar`, `Reserva.Eliminar`).
+- **No ejecutado:** `dotnet build` (no hay SDK .NET en este entorno) ni la aplicación (WinForms + SQL Server Express).
+  La compilación y la prueba funcional quedan pendientes de correr en Windows.
+
+Checklist manual pendiente (Windows, base recreada con `db_datos_prueba.sql`):
+
+1. Crear reserva → aparece como **Pendiente**, empleado tomado de la sesión, sin combo de estado.
+2. Crear otra reserva para el mismo vehículo con fechas que se cruzan → error
+   `"El vehículo ya tiene una reserva en ese rango de fechas."`
+3. Confirmar reserva 1 → estado **Confirmada**; el botón Confirmar se deshabilita.
+4. Entrega de reserva 1 → reserva pasa a **En Curso**, aparece el alquiler **En curso**.
+5. Intentar entregar otra vez la misma reserva → ya no aparece en el combo.
+6. Devolución con fecha posterior al fin pactado → mora calculada por día de atraso, reserva **Finalizada**.
+7. Volver a reservar el mismo vehículo en las mismas fechas → permitido (la anterior está Finalizada).
+8. Dar de baja una reserva Confirmada → **Cancelada** y editable deshabilitado.
 
 ## Log
 
@@ -68,3 +89,7 @@ de punta a punta, sin migración de esquema.
   lectura, mora en vivo, botones dinámicos, commits en `master` por unidad, CRUD de Estados sin cambios.
 - **L7:** Desvío declarado: las constantes viven en `Modelo/EstadosReserva.cs` (no en `Controlador/`) porque
   `Modelo.Reserva` las necesita y no debe depender de `Controlador`.
+- **L8:** Implementado y commiteado en cuatro unidades (`a8d7e71`, `01e1f1b`, `724fa5e`, `d83619b`).
+  Sin compilación verificable en este entorno: se reporta como pendiente de `dotnet build` en Windows.
+- **L9:** Desvío declarado: en la entrega la reserva también se mueve a En Curso dentro de la misma transacción
+  (simetría con la devolución, aprobada en Q12). Sin esa atomicidad la entrega podía quedar sin transición.
