@@ -12,9 +12,29 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             var errores = new List<string>();
 
             if (alq.IdReserva <= 0)
+            {
                 errores.Add("Debe asociar una reserva válida.");
-            else if (Alquiler.TieneAlquilerActivo(alq.IdReserva, alq.IdAlquiler))
-                errores.Add("La reserva seleccionada ya tiene un alquiler activo asociado.");
+            }
+            else
+            {
+                var reserva = Reserva.ObtenerPorId(alq.IdReserva);
+                if (reserva == null)
+                {
+                    errores.Add("La reserva seleccionada no existe.");
+                }
+                else
+                {
+                    // On an edit the reservation is already En Curso, so the "must be
+                    // confirmed" rule only applies to a fresh delivery.
+                    if (alq.IdAlquiler == 0 && reserva.IdEstado != EstadosReserva.Confirmada)
+                        errores.Add("Solo se puede entregar una reserva confirmada.");
+                    if (alq.FechaEntregaReal.Date < reserva.FechaInicioReserva.Date)
+                        errores.Add("La fecha de entrega no puede ser anterior al inicio de la reserva.");
+                }
+                if (Alquiler.TieneAlquilerActivo(alq.IdReserva, alq.IdAlquiler))
+                    errores.Add("La reserva seleccionada ya tiene un alquiler activo asociado.");
+            }
+
             if (alq.CombustibleSalida < 0 || alq.CombustibleSalida > 100)
                 errores.Add("El porcentaje de combustible de salida debe estar entre 0 y 100.");
             if (alq.KilometrajeSalida < 0)
@@ -33,6 +53,40 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             }
 
             return errores;
+        }
+
+        /// <summary>
+        /// Registers the delivery and moves the reservation to En Curso in a single
+        /// transaction: a rental whose reservation did not advance would leave the vehicle
+        /// both rented and available.
+        /// </summary>
+        public int RegistrarEntrega(Alquiler alq)
+        {
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                conn.Open();
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        int rows = Alquiler.Guardar(alq, conn, transaction);
+                        if (rows > 0 && alq.IdAlquiler == 0)
+                        {
+                            int reservaRows = Reserva.CambiarEstado(alq.IdReserva, EstadosReserva.EnCurso, conn, transaction);
+                            if (reservaRows == 0)
+                                throw new InvalidOperationException("No se pudo actualizar el estado de la reserva.");
+                        }
+
+                        transaction.Commit();
+                        return rows;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
 
         public List<Alquiler> Listar()

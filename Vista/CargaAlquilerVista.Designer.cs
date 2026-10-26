@@ -25,12 +25,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCombustibleSalida = new TextBox();
             lblKilometrajeSalida = new Label();
             txtKilometrajeSalida = new TextBox();
-            lblCombustibleEntrada = new Label();
-            txtCombustibleEntrada = new TextBox();
-            lblKilometrajeEntrada = new Label();
-            txtKilometrajeEntrada = new TextBox();
-            lblMontoMora = new Label();
-            txtMontoMora = new TextBox();
             btnGuardar = new Button();
             SuspendLayout();
             //
@@ -43,7 +37,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(170, 25);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Registrar Alquiler";
+            lblTitulo.Text = "Registrar Entrega";
             //
             // separador
             //
@@ -112,74 +106,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtKilometrajeSalida.Size = new Size(180, 25);
             txtKilometrajeSalida.TabIndex = 7;
             //
-            // lblCombustibleEntrada
-            //
-            lblCombustibleEntrada.AutoSize = true;
-            lblCombustibleEntrada.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblCombustibleEntrada.ForeColor = Color.FromArgb(51, 51, 76);
-            lblCombustibleEntrada.Location = new Point(40, 185);
-            lblCombustibleEntrada.Name = "lblCombustibleEntrada";
-            lblCombustibleEntrada.Size = new Size(135, 19);
-            lblCombustibleEntrada.TabIndex = 8;
-            lblCombustibleEntrada.Text = "Combustible Entrada";
-            //
-            // txtCombustibleEntrada
-            //
-            txtCombustibleEntrada.Font = new Font("Segoe UI", 10F);
-            txtCombustibleEntrada.Location = new Point(40, 210);
-            txtCombustibleEntrada.Name = "txtCombustibleEntrada";
-            txtCombustibleEntrada.Size = new Size(180, 25);
-            txtCombustibleEntrada.TabIndex = 9;
-            //
-            // lblKilometrajeEntrada
-            //
-            lblKilometrajeEntrada.AutoSize = true;
-            lblKilometrajeEntrada.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblKilometrajeEntrada.ForeColor = Color.FromArgb(51, 51, 76);
-            lblKilometrajeEntrada.Location = new Point(260, 185);
-            lblKilometrajeEntrada.Name = "lblKilometrajeEntrada";
-            lblKilometrajeEntrada.Size = new Size(130, 19);
-            lblKilometrajeEntrada.TabIndex = 10;
-            lblKilometrajeEntrada.Text = "Kilometraje Entrada";
-            //
-            // txtKilometrajeEntrada
-            //
-            txtKilometrajeEntrada.Font = new Font("Segoe UI", 10F);
-            txtKilometrajeEntrada.Location = new Point(260, 210);
-            txtKilometrajeEntrada.Name = "txtKilometrajeEntrada";
-            txtKilometrajeEntrada.Size = new Size(180, 25);
-            txtKilometrajeEntrada.TabIndex = 11;
-            //
-            // lblMontoMora
-            //
-            lblMontoMora.AutoSize = true;
-            lblMontoMora.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblMontoMora.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMontoMora.Location = new Point(40, 250);
-            lblMontoMora.Name = "lblMontoMora";
-            lblMontoMora.Size = new Size(85, 19);
-            lblMontoMora.TabIndex = 12;
-            lblMontoMora.Text = "Monto Mora";
-            //
-            // txtMontoMora
-            //
-            txtMontoMora.Font = new Font("Segoe UI", 10F);
-            txtMontoMora.Location = new Point(40, 275);
-            txtMontoMora.Name = "txtMontoMora";
-            txtMontoMora.Size = new Size(180, 25);
-            txtMontoMora.TabIndex = 13;
-            //
             // btnGuardar
             //
             btnGuardar.BackColor = Color.FromArgb(51, 51, 76);
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(265, 320);
+            btnGuardar.Location = new Point(265, 195);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
-            btnGuardar.TabIndex = 14;
-            btnGuardar.Text = "Registrar Alquiler";
+            btnGuardar.TabIndex = 8;
+            btnGuardar.Text = "Registrar Entrega";
             btnGuardar.UseVisualStyleBackColor = false;
             //
             // CargaAlquilerVista
@@ -195,15 +132,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(txtCombustibleSalida);
             Controls.Add(lblKilometrajeSalida);
             Controls.Add(txtKilometrajeSalida);
-            Controls.Add(lblCombustibleEntrada);
-            Controls.Add(txtCombustibleEntrada);
-            Controls.Add(lblKilometrajeEntrada);
-            Controls.Add(txtKilometrajeEntrada);
-            Controls.Add(lblMontoMora);
-            Controls.Add(txtMontoMora);
             Controls.Add(btnGuardar);
             Name = "CargaAlquilerVista";
-            Size = new Size(750, 400);
+            Size = new Size(750, 300);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,12 +149,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtCombustibleSalida;
         private Label lblKilometrajeSalida;
         private TextBox txtKilometrajeSalida;
-        private Label lblCombustibleEntrada;
-        private TextBox txtCombustibleEntrada;
-        private Label lblKilometrajeEntrada;
-        private TextBox txtKilometrajeEntrada;
-        private Label lblMontoMora;
-        private TextBox txtMontoMora;
         private Button btnGuardar;
     }
 }

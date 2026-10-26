@@ -8,7 +8,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
     public partial class CargaAlquilerVista : UserControl
     {
         private readonly AlquilerController _controller = new();
-        private int _alquilerId = 0;
+        private Alquiler? _alquilerEditar;
 
         public CargaAlquilerVista()
         {
@@ -18,7 +18,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void CargarReservas()
         {
-            var reservas = _controller.ObtenerReservasDisponibles(_alquilerId);
+            var reservas = _controller.ObtenerReservasDisponibles(_alquilerEditar?.IdReserva ?? 0);
             cbReserva.DataSource = reservas;
             cbReserva.DisplayMember = "IdReserva";
             cbReserva.ValueMember = "IdReserva";
@@ -26,33 +26,27 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void SetAlquiler(int id)
         {
-            _alquilerId = id;
             var alq = _controller.BuscarPorId(id);
             if (alq == null) return;
 
-            lblTitulo.Text = "Editar Alquiler";
-            btnGuardar.Text = "Actualizar Alquiler";
+            _alquilerEditar = alq;
+            lblTitulo.Text = "Editar Entrega";
+            btnGuardar.Text = "Actualizar Entrega";
 
             CargarReservas();
             cbReserva.SelectedValue = alq.IdReserva;
 
             txtCombustibleSalida.Text = alq.CombustibleSalida.ToString();
             txtKilometrajeSalida.Text = alq.KilometrajeSalida.ToString();
-            txtCombustibleEntrada.Text = alq.CombustibleEntrada?.ToString() ?? "";
-            txtKilometrajeEntrada.Text = alq.KilometrajeEntrada?.ToString() ?? "";
-            txtMontoMora.Text = alq.MontoMora.ToString();
         }
 
         public void LimpiarFormulario()
         {
-            _alquilerId = 0;
-            lblTitulo.Text = "Registrar Alquiler";
-            btnGuardar.Text = "Registrar Alquiler";
+            _alquilerEditar = null;
+            lblTitulo.Text = "Registrar Entrega";
+            btnGuardar.Text = "Registrar Entrega";
             txtCombustibleSalida.Clear();
             txtKilometrajeSalida.Clear();
-            txtCombustibleEntrada.Clear();
-            txtKilometrajeEntrada.Clear();
-            txtMontoMora.Clear();
             CargarReservas();
         }
 
@@ -72,52 +66,28 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                     return;
                 }
 
-                decimal? combustibleEntrada = null;
-                if (!string.IsNullOrWhiteSpace(txtCombustibleEntrada.Text))
+                if (cbReserva.SelectedValue == null)
                 {
-                    if (decimal.TryParse(txtCombustibleEntrada.Text, out decimal ce))
-                        combustibleEntrada = ce;
-                    else
-                    {
-                        MessageBox.Show("El combustible de entrada debe ser numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-
-                decimal? kilometrajeEntrada = null;
-                if (!string.IsNullOrWhiteSpace(txtKilometrajeEntrada.Text))
-                {
-                    if (decimal.TryParse(txtKilometrajeEntrada.Text, out decimal ke))
-                        kilometrajeEntrada = ke;
-                    else
-                    {
-                        MessageBox.Show("El kilometraje de entrada debe ser numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-
-                decimal montoMora = 0;
-                if (!string.IsNullOrWhiteSpace(txtMontoMora.Text))
-                {
-                    if (!decimal.TryParse(txtMontoMora.Text, out montoMora))
-                    {
-                        MessageBox.Show("El monto de mora debe ser numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                    MessageBox.Show("Debe seleccionar una reserva confirmada.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
                 int idReserva = Convert.ToInt32(cbReserva.SelectedValue);
 
+                // Everything the delivery does not own is carried over from the loaded
+                // rental, so editing never rewrites the original delivery date nor erases
+                // the return data already captured.
                 var alq = new Alquiler
                 {
-                    IdAlquiler = _alquilerId,
-                    FechaEntregaReal = DateTime.Now,
+                    IdAlquiler = _alquilerEditar?.IdAlquiler ?? 0,
+                    FechaEntregaReal = _alquilerEditar?.FechaEntregaReal ?? DateTime.Now,
+                    FechaEntregaDevolucion = _alquilerEditar?.FechaEntregaDevolucion,
                     CombustibleSalida = combustibleSalida,
+                    CombustibleEntrada = _alquilerEditar?.CombustibleEntrada,
                     KilometrajeSalida = kilometrajeSalida,
-                    CombustibleEntrada = combustibleEntrada,
-                    KilometrajeEntrada = kilometrajeEntrada,
-                    MontoMora = montoMora,
-                    Activo = true,
+                    KilometrajeEntrada = _alquilerEditar?.KilometrajeEntrada,
+                    MontoMora = _alquilerEditar?.MontoMora ?? 0,
+                    Activo = _alquilerEditar?.Activo ?? true,
                     IdReserva = idReserva
                 };
 
@@ -128,17 +98,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                     return;
                 }
 
-                int rows = _controller.Guardar(alq);
+                int rows = _controller.RegistrarEntrega(alq);
                 if (rows > 0)
                 {
                     MessageBox.Show(
-                        _alquilerId == 0 ? "Alquiler registrado correctamente." : "Alquiler actualizado correctamente.",
+                        _alquilerEditar == null ? "Entrega registrada correctamente." : "Entrega actualizada correctamente.",
                         "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo guardar el alquiler.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se pudo registrar la entrega.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

@@ -59,38 +59,68 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         {
             if (a.IdAlquiler == 0)
             {
-                return DatabaseHelper.ExecuteNonQuery(
-                    @"INSERT INTO Alquiler (fechaEntregaReal, fechaEntregaDevolucion, combustibleSalida, combustibleEntrada, kilometrajeSalida, kilometrajeEntrada, montoMora, activo, id_reserva) 
-                      VALUES (@fechaEntregaReal, @fechaEntregaDevolucion, @combustibleSalida, @combustibleEntrada, @kilometrajeSalida, @kilometrajeEntrada, @montoMora, @activo, @id_reserva)",
-                    [
-                        new SqlParameter("@fechaEntregaReal", a.FechaEntregaReal),
-                        new SqlParameter("@fechaEntregaDevolucion", (object?)a.FechaEntregaDevolucion ?? DBNull.Value),
-                        new SqlParameter("@combustibleSalida", a.CombustibleSalida),
-                        new SqlParameter("@combustibleEntrada", (object?)a.CombustibleEntrada ?? DBNull.Value),
-                        new SqlParameter("@kilometrajeSalida", a.KilometrajeSalida),
-                        new SqlParameter("@kilometrajeEntrada", (object?)a.KilometrajeEntrada ?? DBNull.Value),
-                        new SqlParameter("@montoMora", a.MontoMora),
-                        new SqlParameter("@activo", a.Activo),
-                        new SqlParameter("@id_reserva", a.IdReserva)
-                    ]);
+                return DatabaseHelper.ExecuteNonQuery(InsertSql, InsertParams(a));
             }
             else
             {
-                return DatabaseHelper.ExecuteNonQuery(
-                    @"UPDATE Alquiler SET fechaEntregaReal=@fechaEntregaReal, fechaEntregaDevolucion=@fechaEntregaDevolucion, combustibleSalida=@combustibleSalida, combustibleEntrada=@combustibleEntrada, kilometrajeSalida=@kilometrajeSalida, kilometrajeEntrada=@kilometrajeEntrada, montoMora=@montoMora, activo=@activo, id_reserva=@id_reserva WHERE id_alquiler=@id_alquiler",
-                    [
-                        new SqlParameter("@fechaEntregaReal", a.FechaEntregaReal),
-                        new SqlParameter("@fechaEntregaDevolucion", (object?)a.FechaEntregaDevolucion ?? DBNull.Value),
-                        new SqlParameter("@combustibleSalida", a.CombustibleSalida),
-                        new SqlParameter("@combustibleEntrada", (object?)a.CombustibleEntrada ?? DBNull.Value),
-                        new SqlParameter("@kilometrajeSalida", a.KilometrajeSalida),
-                        new SqlParameter("@kilometrajeEntrada", (object?)a.KilometrajeEntrada ?? DBNull.Value),
-                        new SqlParameter("@montoMora", a.MontoMora),
-                        new SqlParameter("@activo", a.Activo),
-                        new SqlParameter("@id_reserva", a.IdReserva),
-                        new SqlParameter("@id_alquiler", a.IdAlquiler)
-                    ]);
+                return DatabaseHelper.ExecuteNonQuery(UpdateSql, UpdateParams(a));
             }
+        }
+
+        /// <summary>
+        /// Same save, inside a caller-owned transaction so the rental and the reservation
+        /// state move together.
+        /// </summary>
+        public static int Guardar(Alquiler a, SqlConnection conn, SqlTransaction transaction)
+        {
+            if (a.IdAlquiler == 0)
+            {
+                return DatabaseHelper.ExecuteNonQuery(InsertSql, InsertParams(a), conn, transaction);
+            }
+            else
+            {
+                return DatabaseHelper.ExecuteNonQuery(UpdateSql, UpdateParams(a), conn, transaction);
+            }
+        }
+
+        private const string InsertSql =
+            @"INSERT INTO Alquiler (fechaEntregaReal, fechaEntregaDevolucion, combustibleSalida, combustibleEntrada, kilometrajeSalida, kilometrajeEntrada, montoMora, activo, id_reserva) 
+              VALUES (@fechaEntregaReal, @fechaEntregaDevolucion, @combustibleSalida, @combustibleEntrada, @kilometrajeSalida, @kilometrajeEntrada, @montoMora, @activo, @id_reserva)";
+
+        private const string UpdateSql =
+            @"UPDATE Alquiler SET fechaEntregaReal=@fechaEntregaReal, fechaEntregaDevolucion=@fechaEntregaDevolucion, combustibleSalida=@combustibleSalida, combustibleEntrada=@combustibleEntrada, kilometrajeSalida=@kilometrajeSalida, kilometrajeEntrada=@kilometrajeEntrada, montoMora=@montoMora, activo=@activo, id_reserva=@id_reserva WHERE id_alquiler=@id_alquiler";
+
+        private static SqlParameter[] InsertParams(Alquiler a)
+        {
+            return
+            [
+                new SqlParameter("@fechaEntregaReal", a.FechaEntregaReal),
+                new SqlParameter("@fechaEntregaDevolucion", (object?)a.FechaEntregaDevolucion ?? DBNull.Value),
+                new SqlParameter("@combustibleSalida", a.CombustibleSalida),
+                new SqlParameter("@combustibleEntrada", (object?)a.CombustibleEntrada ?? DBNull.Value),
+                new SqlParameter("@kilometrajeSalida", a.KilometrajeSalida),
+                new SqlParameter("@kilometrajeEntrada", (object?)a.KilometrajeEntrada ?? DBNull.Value),
+                new SqlParameter("@montoMora", a.MontoMora),
+                new SqlParameter("@activo", a.Activo),
+                new SqlParameter("@id_reserva", a.IdReserva)
+            ];
+        }
+
+        private static SqlParameter[] UpdateParams(Alquiler a)
+        {
+            return
+            [
+                new SqlParameter("@fechaEntregaReal", a.FechaEntregaReal),
+                new SqlParameter("@fechaEntregaDevolucion", (object?)a.FechaEntregaDevolucion ?? DBNull.Value),
+                new SqlParameter("@combustibleSalida", a.CombustibleSalida),
+                new SqlParameter("@combustibleEntrada", (object?)a.CombustibleEntrada ?? DBNull.Value),
+                new SqlParameter("@kilometrajeSalida", a.KilometrajeSalida),
+                new SqlParameter("@kilometrajeEntrada", (object?)a.KilometrajeEntrada ?? DBNull.Value),
+                new SqlParameter("@montoMora", a.MontoMora),
+                new SqlParameter("@activo", a.Activo),
+                new SqlParameter("@id_reserva", a.IdReserva),
+                new SqlParameter("@id_alquiler", a.IdAlquiler)
+            ];
         }
 
         public static bool Eliminar(int id)
