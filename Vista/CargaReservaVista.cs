@@ -9,11 +9,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
     {
         private readonly ReservaController _controller = new();
         private Reserva? _reservaEditar;
+        private int _idEmpleadoSesion;
+        private string _nombreEmpleadoSesion = "";
 
         public CargaReservaVista()
         {
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
+        }
+
+        /// <summary>
+        /// The employee who registers the reservation comes from the session, not from a
+        /// picker: the state and the owner are business invariants, not form fields.
+        /// </summary>
+        public void ConfigurarSesion(int idEmpleado, string nombreEmpleado)
+        {
+            _idEmpleadoSesion = idEmpleado;
+            _nombreEmpleadoSesion = nombreEmpleado ?? "";
+            lblEmpleadoValor.Text = string.IsNullOrWhiteSpace(_nombreEmpleadoSesion) ? "Sin sesión" : _nombreEmpleadoSesion;
         }
 
         private void CargarCombos()
@@ -27,16 +40,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbVehiculo.DataSource = vehiculos;
             cbVehiculo.DisplayMember = "Matricula";
             cbVehiculo.ValueMember = "IdVehiculo";
-
-            var empleados = _controller.ObtenerEmpleados();
-            cbEmpleado.DataSource = empleados;
-            cbEmpleado.DisplayMember = "Nombre";
-            cbEmpleado.ValueMember = "IdEmpleado";
-
-            var estados = _controller.ObtenerEstados();
-            cbEstado.DataSource = estados;
-            cbEstado.DisplayMember = "Nombre";
-            cbEstado.ValueMember = "IdEstado";
         }
 
         public void SetReserva(Reserva res)
@@ -48,8 +51,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             CargarCombos();
             cbCliente.SelectedValue = res.IdCliente;
             cbVehiculo.SelectedValue = res.IdVehiculo;
-            cbEmpleado.SelectedValue = res.IdEmpleado;
-            cbEstado.SelectedValue = res.IdEstado;
 
             numPrecioDiarioPactado.Value = res.PrecioDiarioPactado;
             dtpFechaInicio.Value = res.FechaInicioReserva;
@@ -75,8 +76,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 var res = _reservaEditar ?? new Reserva();
                 res.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
                 res.IdVehiculo = Convert.ToInt32(cbVehiculo.SelectedValue);
-                res.IdEmpleado = Convert.ToInt32(cbEmpleado.SelectedValue);
-                res.IdEstado = Convert.ToInt32(cbEstado.SelectedValue);
+                res.IdEmpleado = _reservaEditar?.IdEmpleado ?? _idEmpleadoSesion;
+                res.IdEstado = _reservaEditar?.IdEstado ?? EstadosReserva.Pendiente;
                 res.PrecioDiarioPactado = numPrecioDiarioPactado.Value;
                 res.FechaInicioReserva = dtpFechaInicio.Value;
                 res.FechaFinReserva = dtpFechaFin.Value;

@@ -24,13 +24,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblCliente = new Label();
             cbVehiculo = new ComboBox();
             lblVehiculo = new Label();
-            cbEmpleado = new ComboBox();
             lblEmpleado = new Label();
+            lblEmpleadoValor = new Label();
             lblPrecioDiarioPactado = new Label();
             numPrecioDiarioPactado = new NumericUpDown();
             panelDerecha = new Panel();
-            cbEstado = new ComboBox();
-            lblEstado = new Label();
             dtpFechaInicio = new DateTimePicker();
             lblFechaInicio = new Label();
             dtpFechaFin = new DateTimePicker();
@@ -65,8 +63,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(lblCliente);
             panelIzquierda.Controls.Add(cbVehiculo);
             panelIzquierda.Controls.Add(lblVehiculo);
-            panelIzquierda.Controls.Add(cbEmpleado);
             panelIzquierda.Controls.Add(lblEmpleado);
+            panelIzquierda.Controls.Add(lblEmpleadoValor);
             panelIzquierda.Controls.Add(lblPrecioDiarioPactado);
             panelIzquierda.Controls.Add(numPrecioDiarioPactado);
             panelIzquierda.Location = new Point(25, 70);
@@ -116,16 +114,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblVehiculo.TabIndex = 3;
             lblVehiculo.Text = "Vehiculo";
             //
-            // cbEmpleado
-            //
-            cbEmpleado.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbEmpleado.Font = new Font("Segoe UI", 9F);
-            cbEmpleado.FormattingEnabled = true;
-            cbEmpleado.Location = new Point(15, 135);
-            cbEmpleado.Name = "cbEmpleado";
-            cbEmpleado.Size = new Size(310, 23);
-            cbEmpleado.TabIndex = 4;
-            //
             // lblEmpleado
             //
             lblEmpleado.AutoSize = true;
@@ -136,6 +124,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblEmpleado.Size = new Size(62, 15);
             lblEmpleado.TabIndex = 5;
             lblEmpleado.Text = "Empleado";
+            //
+            // lblEmpleadoValor
+            //
+            lblEmpleadoValor.AutoSize = true;
+            lblEmpleadoValor.Font = new Font("Segoe UI", 9F);
+            lblEmpleadoValor.ForeColor = Color.FromArgb(51, 51, 76);
+            lblEmpleadoValor.Location = new Point(15, 135);
+            lblEmpleadoValor.Name = "lblEmpleadoValor";
+            lblEmpleadoValor.Size = new Size(90, 15);
+            lblEmpleadoValor.TabIndex = 4;
+            lblEmpleadoValor.Text = "Sin sesión";
             //
             // lblPrecioDiarioPactado
             //
@@ -162,8 +161,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // panelDerecha
             //
             panelDerecha.BackColor = Color.White;
-            panelDerecha.Controls.Add(cbEstado);
-            panelDerecha.Controls.Add(lblEstado);
             panelDerecha.Controls.Add(dtpFechaInicio);
             panelDerecha.Controls.Add(lblFechaInicio);
             panelDerecha.Controls.Add(dtpFechaFin);
@@ -173,65 +170,44 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelDerecha.Size = new Size(340, 230);
             panelDerecha.TabIndex = 3;
             //
-            // cbEstado
-            //
-            cbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbEstado.Font = new Font("Segoe UI", 9F);
-            cbEstado.FormattingEnabled = true;
-            cbEstado.Location = new Point(15, 35);
-            cbEstado.Name = "cbEstado";
-            cbEstado.Size = new Size(305, 23);
-            cbEstado.TabIndex = 0;
-            //
-            // lblEstado
-            //
-            lblEstado.AutoSize = true;
-            lblEstado.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblEstado.ForeColor = Color.FromArgb(51, 51, 76);
-            lblEstado.Location = new Point(15, 15);
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(43, 15);
-            lblEstado.TabIndex = 1;
-            lblEstado.Text = "Estado";
-            //
             // dtpFechaInicio
             //
             dtpFechaInicio.Font = new Font("Segoe UI", 9F);
             dtpFechaInicio.Format = DateTimePickerFormat.Short;
-            dtpFechaInicio.Location = new Point(15, 85);
+            dtpFechaInicio.Location = new Point(15, 35);
             dtpFechaInicio.Name = "dtpFechaInicio";
             dtpFechaInicio.Size = new Size(305, 23);
-            dtpFechaInicio.TabIndex = 2;
+            dtpFechaInicio.TabIndex = 0;
             //
             // lblFechaInicio
             //
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblFechaInicio.ForeColor = Color.FromArgb(51, 51, 76);
-            lblFechaInicio.Location = new Point(15, 65);
+            lblFechaInicio.Location = new Point(15, 15);
             lblFechaInicio.Name = "lblFechaInicio";
             lblFechaInicio.Size = new Size(75, 15);
-            lblFechaInicio.TabIndex = 3;
+            lblFechaInicio.TabIndex = 1;
             lblFechaInicio.Text = "Fecha Inicio";
             //
             // dtpFechaFin
             //
             dtpFechaFin.Font = new Font("Segoe UI", 9F);
             dtpFechaFin.Format = DateTimePickerFormat.Short;
-            dtpFechaFin.Location = new Point(15, 135);
+            dtpFechaFin.Location = new Point(15, 85);
             dtpFechaFin.Name = "dtpFechaFin";
             dtpFechaFin.Size = new Size(305, 23);
-            dtpFechaFin.TabIndex = 4;
+            dtpFechaFin.TabIndex = 2;
             //
             // lblFechaFin
             //
             lblFechaFin.AutoSize = true;
             lblFechaFin.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblFechaFin.ForeColor = Color.FromArgb(51, 51, 76);
-            lblFechaFin.Location = new Point(15, 115);
+            lblFechaFin.Location = new Point(15, 65);
             lblFechaFin.Name = "lblFechaFin";
             lblFechaFin.Size = new Size(62, 15);
-            lblFechaFin.TabIndex = 5;
+            lblFechaFin.TabIndex = 3;
             lblFechaFin.Text = "Fecha Fin";
             //
             // btnGuardar
@@ -273,13 +249,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblCliente;
         private ComboBox cbVehiculo;
         private Label lblVehiculo;
-        private ComboBox cbEmpleado;
         private Label lblEmpleado;
+        private Label lblEmpleadoValor;
         private Label lblPrecioDiarioPactado;
         private NumericUpDown numPrecioDiarioPactado;
         private Panel panelDerecha;
-        private ComboBox cbEstado;
-        private Label lblEstado;
         private DateTimePicker dtpFechaInicio;
         private Label lblFechaInicio;
         private DateTimePicker dtpFechaFin;

@@ -31,11 +31,15 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ReporteVista reporteVista;
 
         private readonly int _idRol;
+        private readonly int _idEmpleado;
+        private readonly string _nombreEmpleado;
 
         public PrincipalForm(Empleado? empleado = null)
         {
             InitializeComponent();
             _idRol = empleado?.IdRol ?? 0;
+            _idEmpleado = empleado?.IdEmpleado ?? 0;
+            _nombreEmpleado = empleado == null ? "" : $"{empleado.Nombre} {empleado.Apellido}".Trim();
             cargaVehiculo = new CargaVehiculoVista();
             listaVehiculo = new ListaVehiculoVista();
             cargaMarca = new CargaMarcaVista();
@@ -59,6 +63,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cargaRol = new CargaRolVista();
             listaRol = new ListaRolVista();
             reporteVista = new ReporteVista();
+            cargaReserva.ConfigurarSesion(_idEmpleado, _nombreEmpleado);
             ConfigurarMenuPorRol();
             MostrarUserControl(cargaVehiculo);
             cargaVehiculo.LimpiarFormulario();
