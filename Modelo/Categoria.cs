@@ -64,6 +64,18 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return rows > 0;
         }
 
+        public static bool EsNombreDuplicado(string nombre, int? idExcluir = null)
+        {
+            string query = "SELECT COUNT(*) FROM Categoria WHERE nombre = @nombre";
+            var parameters = new List<SqlParameter> { new SqlParameter("@nombre", nombre) };
+            if (idExcluir.HasValue)
+            {
+                query += " AND id_categoria <> @idExcluir";
+                parameters.Add(new SqlParameter("@idExcluir", idExcluir.Value));
+            }
+            return Convert.ToInt32(DatabaseHelper.ExecuteScalar(query, parameters.ToArray())) > 0;
+        }
+
         private static Categoria Map(DataRow row)
         {
             return new Categoria

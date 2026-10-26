@@ -61,6 +61,18 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return rows > 0;
         }
 
+        public static bool EsNombreDuplicado(string nombre, int? idExcluir = null)
+        {
+            string query = "SELECT COUNT(*) FROM Marca WHERE marca = @marca";
+            var parameters = new List<SqlParameter> { new SqlParameter("@marca", nombre) };
+            if (idExcluir.HasValue)
+            {
+                query += " AND id_marca <> @idExcluir";
+                parameters.Add(new SqlParameter("@idExcluir", idExcluir.Value));
+            }
+            return Convert.ToInt32(DatabaseHelper.ExecuteScalar(query, parameters.ToArray())) > 0;
+        }
+
         private static Marca Map(DataRow row)
         {
             return new Marca
