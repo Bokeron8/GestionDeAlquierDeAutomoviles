@@ -75,3 +75,17 @@ ALTER TABLE Danio ADD CONSTRAINT PK_Danio PRIMARY KEY (id_danio);
 ALTER TABLE Danio ADD CONSTRAINT FK_Danio_Alquiler FOREIGN KEY (id_alquiler) REFERENCES Alquiler(id_alquiler);
 ALTER TABLE Danio ADD CONSTRAINT CK_Danio_Activo CHECK (activo IN (0, 1));
 ALTER TABLE Danio ADD CONSTRAINT DF_Danio_Activo DEFAULT 1 FOR activo;
+
+-- 12. Unicidad de nombres en catálogos
+-- Verificar antes de ejecutar (si devuelve filas, hay duplicados y el ALTER va a fallar):
+--   SELECT marca,  COUNT(*) FROM Marca     GROUP BY marca  HAVING COUNT(*) > 1;
+--   SELECT nombre, COUNT(*) FROM Categoria GROUP BY nombre HAVING COUNT(*) > 1;
+--   SELECT nombre, COUNT(*) FROM Estado    GROUP BY nombre HAVING COUNT(*) > 1;
+--   SELECT rol,    COUNT(*) FROM Rol       GROUP BY rol    HAVING COUNT(*) > 1;
+--   SELECT id_marca, modelo, COUNT(*) FROM Modelo GROUP BY id_marca, modelo HAVING COUNT(*) > 1;
+
+ALTER TABLE Marca     ADD CONSTRAINT UQ_Marca_Marca           UNIQUE (marca);
+ALTER TABLE Categoria ADD CONSTRAINT UQ_Categoria_Nombre      UNIQUE (nombre);
+ALTER TABLE Estado    ADD CONSTRAINT UQ_Estado_Nombre         UNIQUE (nombre);
+ALTER TABLE Rol       ADD CONSTRAINT UQ_Rol_Rol               UNIQUE (rol);
+ALTER TABLE Modelo    ADD CONSTRAINT UQ_Modelo_Marca_Modelo   UNIQUE (id_marca, modelo);
