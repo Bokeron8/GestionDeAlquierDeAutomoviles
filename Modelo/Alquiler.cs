@@ -18,6 +18,12 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public bool Activo { get; set; }
         public int IdReserva { get; set; }
 
+        /// <summary>
+        /// Lifecycle label for the grid: a rental is "En curso" until it is returned and
+        /// "Devuelto" once the return data is recorded.
+        /// </summary>
+        public string Estado => Activo ? "En curso" : "Devuelto";
+
         public static List<Alquiler> ObtenerTodos()
         {
             var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Alquiler ORDER BY fechaEntregaReal DESC");
@@ -35,6 +41,36 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 "SELECT * FROM Alquiler WHERE id_alquiler = @id",
                 [new SqlParameter("@id", id)]);
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
+        }
+
+        public static ContratoAlquiler? ObtenerContrato(int idAlquiler)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT a.id_alquiler, a.id_reserva, a.fechaEntregaReal, a.kilometrajeSalida, a.activo,
+                         r.fecha_fin_reserva, r.precio_diario_pactado,
+                         c.nombre + ' ' + c.apellido AS cliente,
+                         v.matricula AS vehiculo
+                  FROM Alquiler a
+                  INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  WHERE a.id_alquiler = @id",
+                [new SqlParameter("@id", idAlquiler)]);
+            if (dt.Rows.Count == 0) return null;
+
+            var row = dt.Rows[0];
+            return new ContratoAlquiler
+            {
+                IdAlquiler = Convert.ToInt32(row["id_alquiler"]),
+                IdReserva = Convert.ToInt32(row["id_reserva"]),
+                FechaEntregaReal = Convert.ToDateTime(row["fechaEntregaReal"]),
+                FechaFinReserva = Convert.ToDateTime(row["fecha_fin_reserva"]),
+                PrecioDiarioPactado = Convert.ToDecimal(row["precio_diario_pactado"]),
+                KilometrajeSalida = Convert.ToDecimal(row["kilometrajeSalida"]),
+                Activo = Convert.ToBoolean(row["activo"]),
+                Cliente = row["cliente"].ToString() ?? "",
+                Vehiculo = row["vehiculo"].ToString() ?? ""
+            };
         }
 
         /// <summary>
@@ -121,14 +157,6 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 new SqlParameter("@id_reserva", a.IdReserva),
                 new SqlParameter("@id_alquiler", a.IdAlquiler)
             ];
-        }
-
-        public static bool Eliminar(int id)
-        {
-            int rows = DatabaseHelper.ExecuteNonQuery(
-                "UPDATE Alquiler SET activo = 0 WHERE id_alquiler = @id",
-                [new SqlParameter("@id", id)]);
-            return rows > 0;
         }
 
         private static Alquiler Map(DataRow row)

@@ -20,7 +20,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo = new Label();
             dgvAlquileres = new DataGridView();
             btnEditar = new Button();
-            btnEliminar = new Button();
+            btnDevolucion = new Button();
             btnAgregar = new Button();
             txtBuscar = new TextBox();
             lblBuscar = new Label();
@@ -90,19 +90,19 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = false;
             //
-            // btnEliminar
+            // btnDevolucion
             //
-            btnEliminar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnEliminar.BackColor = Color.FromArgb(180, 40, 40);
-            btnEliminar.FlatStyle = FlatStyle.Flat;
-            btnEliminar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(315, 395);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(130, 35);
-            btnEliminar.TabIndex = 4;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = false;
+            btnDevolucion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnDevolucion.BackColor = Color.FromArgb(30, 110, 60);
+            btnDevolucion.FlatStyle = FlatStyle.Flat;
+            btnDevolucion.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDevolucion.ForeColor = Color.White;
+            btnDevolucion.Location = new Point(315, 395);
+            btnDevolucion.Name = "btnDevolucion";
+            btnDevolucion.Size = new Size(200, 35);
+            btnDevolucion.TabIndex = 4;
+            btnDevolucion.Text = "Registrar Devolución";
+            btnDevolucion.UseVisualStyleBackColor = false;
             //
             // txtBuscar
             //
@@ -134,7 +134,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(dgvAlquileres);
             Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
-            Controls.Add(btnEliminar);
+            Controls.Add(btnDevolucion);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
             Name = "ListaAlquilerVista";
@@ -150,7 +150,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private DataGridView dgvAlquileres;
         private Button btnEditar;
         private Button btnAgregar;
-        private Button btnEliminar;
+        private Button btnDevolucion;
         private TextBox txtBuscar;
         private Label lblBuscar;
     }

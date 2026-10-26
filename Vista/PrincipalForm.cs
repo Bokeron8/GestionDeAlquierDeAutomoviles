@@ -22,6 +22,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ListaReservaVista listaReserva;
         public CargaAlquilerVista cargaAlquiler;
         public ListaAlquilerVista listaAlquiler;
+        public DevolucionVista devolucionVista;
         public CargaDanioVista cargaDanio;
         public ListaDanioVista listaDanio;
         public CargaEstadoVista cargaEstado;
@@ -56,6 +57,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             listaReserva = new ListaReservaVista();
             cargaAlquiler = new CargaAlquilerVista();
             listaAlquiler = new ListaAlquilerVista();
+            devolucionVista = new DevolucionVista();
             cargaDanio = new CargaDanioVista();
             listaDanio = new ListaDanioVista();
             cargaEstado = new CargaEstadoVista();
@@ -176,6 +178,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             cargaAlquiler.SetAlquiler(id);
             MostrarUserControl(cargaAlquiler);
+        }
+
+        public void CargarDevolucion(int idAlquiler)
+        {
+            devolucionVista.SetAlquiler(idAlquiler);
+            MostrarUserControl(devolucionVista);
         }
 
         public void MostrarCarga(UserControl uc)
