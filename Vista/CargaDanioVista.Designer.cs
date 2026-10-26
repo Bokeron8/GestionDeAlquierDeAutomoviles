@@ -28,6 +28,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblEvidencia = new Label();
             txtEvidencia = new TextBox();
             btnGuardar = new Button();
+            btnExaminar = new Button();
             SuspendLayout();
             //
             // lblTitulo
@@ -137,9 +138,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.Location = new Point(265, 345);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
-            btnGuardar.TabIndex = 10;
+            btnGuardar.TabIndex = 11;
             btnGuardar.Text = "Registrar Daño";
             btnGuardar.UseVisualStyleBackColor = false;
+            //
+            // btnExaminar
+            //
+            btnExaminar.Font = new Font("Segoe UI", 10F);
+            btnExaminar.Location = new Point(450, 300);
+            btnExaminar.Name = "btnExaminar";
+            btnExaminar.Size = new Size(100, 25);
+            btnExaminar.TabIndex = 10;
+            btnExaminar.Text = "Examinar...";
             //
             // CargaDanioVista
             //
@@ -156,6 +166,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(txtDescripcion);
             Controls.Add(lblEvidencia);
             Controls.Add(txtEvidencia);
+            Controls.Add(btnExaminar);
             Controls.Add(btnGuardar);
             Name = "CargaDanioVista";
             Size = new Size(750, 420);
@@ -176,5 +187,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblEvidencia;
         private TextBox txtEvidencia;
         private Button btnGuardar;
+        private Button btnExaminar;
     }
 }

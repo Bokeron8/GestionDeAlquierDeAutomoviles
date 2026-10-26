@@ -149,6 +149,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             MostrarUserControl(cargaCategoria);
         }
 
+        public void CargarEdicionEstado(Estado estado)
+        {
+            cargaEstado.SetEstado(estado);
+            MostrarUserControl(cargaEstado);
+        }
+
+        public void CargarEdicionRol(Rol rol)
+        {
+            cargaRol.SetRol(rol);
+            MostrarUserControl(cargaRol);
+        }
+
+        public void CargarEdicionDanio(Danio danio)
+        {
+            cargaDanio.SetDanio(danio);
+            MostrarUserControl(cargaDanio);
+        }
+
         public void CargarEdicionAlquiler(int id)
         {
             cargaAlquiler.SetAlquiler(id);
@@ -175,11 +193,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarDaniosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaDanio);
+            listaDanio.Refrescar();
         }
 
         private void ListarEstadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaEstado);
+            listaEstado.Refrescar();
         }
 
         private void CerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -190,6 +210,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void ListarRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(listaRol);
+            listaRol.Refrescar();
         }
 
         private void MostrarReporteToolStripMenuItem_Click(object sender, EventArgs e)
