@@ -21,6 +21,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvReservas = new DataGridView();
             btnEditar = new Button();
             btnEliminar = new Button();
+            btnConfirmar = new Button();
             btnAgregar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvReservas).BeginInit();
             SuspendLayout();
@@ -99,8 +100,22 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(130, 35);
             btnEliminar.TabIndex = 4;
-            btnEliminar.Text = "Eliminar";
+            btnEliminar.Text = "Dar de baja";
             btnEliminar.UseVisualStyleBackColor = false;
+            //
+            // btnConfirmar
+            //
+            btnConfirmar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnConfirmar.BackColor = Color.FromArgb(30, 110, 60);
+            btnConfirmar.FlatStyle = FlatStyle.Flat;
+            btnConfirmar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnConfirmar.ForeColor = Color.White;
+            btnConfirmar.Location = new Point(460, 395);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Size = new Size(130, 35);
+            btnConfirmar.TabIndex = 5;
+            btnConfirmar.Text = "Confirmar";
+            btnConfirmar.UseVisualStyleBackColor = false;
             //
             // ListaReservaVista
             //
@@ -112,6 +127,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
+            Controls.Add(btnConfirmar);
             Name = "ListaReservaVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvReservas).EndInit();
@@ -126,5 +142,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnEditar;
         private Button btnAgregar;
         private Button btnEliminar;
+        private Button btnConfirmar;
     }
 }

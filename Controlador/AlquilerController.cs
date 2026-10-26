@@ -122,11 +122,6 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Alquiler.ObtenerPorId(id);
         }
 
-        public int Guardar(Alquiler alq)
-        {
-            return Alquiler.Guardar(alq);
-        }
-
         public bool RegistrarDevolucionTransaccional(int idAlquiler, DateTime fechaDevolucion, decimal combustibleEntrada, decimal kilometrajeEntrada, decimal montoMora)
         {
             using (var conn = DatabaseHelper.GetConnection())

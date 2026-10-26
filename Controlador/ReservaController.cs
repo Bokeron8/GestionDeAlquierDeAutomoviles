@@ -104,11 +104,6 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Reserva.Guardar(res);
         }
 
-        public bool Eliminar(int id)
-        {
-            return Reserva.Eliminar(id);
-        }
-
         public List<Cliente> ObtenerClientes()
         {
             return Cliente.ObtenerTodos();

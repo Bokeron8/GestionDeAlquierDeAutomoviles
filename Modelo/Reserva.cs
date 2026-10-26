@@ -168,14 +168,6 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             }
         }
 
-        public static bool Eliminar(int id)
-        {
-            int rows = DatabaseHelper.ExecuteNonQuery(
-                "UPDATE Reserva SET activo = 0 WHERE id_reserva = @id",
-                [new SqlParameter("@id", id)]);
-            return rows > 0;
-        }
-
         /// <summary>
         /// Soft-cancels a reservation: it stops occupying the vehicle and keeps the
         /// Cancelada state in history. The WHERE clause carries the guard so a
