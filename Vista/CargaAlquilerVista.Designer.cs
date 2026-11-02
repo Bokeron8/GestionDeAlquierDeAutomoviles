@@ -26,6 +26,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblKilometrajeSalida = new Label();
             txtKilometrajeSalida = new TextBox();
             btnGuardar = new Button();
+            lblResumen = new Label();
+            lblAvisoLicencia = new Label();
             SuspendLayout();
             //
             // lblTitulo
@@ -119,6 +121,29 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.Text = "Registrar Entrega";
             btnGuardar.UseVisualStyleBackColor = false;
             //
+            // lblResumen
+            //
+            lblResumen.BackColor = Color.White;
+            lblResumen.BorderStyle = BorderStyle.FixedSingle;
+            lblResumen.Font = new Font("Segoe UI", 8.25F);
+            lblResumen.ForeColor = Color.FromArgb(51, 51, 76);
+            lblResumen.Location = new Point(470, 62);
+            lblResumen.Name = "lblResumen";
+            lblResumen.Size = new Size(255, 205);
+            lblResumen.TabIndex = 9;
+            lblResumen.Text = "";
+            //
+            // lblAvisoLicencia
+            //
+            lblAvisoLicencia.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            lblAvisoLicencia.ForeColor = Color.FromArgb(180, 40, 40);
+            lblAvisoLicencia.Location = new Point(40, 245);
+            lblAvisoLicencia.Name = "lblAvisoLicencia";
+            lblAvisoLicencia.Size = new Size(400, 32);
+            lblAvisoLicencia.TabIndex = 10;
+            lblAvisoLicencia.Text = "";
+            lblAvisoLicencia.Visible = false;
+            //
             // CargaAlquilerVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -133,6 +158,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(lblKilometrajeSalida);
             Controls.Add(txtKilometrajeSalida);
             Controls.Add(btnGuardar);
+            Controls.Add(lblResumen);
+            Controls.Add(lblAvisoLicencia);
             Name = "CargaAlquilerVista";
             Size = new Size(750, 300);
             ResumeLayout(false);
@@ -150,5 +177,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblKilometrajeSalida;
         private TextBox txtKilometrajeSalida;
         private Button btnGuardar;
+        private Label lblResumen;
+        private Label lblAvisoLicencia;
     }
 }

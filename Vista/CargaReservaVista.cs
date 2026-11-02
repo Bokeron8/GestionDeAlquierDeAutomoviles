@@ -16,6 +16,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
+
+            // The summary card follows every input that changes what the operator is
+            // about to commit to: who, which car, which dates and at what price.
+            cbCliente.SelectedIndexChanged += (_, _) => ActualizarResumen();
+            cbVehiculo.SelectedIndexChanged += (_, _) => ActualizarResumen();
+            numPrecioDiarioPactado.ValueChanged += (_, _) => ActualizarResumen();
+            dtpFechaInicio.ValueChanged += (_, _) => ActualizarResumen();
+            dtpFechaFin.ValueChanged += (_, _) => ActualizarResumen();
         }
 
         /// <summary>
@@ -27,18 +35,21 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             _idEmpleadoSesion = idEmpleado;
             _nombreEmpleadoSesion = nombreEmpleado ?? "";
             lblEmpleadoValor.Text = string.IsNullOrWhiteSpace(_nombreEmpleadoSesion) ? "Sin sesión" : _nombreEmpleadoSesion;
+            ActualizarResumen();
         }
 
         private void CargarCombos()
         {
+            // Both pickers show the identity label instead of the raw name, so the
+            // operator distinguishes two clients with the same name by their DNI.
             var clientes = _controller.ObtenerClientes();
             cbCliente.DataSource = clientes;
-            cbCliente.DisplayMember = "Nombre";
+            cbCliente.DisplayMember = "Descripcion";
             cbCliente.ValueMember = "IdCliente";
 
             var vehiculos = _controller.ObtenerVehiculos();
             cbVehiculo.DataSource = vehiculos;
-            cbVehiculo.DisplayMember = "Matricula";
+            cbVehiculo.DisplayMember = "Descripcion";
             cbVehiculo.ValueMember = "IdVehiculo";
         }
 
@@ -55,6 +66,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             numPrecioDiarioPactado.Value = res.PrecioDiarioPactado;
             dtpFechaInicio.Value = res.FechaInicioReserva;
             dtpFechaFin.Value = res.FechaFinReserva;
+
+            ActualizarResumen();
         }
 
         public void LimpiarFormulario()
@@ -67,6 +80,78 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaInicio.Value = DateTime.Today;
             dtpFechaFin.Value = DateTime.Today.AddDays(1);
             CargarCombos();
+            ActualizarResumen();
+        }
+
+        /// <summary>
+        /// Read-only card that mirrors the reservation about to be saved. It exists so the
+        /// operator confirms the identity, the vehicle, the dates and the estimated total
+        /// instead of trusting a combo box selection.
+        /// </summary>
+        private void ActualizarResumen()
+        {
+            var cliente = cbCliente.SelectedItem as Cliente;
+            var vehiculo = cbVehiculo.SelectedItem as Vehiculo;
+
+            string clienteTexto = "Cliente: —";
+            string contactoTexto = "";
+            if (cliente != null)
+            {
+                clienteTexto = $"Cliente: {cliente.Descripcion}";
+                contactoTexto = $"Tel: {cliente.Telefono} · Lic. {cliente.NroLicencia} vence {cliente.VencimientoLicencia:dd/MM/yyyy}";
+            }
+
+            string vehiculoTexto = "Vehículo: —";
+            string detalleVehiculoTexto = "";
+            if (vehiculo != null)
+            {
+                vehiculoTexto = $"Vehículo: {vehiculo.Descripcion}";
+                detalleVehiculoTexto = $"Color: {vehiculo.Color} · Categoría: {vehiculo.NombreCategoria}";
+            }
+
+            int dias = DiasPactados();
+            decimal precioDiario = numPrecioDiarioPactado.Value;
+            decimal total = dias * precioDiario;
+            string empleado = _reservaEditar != null && !string.IsNullOrWhiteSpace(_reservaEditar.NombreEmpleado)
+                ? _reservaEditar.NombreEmpleado
+                : _nombreEmpleadoSesion;
+            string estado = _reservaEditar != null && !string.IsNullOrWhiteSpace(_reservaEditar.NombreEstado)
+                ? _reservaEditar.NombreEstado
+                : "Pendiente";
+
+            lblResumen.Text =
+                $"{clienteTexto}{Environment.NewLine}" +
+                $"{contactoTexto}{Environment.NewLine}" +
+                $"{vehiculoTexto}{Environment.NewLine}" +
+                $"{detalleVehiculoTexto}{Environment.NewLine}" +
+                $"Del {dtpFechaInicio.Value:dd/MM/yyyy} al {dtpFechaFin.Value:dd/MM/yyyy} · {dias} día(s){Environment.NewLine}" +
+                $"Precio diario: $ {precioDiario:0.00}{Environment.NewLine}" +
+                $"Total estimado: $ {total:0.00}{Environment.NewLine}" +
+                $"Empleado: {empleado} · Estado: {estado}";
+
+            AdvertirLicencia(cliente);
+        }
+
+        /// <summary>
+        /// A licence that expired before the reservation starts is exactly the human error
+        /// the card has to surface before the reservation is saved.
+        /// </summary>
+        private void AdvertirLicencia(Cliente? cliente)
+        {
+            bool vencida = cliente != null && cliente.VencimientoLicencia.Date < dtpFechaInicio.Value.Date;
+            lblAvisoLicencia.Visible = vencida;
+            lblAvisoLicencia.Text = vencida && cliente != null
+                ? $"Licencia vencida el {cliente.VencimientoLicencia:dd/MM/yyyy}. Verificar antes de alquilar."
+                : "";
+        }
+
+        /// <summary>
+        /// Days between the agreed extremes. A same-day reservation still counts as one
+        /// day, which is the assumption recorded in the feature document.
+        /// </summary>
+        private int DiasPactados()
+        {
+            return Math.Max(1, (dtpFechaFin.Value.Date - dtpFechaInicio.Value.Date).Days);
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

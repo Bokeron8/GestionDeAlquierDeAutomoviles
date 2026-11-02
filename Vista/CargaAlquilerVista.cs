@@ -14,13 +14,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
+            cbReserva.SelectedIndexChanged += (_, _) => ActualizarResumen();
         }
 
         private void CargarReservas()
         {
+            // The picker shows client, vehicle and dates instead of the reservation number,
+            // so the operator cannot hand over the wrong car.
             var reservas = _controller.ObtenerReservasDisponibles(_alquilerEditar?.IdReserva ?? 0);
             cbReserva.DataSource = reservas;
-            cbReserva.DisplayMember = "IdReserva";
+            cbReserva.DisplayMember = "DescripcionCombo";
             cbReserva.ValueMember = "IdReserva";
         }
 
@@ -38,6 +41,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
             txtCombustibleSalida.Text = alq.CombustibleSalida.ToString();
             txtKilometrajeSalida.Text = alq.KilometrajeSalida.ToString();
+
+            ActualizarResumen();
         }
 
         public void LimpiarFormulario()
@@ -48,6 +53,70 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCombustibleSalida.Clear();
             txtKilometrajeSalida.Clear();
             CargarReservas();
+            ActualizarResumen();
+        }
+
+        /// <summary>
+        /// Read-only card with everything the operator must verify before handing over the
+        /// car: who is renting, which vehicle, the agreed dates and the estimated total.
+        /// </summary>
+        private void ActualizarResumen()
+        {
+            var reserva = cbReserva.SelectedItem as Reserva;
+            if (reserva == null)
+            {
+                lblResumen.Text = "Seleccione una reserva confirmada para ver el detalle.";
+                lblAvisoLicencia.Visible = false;
+                lblAvisoLicencia.Text = "";
+                return;
+            }
+
+            var cliente = _controller.ObtenerCliente(reserva.IdCliente);
+            var vehiculo = _controller.ObtenerVehiculo(reserva.IdVehiculo);
+
+            string clienteTexto = "Cliente: —";
+            string contactoTexto = "";
+            if (cliente != null)
+            {
+                clienteTexto = $"Cliente: {cliente.Descripcion}";
+                contactoTexto = $"Tel: {cliente.Telefono} · Lic. {cliente.NroLicencia} vence {cliente.VencimientoLicencia:dd/MM/yyyy}";
+            }
+
+            string vehiculoTexto = "Vehículo: —";
+            string detalleVehiculoTexto = "";
+            if (vehiculo != null)
+            {
+                vehiculoTexto = $"Vehículo: {vehiculo.Descripcion}";
+                detalleVehiculoTexto = $"Color: {vehiculo.Color} · Categoría: {vehiculo.NombreCategoria}";
+            }
+
+            int dias = Math.Max(1, (reserva.FechaFinReserva.Date - reserva.FechaInicioReserva.Date).Days);
+            decimal total = dias * reserva.PrecioDiarioPactado;
+
+            lblResumen.Text =
+                $"Reserva #{reserva.IdReserva} · {reserva.NombreEstado}{Environment.NewLine}" +
+                $"{clienteTexto}{Environment.NewLine}" +
+                $"{contactoTexto}{Environment.NewLine}" +
+                $"{vehiculoTexto}{Environment.NewLine}" +
+                $"{detalleVehiculoTexto}{Environment.NewLine}" +
+                $"Del {reserva.FechaInicioReserva:dd/MM/yyyy} al {reserva.FechaFinReserva:dd/MM/yyyy} · {dias} día(s){Environment.NewLine}" +
+                $"Precio diario: $ {reserva.PrecioDiarioPactado:0.00}{Environment.NewLine}" +
+                $"Total estimado: $ {total:0.00}";
+
+            AdvertirLicencia(reserva, cliente);
+        }
+
+        /// <summary>
+        /// A licence that expired before the reservation starts is exactly the human error
+        /// the card has to surface before the car leaves the lot.
+        /// </summary>
+        private void AdvertirLicencia(Reserva reserva, Cliente? cliente)
+        {
+            bool vencida = cliente != null && cliente.VencimientoLicencia.Date < reserva.FechaInicioReserva.Date;
+            lblAvisoLicencia.Visible = vencida;
+            lblAvisoLicencia.Text = vencida && cliente != null
+                ? $"Licencia vencida el {cliente.VencimientoLicencia:dd/MM/yyyy}. Verificar antes de entregar."
+                : "";
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

@@ -34,6 +34,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaFin = new DateTimePicker();
             lblFechaFin = new Label();
             btnGuardar = new Button();
+            lblResumen = new Label();
+            lblAvisoLicencia = new Label();
             ((System.ComponentModel.ISupportInitialize)numPrecioDiarioPactado).BeginInit();
             SuspendLayout();
             //
@@ -67,6 +69,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(lblEmpleadoValor);
             panelIzquierda.Controls.Add(lblPrecioDiarioPactado);
             panelIzquierda.Controls.Add(numPrecioDiarioPactado);
+            panelIzquierda.Controls.Add(lblAvisoLicencia);
             panelIzquierda.Location = new Point(25, 70);
             panelIzquierda.Name = "panelIzquierda";
             panelIzquierda.Size = new Size(345, 280);
@@ -158,6 +161,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             numPrecioDiarioPactado.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numPrecioDiarioPactado.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
             //
+            // lblAvisoLicencia
+            //
+            lblAvisoLicencia.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            lblAvisoLicencia.ForeColor = Color.FromArgb(180, 40, 40);
+            lblAvisoLicencia.Location = new Point(15, 243);
+            lblAvisoLicencia.Name = "lblAvisoLicencia";
+            lblAvisoLicencia.Size = new Size(310, 32);
+            lblAvisoLicencia.TabIndex = 8;
+            lblAvisoLicencia.Text = "";
+            lblAvisoLicencia.Visible = false;
+            //
             // panelDerecha
             //
             panelDerecha.BackColor = Color.White;
@@ -165,6 +179,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelDerecha.Controls.Add(lblFechaInicio);
             panelDerecha.Controls.Add(dtpFechaFin);
             panelDerecha.Controls.Add(lblFechaFin);
+            panelDerecha.Controls.Add(lblResumen);
             panelDerecha.Location = new Point(385, 70);
             panelDerecha.Name = "panelDerecha";
             panelDerecha.Size = new Size(340, 230);
@@ -209,6 +224,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblFechaFin.Size = new Size(62, 15);
             lblFechaFin.TabIndex = 3;
             lblFechaFin.Text = "Fecha Fin";
+            //
+            // lblResumen
+            //
+            lblResumen.BackColor = Color.White;
+            lblResumen.BorderStyle = BorderStyle.FixedSingle;
+            lblResumen.Font = new Font("Segoe UI", 8.25F);
+            lblResumen.ForeColor = Color.FromArgb(51, 51, 76);
+            lblResumen.Location = new Point(15, 115);
+            lblResumen.Name = "lblResumen";
+            lblResumen.Size = new Size(305, 110);
+            lblResumen.TabIndex = 4;
+            lblResumen.Text = "";
             //
             // btnGuardar
             //
@@ -259,5 +286,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private DateTimePicker dtpFechaFin;
         private Label lblFechaFin;
         private Button btnGuardar;
+        private Label lblResumen;
+        private Label lblAvisoLicencia;
     }
 }

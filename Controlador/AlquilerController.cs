@@ -182,5 +182,23 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
         {
             return Reserva.ObtenerDisponiblesParaAlquiler(idReservaActual);
         }
+
+        /// <summary>
+        /// Full client record for the delivery summary card, so the operator sees the
+        /// phone and the licence before handing over the car.
+        /// </summary>
+        public Cliente? ObtenerCliente(int idCliente)
+        {
+            return Cliente.ObtenerPorId(idCliente);
+        }
+
+        /// <summary>
+        /// Full vehicle record for the delivery summary card, including the resolved
+        /// brand, model and category names.
+        /// </summary>
+        public Vehiculo? ObtenerVehiculo(int idVehiculo)
+        {
+            return Vehiculo.ObtenerPorId(idVehiculo);
+        }
     }
 }

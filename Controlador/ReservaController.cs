@@ -106,12 +106,12 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
 
         public List<Cliente> ObtenerClientes()
         {
-            return Cliente.ObtenerTodos();
+            return Cliente.ObtenerActivos();
         }
 
         public List<Vehiculo> ObtenerVehiculos()
         {
-            return Vehiculo.ObtenerTodos();
+            return Vehiculo.ObtenerActivos();
         }
     }
 }
