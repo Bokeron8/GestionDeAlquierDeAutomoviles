@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using GestionDeAlquierDeAutomoviles.Controlador;
 using GestionDeAlquierDeAutomoviles.Modelo;
@@ -15,6 +16,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+            dgvEmpleados.SelectionChanged += (s, e) => ActualizarBotonBaja();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -26,37 +28,95 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
-            string termino = txtBuscar.Text.Trim();
-            var lista = string.IsNullOrEmpty(termino)
-                ? _controller.Listar()
-                : _controller.Buscar(termino);
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
+            var lista = _controller.Listar();
+            if (termino.Length > 0)
+            {
+                lista = lista.Where(e =>
+                    e.IdEmpleado.ToString().Contains(termino) ||
+                    FiltroBusqueda.Contiene(e.Apellido, termino) ||
+                    FiltroBusqueda.Contiene(e.Nombre, termino) ||
+                    FiltroBusqueda.Contiene(e.Dni, termino) ||
+                    FiltroBusqueda.Contiene(e.Usuario, termino) ||
+                    FiltroBusqueda.Contiene(e.NombreRol, termino)).ToList();
+            }
+
             dgvEmpleados.DataSource = null;
             dgvEmpleados.DataSource = lista;
 
-            if (dgvEmpleados.Columns["contrasenia"] != null)
-                dgvEmpleados.Columns["contrasenia"].Visible = false;
-            if (dgvEmpleados.Columns["id_empleado"] != null)
+            // The grid is bound to List<Empleado>, so every column name is the property
+            // name in PascalCase. Naming them in snake_case silently matches nothing.
+            if (dgvEmpleados.Columns["IdEmpleado"] != null)
             {
-                dgvEmpleados.Columns["id_empleado"].HeaderText = "ID";
-                dgvEmpleados.Columns["id_empleado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvEmpleados.Columns["id_empleado"].Width = 50;
+                dgvEmpleados.Columns["IdEmpleado"].HeaderText = "ID";
+                dgvEmpleados.Columns["IdEmpleado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvEmpleados.Columns["IdEmpleado"].Width = 50;
             }
-            if (dgvEmpleados.Columns["id_rol"] != null)
+            if (dgvEmpleados.Columns["Apellido"] != null)
+                dgvEmpleados.Columns["Apellido"].HeaderText = "Apellido";
+            if (dgvEmpleados.Columns["Nombre"] != null)
+                dgvEmpleados.Columns["Nombre"].HeaderText = "Nombre";
+            if (dgvEmpleados.Columns["Dni"] != null)
+                dgvEmpleados.Columns["Dni"].HeaderText = "DNI";
+            if (dgvEmpleados.Columns["NombreRol"] != null)
+                dgvEmpleados.Columns["NombreRol"].HeaderText = "Rol";
+            if (dgvEmpleados.Columns["Telefono"] != null)
+                dgvEmpleados.Columns["Telefono"].HeaderText = "Teléfono";
+            if (dgvEmpleados.Columns["Correo"] != null)
+                dgvEmpleados.Columns["Correo"].HeaderText = "Correo";
+            if (dgvEmpleados.Columns["FechaContratacion"] != null)
+                dgvEmpleados.Columns["FechaContratacion"].HeaderText = "F. Contratación";
+            if (dgvEmpleados.Columns["Activo"] != null)
             {
-                dgvEmpleados.Columns["id_rol"].HeaderText = "Rol";
-                dgvEmpleados.Columns["id_rol"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvEmpleados.Columns["id_rol"].Width = 80;
+                dgvEmpleados.Columns["Activo"].HeaderText = "Activo";
+                dgvEmpleados.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvEmpleados.Columns["Activo"].Width = 60;
             }
-            if (dgvEmpleados.Columns["activo"] != null)
+
+            // User, password, address, birth date and the raw role id are either sensitive
+            // or already represented by a resolved column.
+            string[] ocultas =
+            [
+                "Usuario", "Contrasenia", "Direccion", "FechaNacimiento", "IdRol", "Descripcion"
+            ];
+            foreach (string columna in ocultas)
             {
-                dgvEmpleados.Columns["activo"].HeaderText = "Activo";
-                dgvEmpleados.Columns["activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvEmpleados.Columns["activo"].Width = 60;
+                if (dgvEmpleados.Columns[columna] != null)
+                    dgvEmpleados.Columns[columna].Visible = false;
             }
-            if (dgvEmpleados.Columns["fecha_nacimiento"] != null)
-                dgvEmpleados.Columns["fecha_nacimiento"].HeaderText = "F. Nacimiento";
-            if (dgvEmpleados.Columns["fecha_contratacion"] != null)
-                dgvEmpleados.Columns["fecha_contratacion"].HeaderText = "F. Contratación";
+
+            OrdenarColumnas();
+            ActualizarBotonBaja();
+        }
+
+        private void OrdenarColumnas()
+        {
+            string[] orden =
+            [
+                "IdEmpleado", "Apellido", "Nombre", "Dni", "NombreRol", "Telefono",
+                "Correo", "FechaContratacion", "Activo"
+            ];
+            for (int i = 0; i < orden.Length; i++)
+            {
+                if (dgvEmpleados.Columns[orden[i]] != null)
+                    dgvEmpleados.Columns[orden[i]].DisplayIndex = i;
+            }
+        }
+
+        /// <summary>
+        /// The same button deactivates and restores, so its label has to follow the
+        /// selected row instead of the action the operator already clicked.
+        /// </summary>
+        private void ActualizarBotonBaja()
+        {
+            bool hayFila = dgvEmpleados.CurrentRow != null;
+            bool activo = hayFila && Convert.ToBoolean(dgvEmpleados.CurrentRow!.Cells["Activo"].Value);
+
+            btnEliminar.Enabled = hayFila;
+            btnEliminar.Text = hayFila && !activo ? "Restaurar" : "Dar de baja";
+            btnEliminar.BackColor = hayFila && !activo
+                ? System.Drawing.Color.FromArgb(40, 140, 80)
+                : System.Drawing.Color.FromArgb(180, 40, 40);
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -89,27 +149,29 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
 
             int id = Convert.ToInt32(dgvEmpleados.CurrentRow.Cells["IdEmpleado"].Value);
-            string nombre = dgvEmpleados.CurrentRow.Cells["Nombre"].Value?.ToString() ?? "";
-            string apellido = dgvEmpleados.CurrentRow.Cells["Apellido"].Value?.ToString() ?? "";
-            bool activo = Convert.ToBoolean(dgvEmpleados.CurrentRow.Cells["Activo"].Value);
+            var emp = _controller.BuscarPorId(id);
+            if (emp == null) return;
 
-            if (activo)
+            if (emp.Activo)
             {
                 var result = MessageBox.Show(
-                    $"¿Desea dar de baja al empleado {nombre} {apellido}?",
+                    $"¿Desea dar de baja al empleado {emp.Descripcion}?",
                     "Confirmar baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    _controller.Eliminar(id);
-                    Refrescar();
-                }
+                if (result != DialogResult.Yes) return;
+
+                _controller.Eliminar(id);
             }
             else
             {
-                MessageBox.Show(
-                    $"El empleado {nombre} {apellido} ya se encuentra dado de baja.",
-                    "Empleado inactivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show(
+                    $"¿Desea restaurar al empleado {emp.Descripcion}?",
+                    "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes) return;
+
+                _controller.Restaurar(id);
             }
+
+            Refrescar();
         }
     }
 }
