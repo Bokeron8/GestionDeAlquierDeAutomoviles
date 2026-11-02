@@ -29,6 +29,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtEvidencia = new TextBox();
             btnGuardar = new Button();
             btnExaminar = new Button();
+            lblResumen = new Label();
+            lblEvidenciaVista = new Label();
+            picEvidencia = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)picEvidencia).BeginInit();
             SuspendLayout();
             //
             // lblTitulo
@@ -135,7 +139,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(265, 345);
+            btnGuardar.Location = new Point(265, 390);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 11;
@@ -145,11 +149,46 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // btnExaminar
             //
             btnExaminar.Font = new Font("Segoe UI", 10F);
-            btnExaminar.Location = new Point(450, 300);
+            btnExaminar.Location = new Point(40, 335);
             btnExaminar.Name = "btnExaminar";
-            btnExaminar.Size = new Size(100, 25);
+            btnExaminar.Size = new Size(150, 28);
             btnExaminar.TabIndex = 10;
             btnExaminar.Text = "Examinar...";
+            //
+            // lblResumen
+            //
+            lblResumen.BackColor = Color.White;
+            lblResumen.BorderStyle = BorderStyle.FixedSingle;
+            lblResumen.Font = new Font("Segoe UI", 10F);
+            lblResumen.ForeColor = Color.FromArgb(51, 51, 76);
+            lblResumen.Location = new Point(460, 60);
+            lblResumen.Name = "lblResumen";
+            lblResumen.Padding = new Padding(10);
+            lblResumen.Size = new Size(265, 140);
+            lblResumen.TabIndex = 12;
+            lblResumen.Text = "Seleccione un alquiler.";
+            //
+            // lblEvidenciaVista
+            //
+            lblEvidenciaVista.AutoSize = true;
+            lblEvidenciaVista.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblEvidenciaVista.ForeColor = Color.FromArgb(51, 51, 76);
+            lblEvidenciaVista.Location = new Point(460, 210);
+            lblEvidenciaVista.Name = "lblEvidenciaVista";
+            lblEvidenciaVista.Size = new Size(72, 19);
+            lblEvidenciaVista.TabIndex = 13;
+            lblEvidenciaVista.Text = "Evidencia";
+            //
+            // picEvidencia
+            //
+            picEvidencia.BackColor = Color.White;
+            picEvidencia.BorderStyle = BorderStyle.FixedSingle;
+            picEvidencia.Location = new Point(460, 232);
+            picEvidencia.Name = "picEvidencia";
+            picEvidencia.Size = new Size(265, 148);
+            picEvidencia.SizeMode = PictureBoxSizeMode.Zoom;
+            picEvidencia.TabIndex = 14;
+            picEvidencia.TabStop = false;
             //
             // CargaDanioVista
             //
@@ -168,8 +207,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(txtEvidencia);
             Controls.Add(btnExaminar);
             Controls.Add(btnGuardar);
+            Controls.Add(lblResumen);
+            Controls.Add(lblEvidenciaVista);
+            Controls.Add(picEvidencia);
             Name = "CargaDanioVista";
-            Size = new Size(750, 420);
+            Size = new Size(750, 460);
+            ((System.ComponentModel.ISupportInitialize)picEvidencia).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -188,5 +231,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtEvidencia;
         private Button btnGuardar;
         private Button btnExaminar;
+        private Label lblResumen;
+        private Label lblEvidenciaVista;
+        private PictureBox picEvidencia;
     }
 }
