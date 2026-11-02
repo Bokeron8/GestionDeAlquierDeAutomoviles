@@ -43,6 +43,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtUsuario = new TextBox();
             lblContrasenia = new Label();
             txtContrasenia = new TextBox();
+            lblRepetirContrasenia = new Label();
+            txtRepetirContrasenia = new TextBox();
             chkActivo = new CheckBox();
             btnGuardar = new Button();
             SuspendLayout();
@@ -81,7 +83,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(txtDireccion);
             panelIzquierda.Location = new Point(25, 70);
             panelIzquierda.Name = "panelIzquierda";
-            panelIzquierda.Size = new Size(345, 280);
+            panelIzquierda.Size = new Size(345, 400);
             panelIzquierda.TabIndex = 2;
             //
             // lblNombre
@@ -195,10 +197,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelDerecha.Controls.Add(txtUsuario);
             panelDerecha.Controls.Add(lblContrasenia);
             panelDerecha.Controls.Add(txtContrasenia);
+            panelDerecha.Controls.Add(lblRepetirContrasenia);
+            panelDerecha.Controls.Add(txtRepetirContrasenia);
             panelDerecha.Controls.Add(chkActivo);
             panelDerecha.Location = new Point(385, 70);
             panelDerecha.Name = "panelDerecha";
-            panelDerecha.Size = new Size(340, 340);
+            panelDerecha.Size = new Size(340, 400);
             panelDerecha.TabIndex = 3;
             //
             // lblTelefono
@@ -318,16 +322,37 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtContrasenia.Size = new Size(305, 23);
             txtContrasenia.TabIndex = 11;
             txtContrasenia.UseSystemPasswordChar = true;
+            txtContrasenia.PlaceholderText = "Dejar vacío para no cambiarla";
+            //
+            // lblRepetirContrasenia
+            //
+            lblRepetirContrasenia.AutoSize = true;
+            lblRepetirContrasenia.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblRepetirContrasenia.ForeColor = Color.FromArgb(51, 51, 76);
+            lblRepetirContrasenia.Location = new Point(15, 325);
+            lblRepetirContrasenia.Name = "lblRepetirContrasenia";
+            lblRepetirContrasenia.Size = new Size(120, 15);
+            lblRepetirContrasenia.TabIndex = 12;
+            lblRepetirContrasenia.Text = "Repetir Contraseña";
+            //
+            // txtRepetirContrasenia
+            //
+            txtRepetirContrasenia.Font = new Font("Segoe UI", 9F);
+            txtRepetirContrasenia.Location = new Point(15, 345);
+            txtRepetirContrasenia.Name = "txtRepetirContrasenia";
+            txtRepetirContrasenia.Size = new Size(305, 23);
+            txtRepetirContrasenia.TabIndex = 13;
+            txtRepetirContrasenia.UseSystemPasswordChar = true;
             //
             // chkActivo
             //
             chkActivo.AutoSize = true;
             chkActivo.Font = new Font("Segoe UI", 9F);
             chkActivo.ForeColor = Color.FromArgb(51, 51, 76);
-            chkActivo.Location = new Point(15, 330);
+            chkActivo.Location = new Point(15, 375);
             chkActivo.Name = "chkActivo";
             chkActivo.Size = new Size(70, 20);
-            chkActivo.TabIndex = 12;
+            chkActivo.TabIndex = 14;
             chkActivo.Text = "Activo";
             chkActivo.UseVisualStyleBackColor = true;
             //
@@ -337,7 +362,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(265, 420);
+            btnGuardar.Location = new Point(265, 485);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 4;
@@ -355,7 +380,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(panelDerecha);
             Controls.Add(btnGuardar);
             Name = "CargaEmpleadoVista";
-            Size = new Size(750, 500);
+            Size = new Size(750, 560);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -388,6 +413,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtUsuario;
         private Label lblContrasenia;
         private TextBox txtContrasenia;
+        private Label lblRepetirContrasenia;
+        private TextBox txtRepetirContrasenia;
         private CheckBox chkActivo;
         private Button btnGuardar;
     }

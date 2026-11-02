@@ -30,7 +30,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaContratacion.Value = emp.FechaContratacion;
             chkActivo.Checked = emp.Activo;
             txtUsuario.Text = emp.Usuario ?? "";
-            txtContrasenia.Text = emp.Contrasenia ?? "";
+
+            // The stored password is never sent back to the form: an empty field means
+            // "keep the current one", which is also what the save path assumes.
+            txtContrasenia.Clear();
+            txtRepetirContrasenia.Clear();
 
             CargarRoles();
             cbRol.SelectedValue = emp.IdRol;
@@ -67,15 +71,22 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 emp.IdRol = Convert.ToInt32(cbRol.SelectedValue);
                 emp.Usuario = txtUsuario.Text.Trim();
 
+                string nuevaContrasenia = txtContrasenia.Text.Trim();
+                string repetirContrasenia = txtRepetirContrasenia.Text.Trim();
+
+                if (nuevaContrasenia != repetirContrasenia)
+                {
+                    MessageBox.Show("Las contraseñas no coinciden.", "Errores de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (_empleadoEditar == null)
                 {
-                    emp.Contrasenia = txtContrasenia.Text.Trim();
+                    emp.Contrasenia = nuevaContrasenia;
                 }
-                else
+                else if (nuevaContrasenia.Length > 0)
                 {
-                    string nuevaContrasenia = txtContrasenia.Text.Trim();
-                    if (!string.IsNullOrEmpty(nuevaContrasenia))
-                        emp.Contrasenia = nuevaContrasenia;
+                    emp.Contrasenia = nuevaContrasenia;
                 }
 
                 var errores = _controller.ValidarEmpleado(emp, esNuevo: _empleadoEditar == null);
@@ -115,6 +126,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCorreo.Clear();
             txtUsuario.Clear();
             txtContrasenia.Clear();
+            txtRepetirContrasenia.Clear();
             chkActivo.Checked = true;
             chkActivo.Visible = false;
             lblTitulo.Text = "Agregar Empleado";
