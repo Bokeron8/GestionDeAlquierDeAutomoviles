@@ -30,8 +30,12 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
 
             if (emp.FechaNacimiento > DateTime.Today)
                 errores.Add("La fecha de nacimiento no puede ser futura.");
+            else if (Edad(emp.FechaNacimiento) < 18)
+                errores.Add("El empleado debe tener al menos 18 años.");
             if (emp.FechaContratacion > DateTime.Today)
                 errores.Add("La fecha de contratación no puede ser futura.");
+            if (emp.FechaContratacion.Date < emp.FechaNacimiento.Date)
+                errores.Add("La fecha de contratación no puede ser anterior a la de nacimiento.");
 
             if (!string.IsNullOrWhiteSpace(emp.Correo) && !Regex.IsMatch(emp.Correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 errores.Add("El correo electrónico no tiene un formato válido.");
@@ -59,11 +63,6 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Empleado.ObtenerPorId(id);
         }
 
-        public List<Empleado> Buscar(string termino)
-        {
-            return Empleado.Buscar(termino);
-        }
-
         public int Guardar(Empleado emp)
         {
             return Empleado.Guardar(emp);
@@ -74,9 +73,25 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Empleado.Eliminar(id);
         }
 
+        public bool Restaurar(int id)
+        {
+            return Empleado.Restaurar(id);
+        }
+
         public List<Rol> ObtenerRoles()
         {
             return Rol.ObtenerTodos();
+        }
+
+        /// <summary>
+        /// Completed years between the birth date and today, accounting for whether the
+        /// birthday already happened this year.
+        /// </summary>
+        private static int Edad(DateTime fechaNacimiento)
+        {
+            int edad = DateTime.Today.Year - fechaNacimiento.Year;
+            if (fechaNacimiento.Date > DateTime.Today.AddYears(-edad)) edad--;
+            return edad;
         }
     }
 }

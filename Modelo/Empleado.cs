@@ -22,9 +22,26 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public bool Activo { get; set; }
         public int IdRol { get; set; }
 
+        /// <summary>
+        /// Resolved role name, populated only by the queries that join Rol. Loading an
+        /// employee through a plain SELECT * leaves it empty, which is why Map guards it.
+        /// </summary>
+        public string NombreRol { get; set; } = "";
+
+        /// <summary>
+        /// Identity label used by confirmations: "Pérez, Juan".
+        /// </summary>
+        public string Descripcion => $"{Apellido}, {Nombre}";
+
+        private const string SelectConRol =
+            @"SELECT e.*, r.rol AS nombre_rol
+              FROM Empleado e
+              INNER JOIN Rol r ON r.id_rol = e.id_rol";
+
         public static List<Empleado> ObtenerTodos()
         {
-            var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Empleado ORDER BY nombre");
+            var dt = DatabaseHelper.ExecuteQuery(
+                $"{SelectConRol} ORDER BY e.apellido, e.nombre");
             var lista = new List<Empleado>();
             foreach (DataRow row in dt.Rows)
             {
@@ -36,25 +53,9 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static Empleado? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                "SELECT * FROM Empleado WHERE id_empleado = @id",
+                $"{SelectConRol} WHERE e.id_empleado = @id",
                 [new SqlParameter("@id", id)]);
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
-        }
-
-        public static List<Empleado> Buscar(string termino)
-        {
-            var dt = DatabaseHelper.ExecuteQuery(
-                @"SELECT * FROM Empleado 
-                  WHERE activo = 1 
-                  AND (nombre LIKE @termino OR apellido LIKE @termino OR dni LIKE @termino) 
-                  ORDER BY nombre",
-                [new SqlParameter("@termino", $"%{termino}%")]);
-            var lista = new List<Empleado>();
-            foreach (DataRow row in dt.Rows)
-            {
-                lista.Add(Map(row));
-            }
-            return lista;
         }
 
         public static int Guardar(Empleado emp)
@@ -181,7 +182,10 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 Correo = row["correo"].ToString(),
                 FechaContratacion = Convert.ToDateTime(row["fecha_contratacion"]),
                 Activo = Convert.ToBoolean(row["activo"]),
-                IdRol = Convert.ToInt32(row["id_rol"])
+                IdRol = Convert.ToInt32(row["id_rol"]),
+                NombreRol = row.Table.Columns.Contains("nombre_rol") && row["nombre_rol"] != DBNull.Value
+                    ? row["nombre_rol"].ToString() ?? ""
+                    : ""
             };
         }
     }
