@@ -22,6 +22,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar = new Button();
             btnEliminar = new Button();
             btnAgregar = new Button();
+            txtBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvDanios).BeginInit();
             SuspendLayout();
             //
@@ -102,6 +103,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
             //
+            // txtBuscar
+            //
+            txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtBuscar.Font = new Font("Segoe UI", 10F);
+            txtBuscar.Location = new Point(400, 22);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.PlaceholderText = "Buscar por cliente, DNI, matrícula, zona o descripción...";
+            txtBuscar.Size = new Size(325, 25);
+            txtBuscar.TabIndex = 5;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            //
             // ListaDanioVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -112,6 +124,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
+            Controls.Add(txtBuscar);
             Name = "ListaDanioVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvDanios).EndInit();
@@ -126,5 +139,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnEditar;
         private Button btnAgregar;
         private Button btnEliminar;
+        private TextBox txtBuscar;
     }
 }
