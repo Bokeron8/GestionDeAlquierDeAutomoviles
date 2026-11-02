@@ -24,9 +24,30 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         /// </summary>
         public string Estado => Activo ? "En curso" : "Devuelto";
 
+        /// <summary>
+        /// Resolved related names, populated only by the listing query. A rental loaded
+        /// by id leaves them empty, which is why Map guards every optional column.
+        /// </summary>
+        public string NombreCliente { get; set; } = "";
+        public string DniCliente { get; set; } = "";
+        public string MatriculaVehiculo { get; set; } = "";
+
+        /// <summary>
+        /// Identity label used by lists: "Pérez, Juan — DNI 30123456".
+        /// </summary>
+        public string DescripcionCliente => $"{NombreCliente} — DNI {DniCliente}";
+
         public static List<Alquiler> ObtenerTodos()
         {
-            var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Alquiler ORDER BY fechaEntregaReal DESC");
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT a.*,
+                         c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
+                         v.matricula AS vehiculo_matricula
+                  FROM Alquiler a
+                  INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  ORDER BY a.fechaEntregaReal DESC");
             var lista = new List<Alquiler>();
             foreach (DataRow row in dt.Rows)
             {
@@ -48,12 +69,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             var dt = DatabaseHelper.ExecuteQuery(
                 @"SELECT a.id_alquiler, a.id_reserva, a.fechaEntregaReal, a.kilometrajeSalida, a.activo,
                          r.fecha_fin_reserva, r.precio_diario_pactado,
-                         c.nombre + ' ' + c.apellido AS cliente,
-                         v.matricula AS vehiculo
+                         c.apellido + ', ' + c.nombre + ' — DNI ' + c.dni AS cliente,
+                         v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo
                   FROM Alquiler a
                   INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
                   INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
                   INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
                   WHERE a.id_alquiler = @id",
                 [new SqlParameter("@id", idAlquiler)]);
             if (dt.Rows.Count == 0) return null;
@@ -172,8 +195,22 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 KilometrajeEntrada = row["kilometrajeEntrada"] != DBNull.Value ? Convert.ToDecimal(row["kilometrajeEntrada"]) : null,
                 MontoMora = Convert.ToDecimal(row["montoMora"]),
                 Activo = Convert.ToBoolean(row["activo"]),
-                IdReserva = Convert.ToInt32(row["id_reserva"])
+                IdReserva = Convert.ToInt32(row["id_reserva"]),
+                NombreCliente = TextoOpcional(row, "cliente_nombre"),
+                DniCliente = TextoOpcional(row, "cliente_dni"),
+                MatriculaVehiculo = TextoOpcional(row, "vehiculo_matricula")
             };
+        }
+
+        /// <summary>
+        /// Reads a column that only the listing query selects, so loading a rental by id
+        /// never breaks on a missing column.
+        /// </summary>
+        private static string TextoOpcional(DataRow row, string columna)
+        {
+            return row.Table.Columns.Contains(columna) && row[columna] != DBNull.Value
+                ? row[columna].ToString() ?? ""
+                : "";
         }
     }
 }

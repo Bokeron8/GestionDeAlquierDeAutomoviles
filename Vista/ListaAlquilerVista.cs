@@ -28,13 +28,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
-            string termino = txtBuscar.Text.Trim();
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
             var lista = _controller.Listar();
-            if (!string.IsNullOrEmpty(termino))
+            if (termino.Length > 0)
             {
                 lista = lista.Where(a =>
                     a.IdAlquiler.ToString().Contains(termino) ||
-                    a.IdReserva.ToString().Contains(termino)).ToList();
+                    a.IdReserva.ToString().Contains(termino) ||
+                    FiltroBusqueda.Contiene(a.NombreCliente, termino) ||
+                    FiltroBusqueda.Contiene(a.DniCliente, termino) ||
+                    FiltroBusqueda.Contiene(a.MatriculaVehiculo, termino)).ToList();
             }
             dgvAlquileres.DataSource = null;
             dgvAlquileres.DataSource = lista;
@@ -45,32 +48,55 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvAlquileres.Columns["IdAlquiler"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvAlquileres.Columns["IdAlquiler"].Width = 50;
             }
-            if (dgvAlquileres.Columns["FechaEntregaReal"] != null)
-                dgvAlquileres.Columns["FechaEntregaReal"].HeaderText = "F. Entrega";
-            if (dgvAlquileres.Columns["FechaEntregaDevolucion"] != null)
-                dgvAlquileres.Columns["FechaEntregaDevolucion"].HeaderText = "F. Devolución";
-            if (dgvAlquileres.Columns["CombustibleSalida"] != null)
-                dgvAlquileres.Columns["CombustibleSalida"].HeaderText = "Comb. Salida";
-            if (dgvAlquileres.Columns["CombustibleEntrada"] != null)
-                dgvAlquileres.Columns["CombustibleEntrada"].HeaderText = "Comb. Entrada";
-            if (dgvAlquileres.Columns["KilometrajeSalida"] != null)
-                dgvAlquileres.Columns["KilometrajeSalida"].HeaderText = "Km. Salida";
-            if (dgvAlquileres.Columns["KilometrajeEntrada"] != null)
-                dgvAlquileres.Columns["KilometrajeEntrada"].HeaderText = "Km. Entrada";
-            if (dgvAlquileres.Columns["MontoMora"] != null)
-                dgvAlquileres.Columns["MontoMora"].HeaderText = "Mora";
             if (dgvAlquileres.Columns["Estado"] != null)
             {
                 dgvAlquileres.Columns["Estado"].HeaderText = "Estado";
                 dgvAlquileres.Columns["Estado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvAlquileres.Columns["Estado"].Width = 90;
             }
-            if (dgvAlquileres.Columns["Activo"] != null)
-                dgvAlquileres.Columns["Activo"].Visible = false;
+            if (dgvAlquileres.Columns["NombreCliente"] != null)
+                dgvAlquileres.Columns["NombreCliente"].HeaderText = "Cliente";
+            if (dgvAlquileres.Columns["MatriculaVehiculo"] != null)
+                dgvAlquileres.Columns["MatriculaVehiculo"].HeaderText = "Vehículo";
             if (dgvAlquileres.Columns["IdReserva"] != null)
-                dgvAlquileres.Columns["IdReserva"].HeaderText = "ID Reserva";
+                dgvAlquileres.Columns["IdReserva"].HeaderText = "Reserva";
+            if (dgvAlquileres.Columns["FechaEntregaReal"] != null)
+                dgvAlquileres.Columns["FechaEntregaReal"].HeaderText = "F. Entrega";
+            if (dgvAlquileres.Columns["FechaEntregaDevolucion"] != null)
+                dgvAlquileres.Columns["FechaEntregaDevolucion"].HeaderText = "F. Devolución";
+            if (dgvAlquileres.Columns["MontoMora"] != null)
+                dgvAlquileres.Columns["MontoMora"].HeaderText = "Mora";
+
+            // Fuel and mileage at delivery/return live in the return screen; keeping them
+            // here only pushed the client and the vehicle out of the operator's view.
+            string[] ocultas =
+            [
+                "CombustibleSalida", "CombustibleEntrada", "KilometrajeSalida", "KilometrajeEntrada",
+                "Activo", "DniCliente", "DescripcionCliente"
+            ];
+            foreach (string columna in ocultas)
+            {
+                if (dgvAlquileres.Columns[columna] != null)
+                    dgvAlquileres.Columns[columna].Visible = false;
+            }
+
+            OrdenarColumnas();
 
             ActualizarBotones();
+        }
+
+        private void OrdenarColumnas()
+        {
+            string[] orden =
+            [
+                "IdAlquiler", "Estado", "NombreCliente", "MatriculaVehiculo", "IdReserva",
+                "FechaEntregaReal", "FechaEntregaDevolucion", "MontoMora"
+            ];
+            for (int i = 0; i < orden.Length; i++)
+            {
+                if (dgvAlquileres.Columns[orden[i]] != null)
+                    dgvAlquileres.Columns[orden[i]].DisplayIndex = i;
+            }
         }
 
         /// <summary>

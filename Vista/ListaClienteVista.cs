@@ -27,7 +27,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
             var lista = _controller.Listar();
+            if (termino.Length > 0)
+            {
+                lista = lista.Where(c =>
+                    c.IdCliente.ToString().Contains(termino) ||
+                    FiltroBusqueda.Contiene(c.Apellido, termino) ||
+                    FiltroBusqueda.Contiene(c.Nombre, termino) ||
+                    FiltroBusqueda.Contiene(c.Dni, termino) ||
+                    FiltroBusqueda.Contiene(c.Correo, termino)).ToList();
+            }
+
             dgvClientes.DataSource = null;
             dgvClientes.DataSource = lista;
 
@@ -59,6 +70,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvClientes.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvClientes.Columns["Activo"].Width = 60;
             }
+
+            // Nombre and apellido already travel separately, so the combined labels would
+            // only duplicate them at the cost of grid width.
+            string[] ocultas = ["NombreCompleto", "Descripcion"];
+            foreach (string columna in ocultas)
+            {
+                if (dgvClientes.Columns[columna] != null)
+                    dgvClientes.Columns[columna].Visible = false;
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            Refrescar();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)

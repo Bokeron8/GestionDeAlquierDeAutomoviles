@@ -27,6 +27,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar = new Button();
             cbMarcaFiltro = new ComboBox();
             lblFiltroMarca = new Label();
+            txtBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvModelos).BeginInit();
             SuspendLayout();
             //
@@ -127,6 +128,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblFiltroMarca.TabIndex = 6;
             lblFiltroMarca.Text = "Marca:";
             //
+            // txtBuscar
+            //
+            txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtBuscar.Font = new Font("Segoe UI", 10F);
+            txtBuscar.Location = new Point(400, 22);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.PlaceholderText = "Buscar por modelo, marca o ID...";
+            txtBuscar.Size = new Size(325, 25);
+            txtBuscar.TabIndex = 7;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            //
             // ListaModeloVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -139,6 +151,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnEliminar);
             Controls.Add(cbMarcaFiltro);
             Controls.Add(lblFiltroMarca);
+            Controls.Add(txtBuscar);
             Name = "ListaModeloVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvModelos).EndInit();
@@ -155,5 +168,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnEliminar;
         private ComboBox cbMarcaFiltro;
         private Label lblFiltroMarca;
+        private TextBox txtBuscar;
     }
 }

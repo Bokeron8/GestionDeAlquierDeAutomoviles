@@ -20,6 +20,26 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public string Provincia { get; set; }
         public bool Activo { get; set; }
 
+        /// <summary>
+        /// Label used wherever a client is identified by name: "Pérez, Juan".
+        /// </summary>
+        public string NombreCompleto => $"{Apellido}, {Nombre}";
+
+        /// <summary>
+        /// Identity label used by lists and pickers: "Pérez, Juan — DNI 30123456".
+        /// The operator must never need a numeric id to know who he is renting to.
+        /// </summary>
+        public string Descripcion => $"{NombreCompleto} — DNI {Dni}";
+
+        /// <summary>
+        /// Only the clients that can still be picked for a new reservation. The
+        /// management list keeps using ObtenerTodos so cancelled clients stay visible.
+        /// </summary>
+        public static List<Cliente> ObtenerActivos()
+        {
+            return ObtenerTodos().FindAll(c => c.Activo);
+        }
+
         public static List<Cliente> ObtenerTodos()
         {
             var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Cliente ORDER BY apellido, nombre");

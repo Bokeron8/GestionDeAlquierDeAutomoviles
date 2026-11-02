@@ -23,6 +23,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar = new Button();
             btnConfirmar = new Button();
             btnAgregar = new Button();
+            txtBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvReservas).BeginInit();
             SuspendLayout();
             //
@@ -117,6 +118,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnConfirmar.Text = "Confirmar";
             btnConfirmar.UseVisualStyleBackColor = false;
             //
+            // txtBuscar
+            //
+            txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtBuscar.Font = new Font("Segoe UI", 10F);
+            txtBuscar.Location = new Point(380, 22);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.PlaceholderText = "Buscar por DNI, apellido, nombre, matrícula o ID...";
+            txtBuscar.Size = new Size(345, 25);
+            txtBuscar.TabIndex = 6;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            //
             // ListaReservaVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -128,6 +140,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
             Controls.Add(btnConfirmar);
+            Controls.Add(txtBuscar);
             Name = "ListaReservaVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvReservas).EndInit();
@@ -143,5 +156,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnAgregar;
         private Button btnEliminar;
         private Button btnConfirmar;
+        private TextBox txtBuscar;
     }
 }

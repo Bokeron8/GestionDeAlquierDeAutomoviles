@@ -12,9 +12,24 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public int IdMarca { get; set; }
         public bool Activo { get; set; }
 
+        /// <summary>
+        /// Resolved brand name populated only by the listing query; empty when the model
+        /// was loaded by id, which is why Map guards the optional column.
+        /// </summary>
+        public string NombreMarca { get; set; } = "";
+
+        /// <summary>
+        /// Identity label used by lists: "Toyota Corolla".
+        /// </summary>
+        public string Descripcion => $"{NombreMarca} {NombreModelo}";
+
         public static List<ModeloVehiculo> ObtenerTodos()
         {
-            var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Modelo ORDER BY modelo");
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT mo.*, ma.marca AS marca_nombre
+                  FROM Modelo mo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
+                  ORDER BY mo.modelo");
             var lista = new List<ModeloVehiculo>();
             foreach (DataRow row in dt.Rows)
             {
@@ -87,7 +102,8 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 IdModelo = Convert.ToInt32(row["id_modelo"]),
                 NombreModelo = row["modelo"].ToString()!,
                 IdMarca = Convert.ToInt32(row["id_marca"]),
-                Activo = Convert.ToBoolean(row["activo"])
+                Activo = Convert.ToBoolean(row["activo"]),
+                NombreMarca = row.Table.Columns.Contains("marca_nombre") ? row["marca_nombre"].ToString()! : ""
             };
         }
     }

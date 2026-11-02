@@ -16,9 +16,37 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public int IdModelo { get; set; }
         public int IdCategoria { get; set; }
 
+        /// <summary>
+        /// Resolved names populated only by the listing queries. A vehicle loaded by id
+        /// leaves them empty, which is why Map guards every optional column.
+        /// </summary>
+        public string NombreMarca { get; set; } = "";
+        public string NombreModelo { get; set; } = "";
+        public string NombreCategoria { get; set; } = "";
+
+        /// <summary>
+        /// Identity label used by lists and pickers: "AB123CD — Toyota Corolla 2020".
+        /// </summary>
+        public string Descripcion => $"{Matricula} — {NombreMarca} {NombreModelo} {Anio}";
+
+        /// <summary>
+        /// Only the vehicles that can still be picked for a new reservation. The
+        /// management list keeps using ObtenerTodos so retired vehicles stay visible.
+        /// </summary>
+        public static List<Vehiculo> ObtenerActivos()
+        {
+            return ObtenerTodos().FindAll(v => v.Activo);
+        }
+
         public static List<Vehiculo> ObtenerTodos()
         {
-            var dt = DatabaseHelper.ExecuteQuery("SELECT * FROM Vehiculo ORDER BY matricula");
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT v.*, ma.marca AS marca_nombre, mo.modelo AS modelo_nombre, ca.nombre AS categoria_nombre
+                  FROM Vehiculo v
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
+                  INNER JOIN Categoria ca ON ca.id_categoria = v.id_categoria
+                  ORDER BY v.matricula");
             var lista = new List<Vehiculo>();
             foreach (DataRow row in dt.Rows)
             {
@@ -30,7 +58,12 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static Vehiculo? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                "SELECT * FROM Vehiculo WHERE id_vehiculo = @id",
+                @"SELECT v.*, ma.marca AS marca_nombre, mo.modelo AS modelo_nombre, ca.nombre AS categoria_nombre
+                  FROM Vehiculo v
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
+                  INNER JOIN Categoria ca ON ca.id_categoria = v.id_categoria
+                  WHERE v.id_vehiculo = @id",
                 [new SqlParameter("@id", id)]);
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
         }
@@ -112,7 +145,10 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 Anio = Convert.ToInt32(row["anio"]),
                 Activo = Convert.ToBoolean(row["activo"]),
                 IdModelo = Convert.ToInt32(row["id_modelo"]),
-                IdCategoria = Convert.ToInt32(row["id_categoria"])
+                IdCategoria = Convert.ToInt32(row["id_categoria"]),
+                NombreMarca = row.Table.Columns.Contains("marca_nombre") ? row["marca_nombre"].ToString()! : "",
+                NombreModelo = row.Table.Columns.Contains("modelo_nombre") ? row["modelo_nombre"].ToString()! : "",
+                NombreCategoria = row.Table.Columns.Contains("categoria_nombre") ? row["categoria_nombre"].ToString()! : ""
             };
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using GestionDeAlquierDeAutomoviles.Controlador;
 using GestionDeAlquierDeAutomoviles.Modelo;
@@ -28,7 +29,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
             var lista = _controller.Listar();
+            if (termino.Length > 0)
+            {
+                lista = lista.Where(r =>
+                    r.IdReserva.ToString().Contains(termino) ||
+                    FiltroBusqueda.Contiene(r.NombreCliente, termino) ||
+                    FiltroBusqueda.Contiene(r.DniCliente, termino) ||
+                    FiltroBusqueda.Contiene(r.MatriculaVehiculo, termino)).ToList();
+            }
+
             dgvReservas.DataSource = null;
             dgvReservas.DataSource = lista;
 
@@ -43,28 +54,55 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvReservas.Columns["NombreEstado"].HeaderText = "Estado";
                 dgvReservas.Columns["NombreEstado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvReservas.Columns["NombreEstado"].Width = 110;
-                dgvReservas.Columns["NombreEstado"].DisplayIndex = 1;
             }
-            if (dgvReservas.Columns["PrecioDiarioPactado"] != null)
-                dgvReservas.Columns["PrecioDiarioPactado"].HeaderText = "Precio Diario";
-            if (dgvReservas.Columns["FechaSolicitud"] != null)
-                dgvReservas.Columns["FechaSolicitud"].HeaderText = "F. Solicitud";
+            if (dgvReservas.Columns["NombreCliente"] != null)
+                dgvReservas.Columns["NombreCliente"].HeaderText = "Cliente";
+            if (dgvReservas.Columns["MatriculaVehiculo"] != null)
+                dgvReservas.Columns["MatriculaVehiculo"].HeaderText = "Vehículo";
             if (dgvReservas.Columns["FechaInicioReserva"] != null)
                 dgvReservas.Columns["FechaInicioReserva"].HeaderText = "F. Inicio";
             if (dgvReservas.Columns["FechaFinReserva"] != null)
                 dgvReservas.Columns["FechaFinReserva"].HeaderText = "F. Fin";
-            if (dgvReservas.Columns["IdCliente"] != null)
-                dgvReservas.Columns["IdCliente"].HeaderText = "ID Cliente";
-            if (dgvReservas.Columns["IdVehiculo"] != null)
-                dgvReservas.Columns["IdVehiculo"].HeaderText = "ID Vehículo";
-            if (dgvReservas.Columns["IdEmpleado"] != null)
-                dgvReservas.Columns["IdEmpleado"].HeaderText = "ID Empleado";
-            if (dgvReservas.Columns["IdEstado"] != null)
-                dgvReservas.Columns["IdEstado"].Visible = false;
-            if (dgvReservas.Columns["Activo"] != null)
-                dgvReservas.Columns["Activo"].Visible = false;
+            if (dgvReservas.Columns["PrecioDiarioPactado"] != null)
+                dgvReservas.Columns["PrecioDiarioPactado"].HeaderText = "Precio Diario";
+            if (dgvReservas.Columns["NombreEmpleado"] != null)
+                dgvReservas.Columns["NombreEmpleado"].HeaderText = "Empleado";
+
+            // The related ids stay in the grid because the row actions read them, but the
+            // operator never needs to see them: the resolved columns say it better.
+            string[] ocultas =
+            [
+                "FechaSolicitud", "IdCliente", "IdVehiculo", "IdEmpleado", "IdEstado", "Activo",
+                "DniCliente", "DescripcionCliente", "DescripcionCombo"
+            ];
+            foreach (string columna in ocultas)
+            {
+                if (dgvReservas.Columns[columna] != null)
+                    dgvReservas.Columns[columna].Visible = false;
+            }
+
+            OrdenarColumnas();
 
             ActualizarBotones();
+        }
+
+        private void OrdenarColumnas()
+        {
+            string[] orden =
+            [
+                "IdReserva", "NombreEstado", "NombreCliente", "MatriculaVehiculo",
+                "FechaInicioReserva", "FechaFinReserva", "PrecioDiarioPactado", "NombreEmpleado"
+            ];
+            for (int i = 0; i < orden.Length; i++)
+            {
+                if (dgvReservas.Columns[orden[i]] != null)
+                    dgvReservas.Columns[orden[i]].DisplayIndex = i;
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            Refrescar();
         }
 
         /// <summary>

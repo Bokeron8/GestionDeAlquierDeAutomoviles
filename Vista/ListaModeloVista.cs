@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using GestionDeAlquierDeAutomoviles.Controlador;
 using GestionDeAlquierDeAutomoviles.Modelo;
@@ -26,7 +27,16 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
             var lista = _controller.Listar();
+            if (termino.Length > 0)
+            {
+                lista = lista.Where(m =>
+                    m.IdModelo.ToString().Contains(termino) ||
+                    FiltroBusqueda.Contiene(m.NombreModelo, termino) ||
+                    FiltroBusqueda.Contiene(m.NombreMarca, termino)).ToList();
+            }
+
             dgvModelos.DataSource = null;
             dgvModelos.DataSource = lista;
 
@@ -38,14 +48,38 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
             if (dgvModelos.Columns["NombreModelo"] != null)
                 dgvModelos.Columns["NombreModelo"].HeaderText = "Modelo";
-            if (dgvModelos.Columns["IdMarca"] != null)
-                dgvModelos.Columns["IdMarca"].HeaderText = "ID Marca";
+            if (dgvModelos.Columns["NombreMarca"] != null)
+                dgvModelos.Columns["NombreMarca"].HeaderText = "Marca";
             if (dgvModelos.Columns["Activo"] != null)
             {
                 dgvModelos.Columns["Activo"].HeaderText = "Activo";
                 dgvModelos.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvModelos.Columns["Activo"].Width = 60;
             }
+
+            string[] ocultas = ["IdMarca", "Descripcion"];
+            foreach (string columna in ocultas)
+            {
+                if (dgvModelos.Columns[columna] != null)
+                    dgvModelos.Columns[columna].Visible = false;
+            }
+
+            OrdenarColumnas();
+        }
+
+        private void OrdenarColumnas()
+        {
+            string[] orden = ["IdModelo", "NombreModelo", "NombreMarca", "Activo"];
+            for (int i = 0; i < orden.Length; i++)
+            {
+                if (dgvModelos.Columns[orden[i]] != null)
+                    dgvModelos.Columns[orden[i]].DisplayIndex = i;
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            Refrescar();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)

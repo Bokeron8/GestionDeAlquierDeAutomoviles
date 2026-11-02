@@ -24,12 +24,39 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         /// </summary>
         public string NombreEstado { get; set; } = "";
 
+        /// <summary>
+        /// Resolved related names, populated only by the listing queries. A reservation
+        /// loaded by id leaves them empty, which is why Map guards every optional column.
+        /// </summary>
+        public string NombreCliente { get; set; } = "";
+        public string DniCliente { get; set; } = "";
+        public string MatriculaVehiculo { get; set; } = "";
+        public string NombreEmpleado { get; set; } = "";
+
+        /// <summary>
+        /// Identity labels built from the resolved names: "Pérez, Juan — DNI 30123456".
+        /// </summary>
+        public string DescripcionCliente => $"{NombreCliente} — DNI {DniCliente}";
+
+        /// <summary>
+        /// One-line label for the delivery picker, so the operator chooses a reservation
+        /// by client, vehicle and dates instead of by number.
+        /// </summary>
+        public string DescripcionCombo =>
+            $"#{IdReserva} · {NombreCliente} · {MatriculaVehiculo} · {FechaInicioReserva:dd/MM} → {FechaFinReserva:dd/MM}";
+
         public static List<Reserva> ObtenerTodos()
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                @"SELECT r.*, e.nombre AS estado_nombre
+                @"SELECT r.*, e.nombre AS estado_nombre,
+                         c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
+                         v.matricula AS vehiculo_matricula,
+                         em.apellido + ', ' + em.nombre AS empleado_nombre
                   FROM Reserva r
                   INNER JOIN Estado e ON e.id_estado = r.id_estado
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
                   ORDER BY r.fecha_inicio_reserva DESC");
             var lista = new List<Reserva>();
             foreach (DataRow row in dt.Rows)
@@ -104,7 +131,15 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static List<Reserva> ObtenerDisponiblesParaAlquiler(int idReservaActual = 0)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                @"SELECT * FROM Reserva r
+                @"SELECT r.*, e.nombre AS estado_nombre,
+                         c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
+                         v.matricula AS vehiculo_matricula,
+                         em.apellido + ', ' + em.nombre AS empleado_nombre
+                  FROM Reserva r
+                  INNER JOIN Estado e ON e.id_estado = r.id_estado
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
                   WHERE r.id_reserva = @idReservaActual
                      OR (r.activo = 1
                          AND r.id_estado = @confirmada
@@ -127,7 +162,16 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static Reserva? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                "SELECT * FROM Reserva WHERE id_reserva = @id",
+                @"SELECT r.*, e.nombre AS estado_nombre,
+                         c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
+                         v.matricula AS vehiculo_matricula,
+                         em.apellido + ', ' + em.nombre AS empleado_nombre
+                  FROM Reserva r
+                  INNER JOIN Estado e ON e.id_estado = r.id_estado
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
+                  WHERE r.id_reserva = @id",
                 [new SqlParameter("@id", id)]);
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
         }
@@ -201,10 +245,23 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 IdEmpleado = Convert.ToInt32(row["id_empleado"]),
                 IdVehiculo = Convert.ToInt32(row["id_vehiculo"]),
                 IdCliente = Convert.ToInt32(row["id_cliente"]),
-                NombreEstado = row.Table.Columns.Contains("estado_nombre") && row["estado_nombre"] != DBNull.Value
-                    ? row["estado_nombre"].ToString() ?? ""
-                    : ""
+                NombreEstado = TextoOpcional(row, "estado_nombre"),
+                NombreCliente = TextoOpcional(row, "cliente_nombre"),
+                DniCliente = TextoOpcional(row, "cliente_dni"),
+                MatriculaVehiculo = TextoOpcional(row, "vehiculo_matricula"),
+                NombreEmpleado = TextoOpcional(row, "empleado_nombre")
             };
+        }
+
+        /// <summary>
+        /// Reads a column that only the listing queries select, so loading a row by id
+        /// never breaks on a missing column.
+        /// </summary>
+        private static string TextoOpcional(DataRow row, string columna)
+        {
+            return row.Table.Columns.Contains(columna) && row[columna] != DBNull.Value
+                ? row[columna].ToString() ?? ""
+                : "";
         }
     }
 }

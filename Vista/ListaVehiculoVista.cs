@@ -27,7 +27,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
             var lista = _controller.Listar();
+            if (termino.Length > 0)
+            {
+                lista = lista.Where(v =>
+                    v.IdVehiculo.ToString().Contains(termino) ||
+                    FiltroBusqueda.Contiene(v.Matricula, termino) ||
+                    FiltroBusqueda.Contiene(v.NombreMarca, termino) ||
+                    FiltroBusqueda.Contiene(v.NombreModelo, termino)).ToList();
+            }
+
             dgvVehiculos.DataSource = null;
             dgvVehiculos.DataSource = lista;
 
@@ -39,22 +49,52 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
             if (dgvVehiculos.Columns["Matricula"] != null)
                 dgvVehiculos.Columns["Matricula"].HeaderText = "Matrícula";
-            if (dgvVehiculos.Columns["Chasis"] != null)
-                dgvVehiculos.Columns["Chasis"].HeaderText = "Chasis";
-            if (dgvVehiculos.Columns["Color"] != null)
-                dgvVehiculos.Columns["Color"].HeaderText = "Color";
+            if (dgvVehiculos.Columns["NombreMarca"] != null)
+                dgvVehiculos.Columns["NombreMarca"].HeaderText = "Marca";
+            if (dgvVehiculos.Columns["NombreModelo"] != null)
+                dgvVehiculos.Columns["NombreModelo"].HeaderText = "Modelo";
+            if (dgvVehiculos.Columns["NombreCategoria"] != null)
+                dgvVehiculos.Columns["NombreCategoria"].HeaderText = "Categoría";
             if (dgvVehiculos.Columns["Anio"] != null)
                 dgvVehiculos.Columns["Anio"].HeaderText = "Año";
+            if (dgvVehiculos.Columns["Color"] != null)
+                dgvVehiculos.Columns["Color"].HeaderText = "Color";
             if (dgvVehiculos.Columns["Activo"] != null)
             {
                 dgvVehiculos.Columns["Activo"].HeaderText = "Activo";
                 dgvVehiculos.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvVehiculos.Columns["Activo"].Width = 60;
             }
-            if (dgvVehiculos.Columns["IdModelo"] != null)
-                dgvVehiculos.Columns["IdModelo"].HeaderText = "ID Modelo";
-            if (dgvVehiculos.Columns["IdCategoria"] != null)
-                dgvVehiculos.Columns["IdCategoria"].HeaderText = "ID Categoría";
+
+            // The chassis is a paperwork detail, not something the counter operator reads,
+            // and the related ids say nothing now that the names are on screen.
+            string[] ocultas = ["Chasis", "IdModelo", "IdCategoria", "Descripcion"];
+            foreach (string columna in ocultas)
+            {
+                if (dgvVehiculos.Columns[columna] != null)
+                    dgvVehiculos.Columns[columna].Visible = false;
+            }
+
+            OrdenarColumnas();
+        }
+
+        private void OrdenarColumnas()
+        {
+            string[] orden =
+            [
+                "IdVehiculo", "Matricula", "NombreMarca", "NombreModelo",
+                "NombreCategoria", "Anio", "Color", "Activo"
+            ];
+            for (int i = 0; i < orden.Length; i++)
+            {
+                if (dgvVehiculos.Columns[orden[i]] != null)
+                    dgvVehiculos.Columns[orden[i]].DisplayIndex = i;
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            Refrescar();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)

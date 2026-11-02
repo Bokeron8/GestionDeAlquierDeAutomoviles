@@ -23,7 +23,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar = new Button();
             btnAgregar = new Button();
             txtBuscar = new TextBox();
-            lblBuscar = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
             //
@@ -108,21 +107,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtBuscar.Font = new Font("Segoe UI", 10F);
-            txtBuscar.Location = new Point(550, 22);
+            txtBuscar.Location = new Point(400, 22);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(175, 25);
+            txtBuscar.PlaceholderText = "Buscar por DNI, apellido, nombre o correo...";
+            txtBuscar.Size = new Size(325, 25);
             txtBuscar.TabIndex = 5;
-            //
-            // lblBuscar
-            //
-            lblBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblBuscar.AutoSize = true;
-            lblBuscar.Font = new Font("Segoe UI", 10F);
-            lblBuscar.Location = new Point(490, 25);
-            lblBuscar.Name = "lblBuscar";
-            lblBuscar.Size = new Size(50, 19);
-            lblBuscar.TabIndex = 6;
-            lblBuscar.Text = "Buscar:";
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
             //
             // ListaClienteVista
             //
@@ -135,7 +125,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
             Controls.Add(txtBuscar);
-            Controls.Add(lblBuscar);
             Name = "ListaClienteVista";
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
@@ -151,6 +140,5 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnAgregar;
         private Button btnEliminar;
         private TextBox txtBuscar;
-        private Label lblBuscar;
     }
 }
