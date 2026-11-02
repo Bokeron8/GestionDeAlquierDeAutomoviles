@@ -72,7 +72,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             string[] ocultas =
             [
                 "CombustibleSalida", "CombustibleEntrada", "KilometrajeSalida", "KilometrajeEntrada",
-                "Activo", "DniCliente", "DescripcionCliente"
+                "Activo", "DniCliente", "DescripcionCliente", "DescripcionVehiculo", "DescripcionCombo"
             ];
             foreach (string columna in ocultas)
             {

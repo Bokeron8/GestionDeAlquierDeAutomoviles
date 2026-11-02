@@ -31,23 +31,50 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public string NombreCliente { get; set; } = "";
         public string DniCliente { get; set; } = "";
         public string MatriculaVehiculo { get; set; } = "";
+        public string DescripcionVehiculo { get; set; } = "";
 
         /// <summary>
         /// Identity label used by lists: "Pérez, Juan — DNI 30123456".
         /// </summary>
         public string DescripcionCliente => $"{NombreCliente} — DNI {DniCliente}";
 
+        /// <summary>
+        /// Short label used by selection combos: "#12 · Pérez, Juan · AB123CD".
+        /// </summary>
+        public string DescripcionCombo => $"#{IdAlquiler} · {NombreCliente} · {MatriculaVehiculo}";
+
+        private const string SelectConRelaciones =
+            @"SELECT a.*,
+                     c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
+                     v.matricula AS vehiculo_matricula,
+                     v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo_descripcion
+              FROM Alquiler a
+              INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+              INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+              INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+              INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+              INNER JOIN Marca ma ON ma.id_marca = mo.id_marca";
+
         public static List<Alquiler> ObtenerTodos()
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                @"SELECT a.*,
-                         c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
-                         v.matricula AS vehiculo_matricula
-                  FROM Alquiler a
-                  INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
-                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
-                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
-                  ORDER BY a.fechaEntregaReal DESC");
+                $"{SelectConRelaciones} ORDER BY a.fechaEntregaReal DESC");
+            var lista = new List<Alquiler>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(Map(row));
+            }
+            return lista;
+        }
+
+        /// <summary>
+        /// Rentals whose contract is still open, used where picking an already returned
+        /// rental would be a mistake, such as recording a damage.
+        /// </summary>
+        public static List<Alquiler> ObtenerEnCurso()
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                $"{SelectConRelaciones} WHERE a.activo = 1 ORDER BY a.fechaEntregaReal DESC");
             var lista = new List<Alquiler>();
             foreach (DataRow row in dt.Rows)
             {
@@ -59,7 +86,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static Alquiler? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                "SELECT * FROM Alquiler WHERE id_alquiler = @id",
+                $"{SelectConRelaciones} WHERE a.id_alquiler = @id",
                 [new SqlParameter("@id", id)]);
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
         }
@@ -198,7 +225,8 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 IdReserva = Convert.ToInt32(row["id_reserva"]),
                 NombreCliente = TextoOpcional(row, "cliente_nombre"),
                 DniCliente = TextoOpcional(row, "cliente_dni"),
-                MatriculaVehiculo = TextoOpcional(row, "vehiculo_matricula")
+                MatriculaVehiculo = TextoOpcional(row, "vehiculo_matricula"),
+                DescripcionVehiculo = TextoOpcional(row, "vehiculo_descripcion")
             };
         }
 
