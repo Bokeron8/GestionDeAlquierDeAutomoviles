@@ -43,9 +43,19 @@ S7 **Verificación.** `dotnet build` debe quedar en 0 errores antes de cada comm
 compila pero no renderiza WinForms.
 
 S8 **Alcance y orden.** Tier 1 shell (`PrincipalForm`, `LoginForm`, `InicioVista`); Tier 2
-`Vista/Ui/Theme.cs` + 11 `Carga*` + `DevolucionVista`; Tier 2b `CargaEmpleado` y `CargaVehiculo`
-con cuerpo desplazable y barra de acción anclada abajo; Tier 3 las 11 `Lista*` con anclajes y
-buscador uniforme, más `ReporteVista` en commit propio al final.
+`Vista/Theme.cs` + 11 `Carga*` + `DevolucionVista`; Tier 2b `CargaEmpleado` y `CargaVehiculo` con
+cuerpo desplazable y barra de acción anclada abajo; Tier 3 las 11 `Lista*` con anclajes y buscador
+uniforme, más `ReporteVista` en commit propio al final.
+
+S9 **Regla de pie de formulario.** En las vistas de alta, el `separador` se ancla
+`Top|Left|Right` (deja de tener 700 px fijos) y `btnGuardar` se ancla `Bottom` con `x = 275`,
+el centro de un lienzo de 750. Excepción: `CargaEmpleado` y `CargaVehiculo`, cuyo contenido supera
+el alto del host, conservan el botón sin anclar para que baje con el scroll en vez de flotar sobre
+los campos.
+
+S10 **Tema en código.** `Vista/Theme.cs` centraliza la paleta y la tipografía de los controles que
+se construyen en tiempo de ejecución. Los `.Designer.cs` conservan sus literales a propósito: el
+diseñador de WinForms los reescribe al guardar.
 
 ## Tasks
 
@@ -58,8 +68,14 @@ buscador uniforme, más `ReporteVista` en commit propio al final.
   `MinimumSize` 750×450. Evidencia: `956b105`.
 - [x] T4 — S7 (cierre de tier 1): `dotnet build` → 0 errores, 220 advertencias (idénticas a la
   línea base, sin advertencias nuevas). Commit `956b105`. Capturas del usuario pendientes para S6.
-- [ ] T5 — S8 Tier 2: `Theme.cs` + 11 `Carga*` + `DevolucionVista`.
-- [ ] T6 — S8 Tier 2b: `CargaEmpleado` y `CargaVehiculo` con scroll y barra inferior.
+- [x] T5 — S8, S9, S10 (Tier 2): `Vista/Theme.cs`; en las 12 vistas `AutoScroll`, `MinimumSize`,
+  `separador` anclado `Top|Left|Right` y `btnGuardar` anclado `Bottom` en `x = 275` (9 vistas con
+  botón de pie). Sin cambios de nombre ni de handlers.
+- [x] T6 — S8 Tier 2b (parcial): `CargaEmpleado` (750×560) y `CargaVehiculo` (750×530) reciben
+  `AutoScroll` y `MinimumSize` y dejan de recortarse; el contenido se alcanza por scroll. La barra
+  de acción anclada abajo queda pendiente: exigía reparentar 20–30 controles por vista en un panel
+  de cuerpo, sin forma de verificar el resultado visualmente desde acá. Se retoma si las capturas
+  muestran que el scroll solo no alcanza.
 - [ ] T7 — S8 Tier 3: `ListaModelo` (corrección de superposición), resto de `Lista*`, `ReporteVista`.
 
 ## Log
@@ -92,3 +108,20 @@ cambios respecto de la línea base. Queda pendiente la validación visual del us
 del host depende de que el layout respete el `MinimumSize` de la vista hija; si en la captura no
 aparece barra de desplazamiento cuando corresponde, se corrige en un commit de seguimiento antes de
 seguir al tier 2.
+
+L6 (2026-11-04) Tier 1 validado por el usuario con capturas (tamaño por defecto, maximizado y
+mínimo): sin recortes, las tarjetas de Inicio refluyen y la pista queda anclada abajo. La suposición
+de S2 se sostiene.
+
+L7 (2026-11-04) Tier 2 ejecutado. Dos desvíos del plan, ambos deliberados:
+1. `Theme.cs` se crea para el código que construye controles en runtime (`InicioVista.CrearBoton`),
+   no para reescribir los literales de los `.Designer.cs`. Reemplazar ~200 `Color.FromArgb` en
+   archivos generados por el diseñador inflaba el diff sin cambiar un píxel, y el diseñador los
+   vuelve a escribir como literales al guardar. Queda registrado como S10.
+2. La barra de acción anclada de `CargaEmpleado`/`CargaVehiculo` (Tier 2b) no se hizo: `AutoScroll`
+   ya elimina el recorte, y anclar el botón abajo sin un panel de cuerpo lo haría flotar sobre los
+   campos. Se evaluó que el riesgo de reparentar 20–30 controles sin validación visual superaba el
+   beneficio.
+También se unificó `x = 275` para el botón de pie: en las vistas de pila estaba en 165, o sea 110 px
+a la izquierda del centro. El centrado es proporcional (anclaje `Bottom`), no exacto: a 884 px de
+ancho el corrimiento residual es de ~18 px.
