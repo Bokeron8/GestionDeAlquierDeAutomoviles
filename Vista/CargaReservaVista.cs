@@ -27,6 +27,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaFin.ValueChanged += (_, _) => ActualizarResumen();
         }
 
+        /// <summary>
+        /// The employee who registers the reservation comes from the session, not from a
+        /// picker: the state and the owner are business invariants, not form fields.
+        /// </summary>
+        public void ConfigurarSesion(int idEmpleado, string nombreEmpleado)
+        {
+            _idEmpleadoSesion = idEmpleado;
+            _nombreEmpleadoSesion = nombreEmpleado ?? "";
+            lblEmpleadoValor.Text = string.IsNullOrWhiteSpace(_nombreEmpleadoSesion) ? "Sin sesión" : _nombreEmpleadoSesion;
+            ActualizarResumen();
+        }
+
         private List<Cliente> _todosClientes = [];
 
         private void CargarCombos()

@@ -25,8 +25,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar = new Button();
             btnEliminar = new Button();
             btnAgregar = new Button();
-            cbMarcaFiltro = new ComboBox();
-            lblFiltroMarca = new Label();
             txtBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvModelos).BeginInit();
             SuspendLayout();
