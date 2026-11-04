@@ -17,6 +17,23 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
             dgvModelos.SelectionChanged += (_, _) => ActualizarBotonBaja();
+            CargarFiltroMarcas();
+            cbMarcaFiltro.SelectedIndexChanged += (_, _) => Refrescar();
+        }
+
+        private bool _marcasCargadas = false;
+
+        private void CargarFiltroMarcas()
+        {
+            if (_marcasCargadas) return;
+            var marcas = _controller.ObtenerMarcas();
+            var listaFiltro = new List<Marca> { new Marca { IdMarca = 0, Nombre = "Todas las marcas" } };
+            listaFiltro.AddRange(marcas);
+            cbMarcaFiltro.DataSource = listaFiltro;
+            cbMarcaFiltro.DisplayMember = "Nombre";
+            cbMarcaFiltro.ValueMember = "IdMarca";
+            cbMarcaFiltro.SelectedIndex = 0;
+            _marcasCargadas = true;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -28,8 +45,15 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         public void Refrescar()
         {
-            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
+            CargarFiltroMarcas();
+            int idMarcaFiltro = cbMarcaFiltro.SelectedValue != null && int.TryParse(cbMarcaFiltro.SelectedValue.ToString(), out int idM) ? idM : 0;
             var lista = _controller.Listar();
+            if (idMarcaFiltro > 0)
+            {
+                lista = lista.Where(m => m.IdMarca == idMarcaFiltro).ToList();
+            }
+
+            string termino = FiltroBusqueda.Normalizar(txtBuscar.Text);
             if (termino.Length > 0)
             {
                 lista = lista.Where(m =>
