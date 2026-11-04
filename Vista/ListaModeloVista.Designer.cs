@@ -108,26 +108,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
             //
-            // cbMarcaFiltro
-            //
-            cbMarcaFiltro.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbMarcaFiltro.Font = new Font("Segoe UI", 10F);
-            cbMarcaFiltro.FormattingEnabled = true;
-            cbMarcaFiltro.Location = new Point(85, 60);
-            cbMarcaFiltro.Name = "cbMarcaFiltro";
-            cbMarcaFiltro.Size = new Size(200, 25);
-            cbMarcaFiltro.TabIndex = 5;
-            //
-            // lblFiltroMarca
-            //
-            lblFiltroMarca.AutoSize = true;
-            lblFiltroMarca.Font = new Font("Segoe UI", 10F);
-            lblFiltroMarca.Location = new Point(25, 64);
-            lblFiltroMarca.Name = "lblFiltroMarca";
-            lblFiltroMarca.Size = new Size(46, 19);
-            lblFiltroMarca.TabIndex = 6;
-            lblFiltroMarca.Text = "Marca:";
-            //
             // txtBuscar
             //
             txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -150,8 +130,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnAgregar);
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
-            Controls.Add(cbMarcaFiltro);
-            Controls.Add(lblFiltroMarca);
             Controls.Add(txtBuscar);
             Name = "ListaModeloVista";
             MinimumSize = new Size(750, 450);
@@ -168,8 +146,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Button btnEditar;
         private Button btnAgregar;
         private Button btnEliminar;
-        private ComboBox cbMarcaFiltro;
-        private Label lblFiltroMarca;
         private TextBox txtBuscar;
     }
 }
