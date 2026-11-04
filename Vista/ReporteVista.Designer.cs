@@ -197,6 +197,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblVehiculosTitulo.AutoSize = true;
             lblVehiculosTitulo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblVehiculosTitulo.ForeColor = Color.FromArgb(51, 51, 76);
+            lblVehiculosTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblVehiculosTitulo.Location = new Point(570, 115);
             lblVehiculosTitulo.Name = "lblVehiculosTitulo";
             lblVehiculosTitulo.Size = new Size(200, 20);
@@ -231,6 +232,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(lblMetricVehiculos);
@@ -248,6 +250,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(lblVehiculosTitulo);
             Controls.Add(dgvVehiculos);
             Name = "ReporteVista";
+            MinimumSize = new Size(900, 450);
             Size = new Size(900, 450);
             ((System.ComponentModel.ISupportInitialize)dgvReservas).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).EndInit();
