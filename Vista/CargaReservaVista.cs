@@ -16,6 +16,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
+            txtBuscarCliente.TextChanged += txtBuscarCliente_TextChanged;
 
             // The summary card follows every input that changes what the operator is
             // about to commit to: who, which car, which dates and at what price.
@@ -26,31 +27,40 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dtpFechaFin.ValueChanged += (_, _) => ActualizarResumen();
         }
 
-        /// <summary>
-        /// The employee who registers the reservation comes from the session, not from a
-        /// picker: the state and the owner are business invariants, not form fields.
-        /// </summary>
-        public void ConfigurarSesion(int idEmpleado, string nombreEmpleado)
-        {
-            _idEmpleadoSesion = idEmpleado;
-            _nombreEmpleadoSesion = nombreEmpleado ?? "";
-            lblEmpleadoValor.Text = string.IsNullOrWhiteSpace(_nombreEmpleadoSesion) ? "Sin sesión" : _nombreEmpleadoSesion;
-            ActualizarResumen();
-        }
+        private List<Cliente> _todosClientes = [];
 
         private void CargarCombos()
         {
             // Both pickers show the identity label instead of the raw name, so the
             // operator distinguishes two clients with the same name by their DNI.
-            var clientes = _controller.ObtenerClientes();
-            cbCliente.DataSource = clientes;
-            cbCliente.DisplayMember = "Descripcion";
-            cbCliente.ValueMember = "IdCliente";
+            _todosClientes = _controller.ObtenerClientes();
+            FiltrarClientes();
 
             var vehiculos = _controller.ObtenerVehiculos();
             cbVehiculo.DataSource = vehiculos;
             cbVehiculo.DisplayMember = "Descripcion";
             cbVehiculo.ValueMember = "IdVehiculo";
+        }
+
+        private void FiltrarClientes()
+        {
+            string termino = FiltroBusqueda.Normalizar(txtBuscarCliente.Text);
+            var filtrados = _todosClientes.Where(c =>
+                termino.Length == 0 ||
+                FiltroBusqueda.Contiene(c.Nombre, termino) ||
+                FiltroBusqueda.Contiene(c.Apellido, termino) ||
+                FiltroBusqueda.Contiene(c.Dni, termino) ||
+                FiltroBusqueda.Contiene(c.Correo, termino)).ToList();
+
+            cbCliente.DataSource = null;
+            cbCliente.DataSource = filtrados;
+            cbCliente.DisplayMember = "Descripcion";
+            cbCliente.ValueMember = "IdCliente";
+        }
+
+        private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarClientes();
         }
 
         public void SetReserva(Reserva res)
