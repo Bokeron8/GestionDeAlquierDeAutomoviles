@@ -18,6 +18,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void InitializeComponent()
         {
             menuStrip = new MenuStrip();
+            inicioToolStripMenuItem = new ToolStripMenuItem();
             vehiculosToolStripMenuItem = new ToolStripMenuItem();
             marcasToolStripMenuItem = new ToolStripMenuItem();
             modelosToolStripMenuItem = new ToolStripMenuItem();
@@ -41,12 +42,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // menuStrip
             //
             menuStrip.BackColor = Color.FromArgb(51, 51, 76);
-            menuStrip.Items.AddRange(new ToolStripItem[] { vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, empleadosToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem, cerrarSesionToolStripMenuItem, reportesToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { inicioToolStripMenuItem, vehiculosToolStripMenuItem, marcasToolStripMenuItem, modelosToolStripMenuItem, categoriasToolStripMenuItem, clientesToolStripMenuItem, reservasToolStripMenuItem, alquileresToolStripMenuItem, daniosToolStripMenuItem, empleadosToolStripMenuItem, estadosToolStripMenuItem, rolesToolStripMenuItem, reportesToolStripMenuItem, cerrarSesionToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(900, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip";
+            //
+            // inicioToolStripMenuItem
+            //
+            inicioToolStripMenuItem.ForeColor = Color.White;
+            inicioToolStripMenuItem.Name = "inicioToolStripMenuItem";
+            inicioToolStripMenuItem.Size = new Size(50, 20);
+            inicioToolStripMenuItem.Text = "Inicio";
+            inicioToolStripMenuItem.Click += InicioToolStripMenuItem_Click;
             //
             // vehiculosToolStripMenuItem
             //
@@ -206,28 +215,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         #endregion
 
-        private void ConfigurarMenuPorRol()
-        {
-            bool esAdmin = _idRol == 1;
-            bool esRecepcionista = _idRol == 2;
-            bool esMecanico = _idRol == 3;
-            bool esGerente = _idRol == 4;
-
-            vehiculosToolStripMenuItem.Visible = esAdmin || esGerente;
-            marcasToolStripMenuItem.Visible = esAdmin || esGerente;
-            modelosToolStripMenuItem.Visible = esAdmin || esGerente;
-            categoriasToolStripMenuItem.Visible = esAdmin || esGerente;
-            clientesToolStripMenuItem.Visible = esAdmin || esRecepcionista;
-            empleadosToolStripMenuItem.Visible = esAdmin || esGerente;
-            reservasToolStripMenuItem.Visible = esAdmin || esRecepcionista;
-            alquileresToolStripMenuItem.Visible = esAdmin || esRecepcionista;
-            daniosToolStripMenuItem.Visible = esAdmin || esMecanico;
-            estadosToolStripMenuItem.Visible = esAdmin;
-            rolesToolStripMenuItem.Visible = esAdmin;
-            reportesToolStripMenuItem.Visible = esGerente;
-        }
-
         private MenuStrip menuStrip;
+        private ToolStripMenuItem inicioToolStripMenuItem;
         private ToolStripMenuItem vehiculosToolStripMenuItem;
         private ToolStripMenuItem marcasToolStripMenuItem;
         private ToolStripMenuItem modelosToolStripMenuItem;
