@@ -106,6 +106,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(dgvRoles);
@@ -113,6 +114,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
             Name = "ListaRolVista";
+            MinimumSize = new Size(750, 450);
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvRoles).EndInit();
             ResumeLayout(false);

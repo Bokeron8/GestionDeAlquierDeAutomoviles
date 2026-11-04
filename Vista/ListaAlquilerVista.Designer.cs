@@ -107,10 +107,10 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             txtBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtBuscar.Font = new Font("Segoe UI", 10F);
-            txtBuscar.Location = new Point(330, 22);
+            txtBuscar.Location = new Point(400, 22);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.PlaceholderText = "Buscar por DNI, apellido, nombre, matrícula, N° alquiler o reserva...";
-            txtBuscar.Size = new Size(395, 25);
+            txtBuscar.Size = new Size(325, 25);
             txtBuscar.TabIndex = 5;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             //
@@ -118,6 +118,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(dgvAlquileres);
@@ -126,6 +127,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(btnDevolucion);
             Controls.Add(txtBuscar);
             Name = "ListaAlquilerVista";
+            MinimumSize = new Size(750, 450);
             Size = new Size(750, 450);
             ((System.ComponentModel.ISupportInitialize)dgvAlquileres).EndInit();
             ResumeLayout(false);
