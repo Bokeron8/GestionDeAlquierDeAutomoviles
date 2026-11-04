@@ -29,11 +29,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             {
                 var resumen = _controller.ObtenerResumen();
 
-                lblMetricVehiculosVal.Text = resumen.Vehiculos.ToString();
-                lblMetricClientesVal.Text = resumen.Clientes.ToString();
-                lblMetricEmpleadosVal.Text = resumen.Empleados.ToString();
-                lblMetricAlquileresVal.Text = resumen.AlquileresEnCurso.ToString();
-                lblMetricIngresosVal.Text = resumen.IngresosDelMes.ToString("C0", Cultura);
+                lblMetricVehiculos.Text = $"Vehículos: {resumen.Vehiculos}";
+                lblMetricClientes.Text = $"Clientes: {resumen.Clientes}";
+                lblMetricEmpleados.Text = $"Empleados: {resumen.Empleados}";
+                lblMetricAlquileres.Text = $"Alquileres en curso: {resumen.AlquileresEnCurso}";
+                lblMetricIngresos.Text = $"Ingresos (mes actual): {resumen.IngresosDelMes.ToString("C0", Cultura)}";
 
                 MostrarReservas(resumen.ReservasActivas);
                 MostrarVehiculos(resumen.VehiculosDisponibles);
@@ -48,11 +48,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void Limpiar()
         {
-            lblMetricVehiculosVal.Text = "0";
-            lblMetricClientesVal.Text = "0";
-            lblMetricEmpleadosVal.Text = "0";
-            lblMetricAlquileresVal.Text = "0";
-            lblMetricIngresosVal.Text = 0m.ToString("C0", Cultura);
+            lblMetricVehiculos.Text = "Vehículos: 0";
+            lblMetricClientes.Text = "Clientes: 0";
+            lblMetricEmpleados.Text = "Empleados: 0";
+            lblMetricAlquileres.Text = "Alquileres en curso: 0";
+            lblMetricIngresos.Text = $"Ingresos (mes actual): {0m.ToString("C0", Cultura)}";
 
             dgvReservas.DataSource = null;
             dgvVehiculos.DataSource = null;
