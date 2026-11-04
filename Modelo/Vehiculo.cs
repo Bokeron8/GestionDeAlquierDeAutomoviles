@@ -30,12 +30,57 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public string Descripcion => $"{Matricula} — {NombreMarca} {NombreModelo} {Anio}";
 
         /// <summary>
+        /// Single column label for the narrow dashboard grid, where brand and model do not
+        /// fit as two separate columns: "Toyota Corolla".
+        /// </summary>
+        public string MarcaModelo => $"{NombreMarca} {NombreModelo}".Trim();
+
+        /// <summary>
         /// Only the vehicles that can still be picked for a new reservation. The
         /// management list keeps using ObtenerTodos so retired vehicles stay visible.
         /// </summary>
         public static List<Vehiculo> ObtenerActivos()
         {
             return ObtenerTodos().FindAll(v => v.Activo);
+        }
+
+        /// <summary>
+        /// Vehicles the manager can rent right now: active, with no open rental and with no
+        /// pending or confirmed reservation covering today. A reservation already in progress
+        /// is excluded through its rental, so the two conditions never double count.
+        /// </summary>
+        public static List<Vehiculo> ObtenerDisponibles()
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT v.*, ma.marca AS marca_nombre, mo.modelo AS modelo_nombre, ca.nombre AS categoria_nombre
+                  FROM Vehiculo v
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
+                  INNER JOIN Categoria ca ON ca.id_categoria = v.id_categoria
+                  WHERE v.activo = 1
+                    AND NOT EXISTS (SELECT 1
+                                    FROM Alquiler a
+                                    INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+                                    WHERE r.id_vehiculo = v.id_vehiculo
+                                      AND a.activo = 1)
+                    AND NOT EXISTS (SELECT 1
+                                    FROM Reserva r2
+                                    WHERE r2.id_vehiculo = v.id_vehiculo
+                                      AND r2.activo = 1
+                                      AND r2.id_estado IN (@pendiente, @confirmada)
+                                      AND @hoy BETWEEN r2.fecha_inicio_reserva AND r2.fecha_fin_reserva)
+                  ORDER BY v.matricula",
+                [
+                    new SqlParameter("@pendiente", EstadosReserva.Pendiente),
+                    new SqlParameter("@confirmada", EstadosReserva.Confirmada),
+                    new SqlParameter("@hoy", DateTime.Today)
+                ]);
+            var lista = new List<Vehiculo>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(Map(row));
+            }
+            return lista;
         }
 
         public static List<Vehiculo> ObtenerTodos()

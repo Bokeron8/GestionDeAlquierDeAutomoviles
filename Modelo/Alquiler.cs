@@ -83,6 +83,32 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return lista;
         }
 
+        /// <summary>
+        /// Income actually earned on rentals returned inside [desde, hasta): the agreed daily
+        /// price times the real days, with a minimum of one day so a same-day return is not
+        /// billed at zero, plus the late fee. Rentals still open are not income yet.
+        /// </summary>
+        public static decimal ObtenerIngresos(DateTime desde, DateTime hasta)
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT ISNULL(SUM(r.precio_diario_pactado *
+                                        CASE
+                                            WHEN DATEDIFF(DAY, a.fechaEntregaReal, a.fechaEntregaDevolucion) < 1 THEN 1
+                                            ELSE DATEDIFF(DAY, a.fechaEntregaReal, a.fechaEntregaDevolucion)
+                                        END
+                                      + ISNULL(a.montoMora, 0)), 0) AS ingresos
+                  FROM Alquiler a
+                  INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+                  WHERE a.activo = 0
+                    AND a.fechaEntregaDevolucion >= @desde
+                    AND a.fechaEntregaDevolucion < @hasta",
+                [
+                    new SqlParameter("@desde", desde),
+                    new SqlParameter("@hasta", hasta)
+                ]);
+            return dt.Rows.Count == 0 ? 0m : Convert.ToDecimal(dt.Rows[0]["ingresos"]);
+        }
+
         public static Alquiler? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(

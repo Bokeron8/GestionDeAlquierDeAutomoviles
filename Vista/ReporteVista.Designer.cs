@@ -63,7 +63,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricVehiculosVal.AutoSize = true;
             lblMetricVehiculosVal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblMetricVehiculosVal.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricVehiculosVal.Location = new Point(130, 70);
+            lblMetricVehiculosVal.Location = new Point(91, 70);
             lblMetricVehiculosVal.Name = "lblMetricVehiculosVal";
             lblMetricVehiculosVal.Size = new Size(50, 25);
             lblMetricVehiculosVal.TabIndex = 8;
@@ -74,7 +74,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricClientes.AutoSize = true;
             lblMetricClientes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblMetricClientes.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricClientes.Location = new Point(200, 72);
+            lblMetricClientes.Location = new Point(175, 72);
             lblMetricClientes.Name = "lblMetricClientes";
             lblMetricClientes.Size = new Size(80, 19);
             lblMetricClientes.TabIndex = 9;
@@ -85,7 +85,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricClientesVal.AutoSize = true;
             lblMetricClientesVal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblMetricClientesVal.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricClientesVal.Location = new Point(295, 70);
+            lblMetricClientesVal.Location = new Point(235, 70);
             lblMetricClientesVal.Name = "lblMetricClientesVal";
             lblMetricClientesVal.Size = new Size(50, 25);
             lblMetricClientesVal.TabIndex = 10;
@@ -96,7 +96,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricEmpleados.AutoSize = true;
             lblMetricEmpleados.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblMetricEmpleados.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricEmpleados.Location = new Point(375, 72);
+            lblMetricEmpleados.Location = new Point(300, 72);
             lblMetricEmpleados.Name = "lblMetricEmpleados";
             lblMetricEmpleados.Size = new Size(90, 19);
             lblMetricEmpleados.TabIndex = 11;
@@ -107,7 +107,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricEmpleadosVal.AutoSize = true;
             lblMetricEmpleadosVal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblMetricEmpleadosVal.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricEmpleadosVal.Location = new Point(485, 70);
+            lblMetricEmpleadosVal.Location = new Point(369, 70);
             lblMetricEmpleadosVal.Name = "lblMetricEmpleadosVal";
             lblMetricEmpleadosVal.Size = new Size(50, 25);
             lblMetricEmpleadosVal.TabIndex = 12;
@@ -118,18 +118,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricAlquileres.AutoSize = true;
             lblMetricAlquileres.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblMetricAlquileres.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricAlquileres.Location = new Point(550, 72);
+            lblMetricAlquileres.Location = new Point(445, 72);
             lblMetricAlquileres.Name = "lblMetricAlquileres";
-            lblMetricAlquileres.Size = new Size(110, 19);
+            lblMetricAlquileres.Size = new Size(130, 19);
             lblMetricAlquileres.TabIndex = 13;
-            lblMetricAlquileres.Text = "Alquileres:";
+            lblMetricAlquileres.Text = "Alquileres en curso:";
             //
             // lblMetricAlquileresVal
             //
             lblMetricAlquileresVal.AutoSize = true;
             lblMetricAlquileresVal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblMetricAlquileresVal.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricAlquileresVal.Location = new Point(660, 70);
+            lblMetricAlquileresVal.Location = new Point(575, 70);
             lblMetricAlquileresVal.Name = "lblMetricAlquileresVal";
             lblMetricAlquileresVal.Size = new Size(50, 25);
             lblMetricAlquileresVal.TabIndex = 14;
@@ -140,18 +140,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMetricIngresos.AutoSize = true;
             lblMetricIngresos.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblMetricIngresos.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricIngresos.Location = new Point(725, 72);
+            lblMetricIngresos.Location = new Point(640, 72);
             lblMetricIngresos.Name = "lblMetricIngresos";
-            lblMetricIngresos.Size = new Size(70, 19);
+            lblMetricIngresos.Size = new Size(150, 19);
             lblMetricIngresos.TabIndex = 15;
-            lblMetricIngresos.Text = "Ingresos:";
+            lblMetricIngresos.Text = "Ingresos (mes actual):";
             //
             // lblMetricIngresosVal
             //
             lblMetricIngresosVal.AutoSize = true;
             lblMetricIngresosVal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblMetricIngresosVal.ForeColor = Color.FromArgb(51, 51, 76);
-            lblMetricIngresosVal.Location = new Point(810, 70);
+            lblMetricIngresosVal.Location = new Point(776, 70);
             lblMetricIngresosVal.Name = "lblMetricIngresosVal";
             lblMetricIngresosVal.Size = new Size(60, 25);
             lblMetricIngresosVal.TabIndex = 16;

@@ -67,6 +67,42 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         }
 
         /// <summary>
+        /// Reservations the manager still has to watch: the ones in progress, plus pending and
+        /// confirmed ones that have not expired yet. An expired pending reservation is noise on
+        /// a dashboard because nothing can be done with it from there.
+        /// </summary>
+        public static List<Reserva> ObtenerActivas()
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT r.*, e.nombre AS estado_nombre,
+                         c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
+                         v.matricula AS vehiculo_matricula,
+                         em.apellido + ', ' + em.nombre AS empleado_nombre
+                  FROM Reserva r
+                  INNER JOIN Estado e ON e.id_estado = r.id_estado
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
+                  WHERE r.activo = 1
+                    AND (r.id_estado = @en_curso
+                         OR (r.id_estado IN (@pendiente, @confirmada)
+                             AND r.fecha_fin_reserva >= @hoy))
+                  ORDER BY r.fecha_inicio_reserva ASC",
+                [
+                    new SqlParameter("@en_curso", EstadosReserva.EnCurso),
+                    new SqlParameter("@pendiente", EstadosReserva.Pendiente),
+                    new SqlParameter("@confirmada", EstadosReserva.Confirmada),
+                    new SqlParameter("@hoy", DateTime.Today)
+                ]);
+            var lista = new List<Reserva>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(Map(row));
+            }
+            return lista;
+        }
+
+        /// <summary>
         /// True when the vehicle already has a live reservation whose date range overlaps
         /// [inicio, fin]. Ranges are compared inclusively, so a same-day handover counts as
         /// an overlap. idReservaExcluir lets an edit ignore itself.

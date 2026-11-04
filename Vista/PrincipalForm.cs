@@ -229,6 +229,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private void MostrarReporteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarUserControl(reporteVista);
+            reporteVista.Refrescar();
         }
     }
 }
