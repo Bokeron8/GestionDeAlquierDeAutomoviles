@@ -23,6 +23,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtBuscarCliente = new TextBox();
             cbCliente = new ComboBox();
             lblCliente = new Label();
+            txtBuscarVehiculo = new TextBox();
             cbVehiculo = new ComboBox();
             lblVehiculo = new Label();
             lblEmpleado = new Label();
@@ -66,6 +67,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(txtBuscarCliente);
             panelIzquierda.Controls.Add(cbCliente);
             panelIzquierda.Controls.Add(lblCliente);
+            panelIzquierda.Controls.Add(txtBuscarVehiculo);
             panelIzquierda.Controls.Add(cbVehiculo);
             panelIzquierda.Controls.Add(lblVehiculo);
             panelIzquierda.Controls.Add(lblEmpleado);
@@ -75,7 +77,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             panelIzquierda.Controls.Add(lblAvisoLicencia);
             panelIzquierda.Location = new Point(25, 70);
             panelIzquierda.Name = "panelIzquierda";
-            panelIzquierda.Size = new Size(345, 290);
+            panelIzquierda.Size = new Size(345, 295);
             panelIzquierda.TabIndex = 2;
             //
             // txtBuscarCliente
@@ -92,7 +94,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCliente.Font = new Font("Segoe UI", 9F);
             cbCliente.FormattingEnabled = true;
-            cbCliente.Location = new Point(15, 58);
+            cbCliente.Location = new Point(15, 54);
             cbCliente.Name = "cbCliente";
             cbCliente.Size = new Size(310, 23);
             cbCliente.TabIndex = 1;
@@ -108,12 +110,21 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblCliente.TabIndex = 2;
             lblCliente.Text = "Cliente";
             //
+            // txtBuscarVehiculo
+            //
+            txtBuscarVehiculo.Font = new Font("Segoe UI", 9F);
+            txtBuscarVehiculo.Location = new Point(15, 100);
+            txtBuscarVehiculo.Name = "txtBuscarVehiculo";
+            txtBuscarVehiculo.PlaceholderText = "Buscar por matrícula, marca...";
+            txtBuscarVehiculo.Size = new Size(310, 23);
+            txtBuscarVehiculo.TabIndex = 3;
+            //
             // cbVehiculo
             //
             cbVehiculo.DropDownStyle = ComboBoxStyle.DropDownList;
             cbVehiculo.Font = new Font("Segoe UI", 9F);
             cbVehiculo.FormattingEnabled = true;
-            cbVehiculo.Location = new Point(15, 108);
+            cbVehiculo.Location = new Point(15, 126);
             cbVehiculo.Name = "cbVehiculo";
             cbVehiculo.Size = new Size(310, 23);
             cbVehiculo.TabIndex = 4;
@@ -123,7 +134,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblVehiculo.AutoSize = true;
             lblVehiculo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblVehiculo.ForeColor = Color.FromArgb(51, 51, 76);
-            lblVehiculo.Location = new Point(15, 88);
+            lblVehiculo.Location = new Point(15, 82);
             lblVehiculo.Name = "lblVehiculo";
             lblVehiculo.Size = new Size(56, 15);
             lblVehiculo.TabIndex = 3;
@@ -134,7 +145,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblEmpleado.AutoSize = true;
             lblEmpleado.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblEmpleado.ForeColor = Color.FromArgb(51, 51, 76);
-            lblEmpleado.Location = new Point(15, 138);
+            lblEmpleado.Location = new Point(15, 154);
             lblEmpleado.Name = "lblEmpleado";
             lblEmpleado.Size = new Size(62, 15);
             lblEmpleado.TabIndex = 5;
@@ -145,7 +156,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblEmpleadoValor.AutoSize = true;
             lblEmpleadoValor.Font = new Font("Segoe UI", 9F);
             lblEmpleadoValor.ForeColor = Color.FromArgb(51, 51, 76);
-            lblEmpleadoValor.Location = new Point(15, 158);
+            lblEmpleadoValor.Location = new Point(15, 172);
             lblEmpleadoValor.Name = "lblEmpleadoValor";
             lblEmpleadoValor.Size = new Size(90, 15);
             lblEmpleadoValor.TabIndex = 6;
@@ -156,7 +167,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblPrecioDiarioPactado.AutoSize = true;
             lblPrecioDiarioPactado.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblPrecioDiarioPactado.ForeColor = Color.FromArgb(51, 51, 76);
-            lblPrecioDiarioPactado.Location = new Point(15, 188);
+            lblPrecioDiarioPactado.Location = new Point(15, 200);
             lblPrecioDiarioPactado.Name = "lblPrecioDiarioPactado";
             lblPrecioDiarioPactado.Size = new Size(120, 15);
             lblPrecioDiarioPactado.TabIndex = 7;
@@ -165,7 +176,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // numPrecioDiarioPactado
             //
             numPrecioDiarioPactado.Font = new Font("Segoe UI", 9F);
-            numPrecioDiarioPactado.Location = new Point(15, 208);
+            numPrecioDiarioPactado.Location = new Point(15, 218);
             numPrecioDiarioPactado.Name = "numPrecioDiarioPactado";
             numPrecioDiarioPactado.Size = new Size(310, 23);
             numPrecioDiarioPactado.TabIndex = 8;
@@ -177,7 +188,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             lblAvisoLicencia.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
             lblAvisoLicencia.ForeColor = Color.FromArgb(180, 40, 40);
-            lblAvisoLicencia.Location = new Point(15, 238);
+            lblAvisoLicencia.Location = new Point(15, 246);
             lblAvisoLicencia.Name = "lblAvisoLicencia";
             lblAvisoLicencia.Size = new Size(310, 42);
             lblAvisoLicencia.TabIndex = 9;
@@ -290,6 +301,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtBuscarCliente;
         private ComboBox cbCliente;
         private Label lblCliente;
+        private TextBox txtBuscarVehiculo;
         private ComboBox cbVehiculo;
         private Label lblVehiculo;
         private Label lblEmpleado;

@@ -17,6 +17,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
             txtBuscarCliente.TextChanged += txtBuscarCliente_TextChanged;
+            txtBuscarVehiculo.TextChanged += txtBuscarVehiculo_TextChanged;
 
             // The summary card follows every input that changes what the operator is
             // about to commit to: who, which car, which dates and at what price.
@@ -40,6 +41,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         }
 
         private List<Cliente> _todosClientes = [];
+        private List<Vehiculo> _todosVehiculos = [];
 
         private void CargarCombos()
         {
@@ -48,10 +50,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             _todosClientes = _controller.ObtenerClientes();
             FiltrarClientes();
 
-            var vehiculos = _controller.ObtenerVehiculos();
-            cbVehiculo.DataSource = vehiculos;
-            cbVehiculo.DisplayMember = "Descripcion";
-            cbVehiculo.ValueMember = "IdVehiculo";
+            _todosVehiculos = _controller.ObtenerVehiculos();
+            FiltrarVehiculos();
         }
 
         private void FiltrarClientes()
@@ -70,9 +70,30 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbCliente.ValueMember = "IdCliente";
         }
 
+        private void FiltrarVehiculos()
+        {
+            string termino = FiltroBusqueda.Normalizar(txtBuscarVehiculo.Text);
+            var filtrados = _todosVehiculos.Where(v =>
+                termino.Length == 0 ||
+                FiltroBusqueda.Contiene(v.Matricula, termino) ||
+                FiltroBusqueda.Contiene(v.NombreMarca, termino) ||
+                FiltroBusqueda.Contiene(v.NombreModelo, termino) ||
+                FiltroBusqueda.Contiene(v.Color, termino)).ToList();
+
+            cbVehiculo.DataSource = null;
+            cbVehiculo.DataSource = filtrados;
+            cbVehiculo.DisplayMember = "Descripcion";
+            cbVehiculo.ValueMember = "IdVehiculo";
+        }
+
         private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
         {
             FiltrarClientes();
+        }
+
+        private void txtBuscarVehiculo_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarVehiculos();
         }
 
         public void SetReserva(Reserva res)
