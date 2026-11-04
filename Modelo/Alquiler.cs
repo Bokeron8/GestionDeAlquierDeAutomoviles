@@ -39,9 +39,9 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public string DescripcionCliente => $"{NombreCliente} — DNI {DniCliente}";
 
         /// <summary>
-        /// Short label used by selection combos: "#12 · Pérez, Juan · AB123CD".
+        /// Short label used by selection combos: "#12 · Pérez, Juan · AB123CD — Toyota Corolla 2020".
         /// </summary>
-        public string DescripcionCombo => $"#{IdAlquiler} · {NombreCliente} · {MatriculaVehiculo}";
+        public string DescripcionCombo => $"#{IdAlquiler} · {NombreCliente} · {DescripcionVehiculo}";
 
         private const string SelectConRelaciones =
             @"SELECT a.*,

@@ -31,6 +31,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public string NombreCliente { get; set; } = "";
         public string DniCliente { get; set; } = "";
         public string MatriculaVehiculo { get; set; } = "";
+        public string VehiculoDescripcion { get; set; } = "";
         public string NombreEmpleado { get; set; } = "";
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         /// by client, vehicle and dates instead of by number.
         /// </summary>
         public string DescripcionCombo =>
-            $"#{IdReserva} · {NombreCliente} · {MatriculaVehiculo} · {FechaInicioReserva:dd/MM} → {FechaFinReserva:dd/MM}";
+            $"#{IdReserva} · {NombreCliente} · {VehiculoDescripcion} · {FechaInicioReserva:dd/MM} → {FechaFinReserva:dd/MM}";
 
         public static List<Reserva> ObtenerTodos()
         {
@@ -51,11 +52,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 @"SELECT r.*, e.nombre AS estado_nombre,
                          c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
                          v.matricula AS vehiculo_matricula,
+                         v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo_descripcion,
                          em.apellido + ', ' + em.nombre AS empleado_nombre
                   FROM Reserva r
                   INNER JOIN Estado e ON e.id_estado = r.id_estado
                   INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
                   INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
                   INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
                   ORDER BY r.fecha_inicio_reserva DESC");
             var lista = new List<Reserva>();
@@ -77,11 +81,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 @"SELECT r.*, e.nombre AS estado_nombre,
                          c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
                          v.matricula AS vehiculo_matricula,
+                         v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo_descripcion,
                          em.apellido + ', ' + em.nombre AS empleado_nombre
                   FROM Reserva r
                   INNER JOIN Estado e ON e.id_estado = r.id_estado
                   INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
                   INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
                   INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
                   WHERE r.activo = 1
                     AND (r.id_estado = @en_curso
@@ -170,11 +177,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 @"SELECT r.*, e.nombre AS estado_nombre,
                          c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
                          v.matricula AS vehiculo_matricula,
+                         v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo_descripcion,
                          em.apellido + ', ' + em.nombre AS empleado_nombre
                   FROM Reserva r
                   INNER JOIN Estado e ON e.id_estado = r.id_estado
                   INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
                   INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
                   INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
                   WHERE r.id_reserva = @idReservaActual
                      OR (r.activo = 1
@@ -201,11 +211,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 @"SELECT r.*, e.nombre AS estado_nombre,
                          c.apellido + ', ' + c.nombre AS cliente_nombre, c.dni AS cliente_dni,
                          v.matricula AS vehiculo_matricula,
+                         v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo_descripcion,
                          em.apellido + ', ' + em.nombre AS empleado_nombre
                   FROM Reserva r
                   INNER JOIN Estado e ON e.id_estado = r.id_estado
                   INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
                   INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
                   INNER JOIN Empleado em ON em.id_empleado = r.id_empleado
                   WHERE r.id_reserva = @id",
                 [new SqlParameter("@id", id)]);
@@ -285,6 +298,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 NombreCliente = TextoOpcional(row, "cliente_nombre"),
                 DniCliente = TextoOpcional(row, "cliente_dni"),
                 MatriculaVehiculo = TextoOpcional(row, "vehiculo_matricula"),
+                VehiculoDescripcion = TextoOpcional(row, "vehiculo_descripcion"),
                 NombreEmpleado = TextoOpcional(row, "empleado_nombre")
             };
         }
