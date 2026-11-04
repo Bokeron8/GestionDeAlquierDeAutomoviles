@@ -58,12 +58,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvModelos.DefaultCellStyle.SelectionBackColor = Color.FromArgb(200, 200, 220);
             dgvModelos.DefaultCellStyle.SelectionForeColor = Color.Black;
             dgvModelos.EnableHeadersVisualStyles = false;
-            dgvModelos.Location = new Point(25, 60);
+            dgvModelos.Location = new Point(25, 95);
             dgvModelos.Name = "dgvModelos";
             dgvModelos.ReadOnly = true;
             dgvModelos.RowHeadersVisible = false;
             dgvModelos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvModelos.Size = new Size(700, 320);
+            dgvModelos.Size = new Size(700, 285);
             dgvModelos.TabIndex = 1;
             //
             // btnAgregar
@@ -113,7 +113,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             cbMarcaFiltro.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMarcaFiltro.Font = new Font("Segoe UI", 10F);
             cbMarcaFiltro.FormattingEnabled = true;
-            cbMarcaFiltro.Location = new Point(25, 300);
+            cbMarcaFiltro.Location = new Point(85, 60);
             cbMarcaFiltro.Name = "cbMarcaFiltro";
             cbMarcaFiltro.Size = new Size(200, 25);
             cbMarcaFiltro.TabIndex = 5;
@@ -122,7 +122,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             lblFiltroMarca.AutoSize = true;
             lblFiltroMarca.Font = new Font("Segoe UI", 10F);
-            lblFiltroMarca.Location = new Point(25, 275);
+            lblFiltroMarca.Location = new Point(25, 64);
             lblFiltroMarca.Name = "lblFiltroMarca";
             lblFiltroMarca.Size = new Size(46, 19);
             lblFiltroMarca.TabIndex = 6;
