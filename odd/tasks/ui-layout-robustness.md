@@ -76,7 +76,9 @@ diseñador de WinForms los reescribe al guardar.
   de acción anclada abajo queda pendiente: exigía reparentar 20–30 controles por vista en un panel
   de cuerpo, sin forma de verificar el resultado visualmente desde acá. Se retoma si las capturas
   muestran que el scroll solo no alcanza.
-- [ ] T7 — S8 Tier 3: `ListaModelo` (corrección de superposición), resto de `Lista*`, `ReporteVista`.
+- [x] T7 — S8 Tier 3: `ListaModelo` (corrección de superposición en `48febb8`), 11 `Lista*`
+  (`AutoScroll`, `MinimumSize`, buscador uniforme `x=400 w=325` en `6363d85`), `ReporteVista`
+  (`AutoScroll`, `MinimumSize=900×450`, `lblVehiculosTitulo` anclado `Top|Right` en `dc08a87`).
 
 ## Log
 
@@ -125,3 +127,15 @@ L7 (2026-11-04) Tier 2 ejecutado. Dos desvíos del plan, ambos deliberados:
 También se unificó `x = 275` para el botón de pie: en las vistas de pila estaba en 165, o sea 110 px
 a la izquierda del centro. El centrado es proporcional (anclaje `Bottom`), no exacto: a 884 px de
 ancho el corrimiento residual es de ~18 px.
+
+L8 (2026-11-04) Tier 3 ejecutado en tres commits:
+- `48febb8`: fix `ListaModeloVista` — filtro de marca (`cbMarcaFiltro`, `lblFiltroMarca`) movido
+  debajo del título (`y=64`) para que no se superponga a `dgvModelos` (`y=95`).
+- `6363d85`: 11 `Lista*` reciben `AutoScroll=true` y `MinimumSize=750×450`. Buscador unificado a
+  `x=400 w=325` en las 7 que lo tienen (Alquiler y Reserva corregidas del patrón disperso
+  `x=330/380`).
+- `dc08a87`: `ReporteVista` recibe `AutoScroll=true`, `MinimumSize=900×450` y
+  `lblVehiculosTitulo` ancla `Top|Right` para seguir a `dgvVehiculos`.
+Build: 0 errores, 220 warnings (línea base). Capturas del usuario pendientes para S6.
+
+Feature cerrada. Todos los tiers completados.
