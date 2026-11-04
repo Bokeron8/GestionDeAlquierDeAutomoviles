@@ -19,6 +19,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             lblTitulo = new Label();
             separador = new Panel();
+            txtBuscarAlquiler = new TextBox();
             cbAlquiler = new ComboBox();
             lblAlquiler = new Label();
             lblZona = new Label();
@@ -55,15 +56,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             separador.Size = new Size(700, 2);
             separador.TabIndex = 1;
             //
+            // txtBuscarAlquiler
+            //
+            txtBuscarAlquiler.Font = new Font("Segoe UI", 10F);
+            txtBuscarAlquiler.Location = new Point(40, 80);
+            txtBuscarAlquiler.Name = "txtBuscarAlquiler";
+            txtBuscarAlquiler.PlaceholderText = "Buscar alquiler por cliente, matrícula...";
+            txtBuscarAlquiler.Size = new Size(400, 25);
+            txtBuscarAlquiler.TabIndex = 2;
+            //
             // cbAlquiler
             //
             cbAlquiler.DropDownStyle = ComboBoxStyle.DropDownList;
             cbAlquiler.Font = new Font("Segoe UI", 10F);
             cbAlquiler.FormattingEnabled = true;
-            cbAlquiler.Location = new Point(40, 80);
+            cbAlquiler.Location = new Point(40, 110);
             cbAlquiler.Name = "cbAlquiler";
             cbAlquiler.Size = new Size(400, 25);
-            cbAlquiler.TabIndex = 2;
+            cbAlquiler.TabIndex = 3;
             //
             // lblAlquiler
             //
@@ -81,7 +91,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblZona.AutoSize = true;
             lblZona.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblZona.ForeColor = Color.FromArgb(51, 51, 76);
-            lblZona.Location = new Point(40, 120);
+            lblZona.Location = new Point(40, 150);
             lblZona.Name = "lblZona";
             lblZona.Size = new Size(39, 19);
             lblZona.TabIndex = 4;
@@ -90,7 +100,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtZona
             //
             txtZona.Font = new Font("Segoe UI", 10F);
-            txtZona.Location = new Point(40, 145);
+            txtZona.Location = new Point(40, 175);
             txtZona.Name = "txtZona";
             txtZona.Size = new Size(400, 25);
             txtZona.TabIndex = 5;
@@ -100,7 +110,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblDescripcion.AutoSize = true;
             lblDescripcion.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblDescripcion.ForeColor = Color.FromArgb(51, 51, 76);
-            lblDescripcion.Location = new Point(40, 180);
+            lblDescripcion.Location = new Point(40, 210);
             lblDescripcion.Name = "lblDescripcion";
             lblDescripcion.Size = new Size(80, 19);
             lblDescripcion.TabIndex = 6;
@@ -109,7 +119,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtDescripcion
             //
             txtDescripcion.Font = new Font("Segoe UI", 10F);
-            txtDescripcion.Location = new Point(40, 205);
+            txtDescripcion.Location = new Point(40, 235);
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(400, 60);
@@ -120,7 +130,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblEvidencia.AutoSize = true;
             lblEvidencia.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblEvidencia.ForeColor = Color.FromArgb(51, 51, 76);
-            lblEvidencia.Location = new Point(40, 275);
+            lblEvidencia.Location = new Point(40, 305);
             lblEvidencia.Name = "lblEvidencia";
             lblEvidencia.Size = new Size(140, 19);
             lblEvidencia.TabIndex = 8;
@@ -129,7 +139,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtEvidencia
             //
             txtEvidencia.Font = new Font("Segoe UI", 10F);
-            txtEvidencia.Location = new Point(40, 300);
+            txtEvidencia.Location = new Point(40, 330);
             txtEvidencia.Name = "txtEvidencia";
             txtEvidencia.Size = new Size(400, 25);
             txtEvidencia.TabIndex = 9;
@@ -141,7 +151,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
             btnGuardar.Anchor = AnchorStyles.Bottom;
-            btnGuardar.Location = new Point(275, 390);
+            btnGuardar.Location = new Point(275, 420);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 11;
@@ -151,7 +161,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // btnExaminar
             //
             btnExaminar.Font = new Font("Segoe UI", 10F);
-            btnExaminar.Location = new Point(40, 335);
+            btnExaminar.Location = new Point(40, 365);
             btnExaminar.Name = "btnExaminar";
             btnExaminar.Size = new Size(150, 28);
             btnExaminar.TabIndex = 10;
@@ -200,6 +210,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(separador);
+            Controls.Add(txtBuscarAlquiler);
             Controls.Add(cbAlquiler);
             Controls.Add(lblAlquiler);
             Controls.Add(lblZona);
@@ -225,6 +236,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private Label lblTitulo;
         private Panel separador;
+        private TextBox txtBuscarAlquiler;
         private ComboBox cbAlquiler;
         private Label lblAlquiler;
         private Label lblZona;

@@ -14,17 +14,40 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
+            txtBuscarReserva.TextChanged += txtBuscarReserva_TextChanged;
             cbReserva.SelectedIndexChanged += (_, _) => ActualizarResumen();
         }
+
+        private List<Reserva> _todasReservas = [];
 
         private void CargarReservas()
         {
             // The picker shows client, vehicle and dates instead of the reservation number,
             // so the operator cannot hand over the wrong car.
-            var reservas = _controller.ObtenerReservasDisponibles(_alquilerEditar?.IdReserva ?? 0);
-            cbReserva.DataSource = reservas;
+            _todasReservas = _controller.ObtenerReservasDisponibles(_alquilerEditar?.IdReserva ?? 0);
+            FiltrarReservas();
+        }
+
+        private void FiltrarReservas()
+        {
+            string termino = FiltroBusqueda.Normalizar(txtBuscarReserva.Text);
+            var filtradas = _todasReservas.Where(r =>
+                termino.Length == 0 ||
+                r.IdReserva.ToString().Contains(termino) ||
+                FiltroBusqueda.Contiene(r.NombreCliente, termino) ||
+                FiltroBusqueda.Contiene(r.DniCliente, termino) ||
+                FiltroBusqueda.Contiene(r.MatriculaVehiculo, termino) ||
+                FiltroBusqueda.Contiene(r.VehiculoDescripcion, termino)).ToList();
+
+            cbReserva.DataSource = null;
+            cbReserva.DataSource = filtradas;
             cbReserva.DisplayMember = "DescripcionCombo";
             cbReserva.ValueMember = "IdReserva";
+        }
+
+        private void txtBuscarReserva_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarReservas();
         }
 
         public void SetAlquiler(int id)

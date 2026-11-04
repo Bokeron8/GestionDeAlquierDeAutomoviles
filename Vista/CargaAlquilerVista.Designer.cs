@@ -19,6 +19,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             lblTitulo = new Label();
             separador = new Panel();
+            txtBuscarReserva = new TextBox();
             cbReserva = new ComboBox();
             lblReserva = new Label();
             lblCombustibleSalida = new Label();
@@ -50,15 +51,24 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             separador.Size = new Size(700, 2);
             separador.TabIndex = 1;
             //
+            // txtBuscarReserva
+            //
+            txtBuscarReserva.Font = new Font("Segoe UI", 10F);
+            txtBuscarReserva.Location = new Point(40, 80);
+            txtBuscarReserva.Name = "txtBuscarReserva";
+            txtBuscarReserva.PlaceholderText = "Buscar reserva por cliente, matrícula...";
+            txtBuscarReserva.Size = new Size(400, 25);
+            txtBuscarReserva.TabIndex = 2;
+            //
             // cbReserva
             //
             cbReserva.DropDownStyle = ComboBoxStyle.DropDownList;
             cbReserva.Font = new Font("Segoe UI", 10F);
             cbReserva.FormattingEnabled = true;
-            cbReserva.Location = new Point(40, 80);
+            cbReserva.Location = new Point(40, 110);
             cbReserva.Name = "cbReserva";
             cbReserva.Size = new Size(400, 25);
-            cbReserva.TabIndex = 2;
+            cbReserva.TabIndex = 3;
             //
             // lblReserva
             //
@@ -76,7 +86,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblCombustibleSalida.AutoSize = true;
             lblCombustibleSalida.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblCombustibleSalida.ForeColor = Color.FromArgb(51, 51, 76);
-            lblCombustibleSalida.Location = new Point(40, 120);
+            lblCombustibleSalida.Location = new Point(40, 150);
             lblCombustibleSalida.Name = "lblCombustibleSalida";
             lblCombustibleSalida.Size = new Size(125, 19);
             lblCombustibleSalida.TabIndex = 4;
@@ -85,7 +95,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtCombustibleSalida
             //
             txtCombustibleSalida.Font = new Font("Segoe UI", 10F);
-            txtCombustibleSalida.Location = new Point(40, 145);
+            txtCombustibleSalida.Location = new Point(40, 175);
             txtCombustibleSalida.Name = "txtCombustibleSalida";
             txtCombustibleSalida.Size = new Size(180, 25);
             txtCombustibleSalida.TabIndex = 5;
@@ -95,7 +105,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblKilometrajeSalida.AutoSize = true;
             lblKilometrajeSalida.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblKilometrajeSalida.ForeColor = Color.FromArgb(51, 51, 76);
-            lblKilometrajeSalida.Location = new Point(260, 120);
+            lblKilometrajeSalida.Location = new Point(260, 150);
             lblKilometrajeSalida.Name = "lblKilometrajeSalida";
             lblKilometrajeSalida.Size = new Size(120, 19);
             lblKilometrajeSalida.TabIndex = 6;
@@ -104,7 +114,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtKilometrajeSalida
             //
             txtKilometrajeSalida.Font = new Font("Segoe UI", 10F);
-            txtKilometrajeSalida.Location = new Point(260, 145);
+            txtKilometrajeSalida.Location = new Point(260, 175);
             txtKilometrajeSalida.Name = "txtKilometrajeSalida";
             txtKilometrajeSalida.Size = new Size(180, 25);
             txtKilometrajeSalida.TabIndex = 7;
@@ -116,7 +126,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
             btnGuardar.Anchor = AnchorStyles.Bottom;
-            btnGuardar.Location = new Point(275, 195);
+            btnGuardar.Location = new Point(275, 215);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 8;
@@ -139,7 +149,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             lblAvisoLicencia.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
             lblAvisoLicencia.ForeColor = Color.FromArgb(180, 40, 40);
-            lblAvisoLicencia.Location = new Point(40, 245);
+            lblAvisoLicencia.Location = new Point(40, 265);
             lblAvisoLicencia.Name = "lblAvisoLicencia";
             lblAvisoLicencia.Size = new Size(400, 32);
             lblAvisoLicencia.TabIndex = 10;
@@ -154,6 +164,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(separador);
+            Controls.Add(txtBuscarReserva);
             Controls.Add(cbReserva);
             Controls.Add(lblReserva);
             Controls.Add(lblCombustibleSalida);
@@ -174,6 +185,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private Label lblTitulo;
         private Panel separador;
+        private TextBox txtBuscarReserva;
         private ComboBox cbReserva;
         private Label lblReserva;
         private Label lblCombustibleSalida;

@@ -17,9 +17,12 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             InitializeComponent();
             btnGuardar.Click += btnGuardar_Click;
             btnExaminar.Click += btnExaminar_Click;
+            txtBuscarAlquiler.TextChanged += txtBuscarAlquiler_TextChanged;
             cbAlquiler.SelectedIndexChanged += (s, e) => ActualizarResumen();
             txtEvidencia.TextChanged += (s, e) => MostrarEvidencia(txtEvidencia.Text);
         }
+
+        private List<Alquiler> _todosAlquileres = [];
 
         /// <summary>
         /// Only rentals that are still open can receive a damage. When editing, the rental
@@ -28,10 +31,31 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         /// </summary>
         private void CargarAlquileres()
         {
-            var alquileres = _controller.ObtenerAlquileres(_danioEditar?.IdAlquiler);
-            cbAlquiler.DataSource = alquileres;
+            _todosAlquileres = _controller.ObtenerAlquileres(_danioEditar?.IdAlquiler);
+            FiltrarAlquileres();
+        }
+
+        private void FiltrarAlquileres()
+        {
+            string termino = FiltroBusqueda.Normalizar(txtBuscarAlquiler.Text);
+            var filtrados = _todosAlquileres.Where(a =>
+                termino.Length == 0 ||
+                a.IdAlquiler.ToString().Contains(termino) ||
+                a.IdReserva.ToString().Contains(termino) ||
+                FiltroBusqueda.Contiene(a.NombreCliente, termino) ||
+                FiltroBusqueda.Contiene(a.DniCliente, termino) ||
+                FiltroBusqueda.Contiene(a.MatriculaVehiculo, termino) ||
+                FiltroBusqueda.Contiene(a.DescripcionVehiculo, termino)).ToList();
+
+            cbAlquiler.DataSource = null;
+            cbAlquiler.DataSource = filtrados;
             cbAlquiler.DisplayMember = "DescripcionCombo";
             cbAlquiler.ValueMember = "IdAlquiler";
+        }
+
+        private void txtBuscarAlquiler_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarAlquileres();
         }
 
         public void SetDanio(Danio danio)
