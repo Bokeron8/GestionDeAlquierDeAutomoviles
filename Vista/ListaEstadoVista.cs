@@ -15,6 +15,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+            dgvEstados.SelectionChanged += (_, _) => ActualizarBotonBaja();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -46,6 +47,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvEstados.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvEstados.Columns["Activo"].Width = 60;
             }
+
+            ActualizarBotonBaja();
+        }
+
+        private void ActualizarBotonBaja()
+        {
+            bool hayFila = dgvEstados.CurrentRow != null;
+            bool activo = hayFila && Convert.ToBoolean(dgvEstados.CurrentRow!.Cells["Activo"].Value);
+
+            btnEliminar.Enabled = hayFila;
+            btnEliminar.Text = hayFila && !activo ? "Restaurar" : "Dar de baja";
+            btnEliminar.BackColor = hayFila && !activo
+                ? System.Drawing.Color.FromArgb(40, 140, 80)
+                : System.Drawing.Color.FromArgb(180, 40, 40);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -68,7 +83,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             if (dgvEstados.CurrentRow == null)
             {
-                MessageBox.Show("Seleccione un estado para dar de baja", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Seleccione un estado para dar de baja o restaurar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -81,16 +96,21 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 var result = MessageBox.Show(
                     $"¿Desea dar de baja el estado {nombre}?",
                     "Confirmar baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    _controller.Eliminar(id);
-                    Refrescar();
-                }
+                if (result != DialogResult.Yes) return;
+
+                _controller.Eliminar(id);
             }
             else
             {
-                MessageBox.Show($"El estado {nombre} ya se encuentra inactivo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show(
+                    $"¿Desea restaurar el estado {nombre}?",
+                    "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes) return;
+
+                _controller.Restaurar(id);
             }
+
+            Refrescar();
         }
     }
 }

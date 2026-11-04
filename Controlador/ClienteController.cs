@@ -62,5 +62,10 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
         {
             return Cliente.Eliminar(id);
         }
+
+        public bool Restaurar(int id)
+        {
+            return Cliente.Restaurar(id);
+        }
     }
 }

@@ -52,6 +52,11 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             return Vehiculo.Eliminar(id);
         }
 
+        public bool Restaurar(int id)
+        {
+            return Vehiculo.Restaurar(id);
+        }
+
         public List<ModeloVehiculo> ObtenerModelos()
         {
             return ModeloVehiculo.ObtenerTodos();

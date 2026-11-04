@@ -16,6 +16,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+            dgvVehiculos.SelectionChanged += (_, _) => ActualizarBotonBaja();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -76,6 +77,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
 
             OrdenarColumnas();
+
+            ActualizarBotonBaja();
+        }
+
+        private void ActualizarBotonBaja()
+        {
+            bool hayFila = dgvVehiculos.CurrentRow != null;
+            bool activo = hayFila && Convert.ToBoolean(dgvVehiculos.CurrentRow!.Cells["Activo"].Value);
+
+            btnEliminar.Enabled = hayFila;
+            btnEliminar.Text = hayFila && !activo ? "Restaurar" : "Dar de baja";
+            btnEliminar.BackColor = hayFila && !activo
+                ? System.Drawing.Color.FromArgb(40, 140, 80)
+                : System.Drawing.Color.FromArgb(180, 40, 40);
         }
 
         private void OrdenarColumnas()
@@ -117,7 +132,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             if (dgvVehiculos.CurrentRow == null)
             {
-                MessageBox.Show("Seleccione un vehículo para dar de baja", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Seleccione un vehículo para dar de baja o restaurar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -130,16 +145,21 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 var result = MessageBox.Show(
                     $"¿Desea dar de baja el vehículo con matrícula {matricula}?",
                     "Confirmar baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    _controller.Eliminar(id);
-                    Refrescar();
-                }
+                if (result != DialogResult.Yes) return;
+
+                _controller.Eliminar(id);
             }
             else
             {
-                MessageBox.Show($"El vehículo {matricula} ya se encuentra inactivo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show(
+                    $"¿Desea restaurar el vehículo con matrícula {matricula}?",
+                    "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes) return;
+
+                _controller.Restaurar(id);
             }
+
+            Refrescar();
         }
     }
 }

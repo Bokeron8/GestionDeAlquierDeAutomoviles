@@ -35,5 +35,10 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
         {
             return Marca.Eliminar(id);
         }
+
+        public bool Restaurar(int id)
+        {
+            return Marca.Restaurar(id);
+        }
     }
 }

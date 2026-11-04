@@ -35,5 +35,10 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
         {
             return Rol.Eliminar(id);
         }
+
+        public bool Restaurar(int id)
+        {
+            return Rol.Restaurar(id);
+        }
     }
 }

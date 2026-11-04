@@ -109,6 +109,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return rows > 0;
         }
 
+        public static bool Restaurar(int id)
+        {
+            int rows = DatabaseHelper.ExecuteNonQuery(
+                "UPDATE Cliente SET activo = 1 WHERE id_cliente = @id",
+                [new SqlParameter("@id", id)]);
+            return rows > 0;
+        }
+
         public static bool EsDniDuplicado(string dni, int? idExcluir = null)
         {
             string query = "SELECT COUNT(*) FROM Cliente WHERE dni = @dni";

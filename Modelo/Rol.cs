@@ -64,6 +64,14 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
             return rows > 0;
         }
 
+        public static bool Restaurar(int id)
+        {
+            int rows = DatabaseHelper.ExecuteNonQuery(
+                "UPDATE Rol SET activo = 1 WHERE id_rol = @id",
+                [new SqlParameter("@id", id)]);
+            return rows > 0;
+        }
+
         public static bool EsRolDuplicado(string rol, int? idExcluir = null)
         {
             string query = "SELECT COUNT(*) FROM Rol WHERE rol = @rol";

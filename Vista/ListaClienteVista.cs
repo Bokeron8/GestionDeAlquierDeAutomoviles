@@ -16,6 +16,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+            dgvClientes.SelectionChanged += (_, _) => ActualizarBotonBaja();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -79,6 +80,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 if (dgvClientes.Columns[columna] != null)
                     dgvClientes.Columns[columna].Visible = false;
             }
+
+            ActualizarBotonBaja();
+        }
+
+        private void ActualizarBotonBaja()
+        {
+            bool hayFila = dgvClientes.CurrentRow != null;
+            bool activo = hayFila && Convert.ToBoolean(dgvClientes.CurrentRow!.Cells["Activo"].Value);
+
+            btnEliminar.Enabled = hayFila;
+            btnEliminar.Text = hayFila && !activo ? "Restaurar" : "Dar de baja";
+            btnEliminar.BackColor = hayFila && !activo
+                ? System.Drawing.Color.FromArgb(40, 140, 80)
+                : System.Drawing.Color.FromArgb(180, 40, 40);
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -106,7 +121,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             if (dgvClientes.CurrentRow == null)
             {
-                MessageBox.Show("Seleccione un cliente para dar de baja", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Seleccione un cliente para dar de baja o restaurar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -120,16 +135,21 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 var result = MessageBox.Show(
                     $"¿Desea dar de baja al cliente {nombre} {apellido}?",
                     "Confirmar baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    _controller.Eliminar(id);
-                    Refrescar();
-                }
+                if (result != DialogResult.Yes) return;
+
+                _controller.Eliminar(id);
             }
             else
             {
-                MessageBox.Show($"El cliente {nombre} {apellido} ya se encuentra inactivo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show(
+                    $"¿Desea restaurar al cliente {nombre} {apellido}?",
+                    "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes) return;
+
+                _controller.Restaurar(id);
             }
+
+            Refrescar();
         }
     }
 }

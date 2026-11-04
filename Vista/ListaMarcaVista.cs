@@ -15,6 +15,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnAgregar.Click += btnAgregar_Click;
             btnEditar.Click += btnEditar_Click;
             btnEliminar.Click += btnEliminar_Click;
+            dgvMarcas.SelectionChanged += (_, _) => ActualizarBotonBaja();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -44,6 +45,20 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvMarcas.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvMarcas.Columns["Activo"].Width = 60;
             }
+
+            ActualizarBotonBaja();
+        }
+
+        private void ActualizarBotonBaja()
+        {
+            bool hayFila = dgvMarcas.CurrentRow != null;
+            bool activo = hayFila && Convert.ToBoolean(dgvMarcas.CurrentRow!.Cells["Activo"].Value);
+
+            btnEliminar.Enabled = hayFila;
+            btnEliminar.Text = hayFila && !activo ? "Restaurar" : "Dar de baja";
+            btnEliminar.BackColor = hayFila && !activo
+                ? System.Drawing.Color.FromArgb(40, 140, 80)
+                : System.Drawing.Color.FromArgb(180, 40, 40);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -66,7 +81,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             if (dgvMarcas.CurrentRow == null)
             {
-                MessageBox.Show("Seleccione una marca para dar de baja", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Seleccione una marca para dar de baja o restaurar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -79,16 +94,21 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 var result = MessageBox.Show(
                     $"¿Desea dar de baja la marca {nombre}?",
                     "Confirmar baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    _controller.Eliminar(id);
-                    Refrescar();
-                }
+                if (result != DialogResult.Yes) return;
+
+                _controller.Eliminar(id);
             }
             else
             {
-                MessageBox.Show($"La marca {nombre} ya se encuentra inactiva.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show(
+                    $"¿Desea restaurar la marca {nombre}?",
+                    "Confirmar restauración", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes) return;
+
+                _controller.Restaurar(id);
             }
+
+            Refrescar();
         }
     }
 }
