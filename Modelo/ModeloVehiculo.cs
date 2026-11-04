@@ -41,7 +41,10 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static ModeloVehiculo? ObtenerPorId(int id)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                "SELECT * FROM Modelo WHERE id_modelo = @id",
+                @"SELECT mo.*, ma.marca AS marca_nombre
+                  FROM Modelo mo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
+                  WHERE mo.id_modelo = @id",
                 [new SqlParameter("@id", id)]);
             return dt.Rows.Count > 0 ? Map(dt.Rows[0]) : null;
         }

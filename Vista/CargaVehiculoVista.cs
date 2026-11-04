@@ -31,7 +31,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             var modelos = _controller.ObtenerModelos();
             cbModelo.DataSource = modelos;
-            cbModelo.DisplayMember = "NombreModelo";
+            cbModelo.DisplayMember = "Descripcion";
             cbModelo.ValueMember = "IdModelo";
 
             var categorias = _controller.ObtenerCategorias();
