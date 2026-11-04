@@ -58,9 +58,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 Size = new Size(200, 56),
                 Margin = new Padding(0, 0, 14, 14),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(51, 51, 76),
+                BackColor = Theme.Primario,
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Font = Theme.CuerpoNegrita(),
                 Cursor = Cursors.Hand,
                 Tag = seccion
             };

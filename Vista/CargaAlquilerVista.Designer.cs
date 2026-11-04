@@ -44,6 +44,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // separador
             //
             separador.BackColor = Color.FromArgb(51, 51, 76);
+            separador.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             separador.Location = new Point(25, 55);
             separador.Name = "separador";
             separador.Size = new Size(700, 2);
@@ -114,7 +115,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(265, 195);
+            btnGuardar.Anchor = AnchorStyles.Bottom;
+            btnGuardar.Location = new Point(275, 195);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(200, 45);
             btnGuardar.TabIndex = 8;
@@ -148,6 +150,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(separador);
@@ -161,6 +164,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(lblResumen);
             Controls.Add(lblAvisoLicencia);
             Name = "CargaAlquilerVista";
+            MinimumSize = new Size(750, 300);
             Size = new Size(750, 300);
             ResumeLayout(false);
             PerformLayout();

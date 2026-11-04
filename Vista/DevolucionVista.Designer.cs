@@ -45,6 +45,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // separador
             //
             separador.BackColor = Color.FromArgb(51, 51, 76);
+            separador.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             separador.Location = new Point(25, 55);
             separador.Name = "separador";
             separador.Size = new Size(700, 2);
@@ -157,6 +158,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblTitulo);
             Controls.Add(separador);
@@ -171,6 +173,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(txtMontoMora);
             Controls.Add(btnConfirmar);
             Name = "DevolucionVista";
+            MinimumSize = new Size(750, 440);
             Size = new Size(750, 440);
             ResumeLayout(false);
             PerformLayout();
