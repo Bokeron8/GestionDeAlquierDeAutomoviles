@@ -107,7 +107,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblContrasenia.AutoSize = true;
             lblContrasenia.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblContrasenia.ForeColor = Color.FromArgb(51, 51, 76);
-            lblContrasenia.Location = new Point(176, 128);
+            lblContrasenia.Location = new Point(192, 128);
             lblContrasenia.Name = "lblContrasenia";
             lblContrasenia.Size = new Size(69, 15);
             lblContrasenia.TabIndex = 4;
@@ -116,7 +116,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtContrasenia
             // 
             txtContrasenia.Font = new Font("Segoe UI", 10F);
-            txtContrasenia.Location = new Point(176, 148);
+            txtContrasenia.Location = new Point(192, 148);
             txtContrasenia.Name = "txtContrasenia";
             txtContrasenia.Size = new Size(300, 25);
             txtContrasenia.TabIndex = 5;
@@ -127,7 +127,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblUsuario.ForeColor = Color.FromArgb(51, 51, 76);
-            lblUsuario.Location = new Point(176, 58);
+            lblUsuario.Location = new Point(192, 58);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(49, 15);
             lblUsuario.TabIndex = 2;
@@ -136,7 +136,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             // txtUsuario
             // 
             txtUsuario.Font = new Font("Segoe UI", 10F);
-            txtUsuario.Location = new Point(176, 78);
+            txtUsuario.Location = new Point(192, 78);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(300, 25);
             txtUsuario.TabIndex = 3;
@@ -147,7 +147,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnIniciarSesion.FlatStyle = FlatStyle.Flat;
             btnIniciarSesion.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnIniciarSesion.ForeColor = Color.White;
-            btnIniciarSesion.Location = new Point(176, 198);
+            btnIniciarSesion.Location = new Point(192, 198);
             btnIniciarSesion.Name = "btnIniciarSesion";
             btnIniciarSesion.Size = new Size(300, 45);
             btnIniciarSesion.TabIndex = 6;

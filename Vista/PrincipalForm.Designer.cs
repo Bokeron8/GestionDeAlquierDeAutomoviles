@@ -184,6 +184,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             // panelContenido
             //
+            panelContenido.AutoScroll = true;
             panelContenido.BackColor = Color.FromArgb(240, 240, 245);
             panelContenido.Dock = DockStyle.Fill;
             panelContenido.Location = new Point(0, 74);
@@ -201,7 +202,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(panelHeader);
             Controls.Add(menuStrip);
             MainMenuStrip = menuStrip;
-            MinimumSize = new Size(700, 400);
+            MinimumSize = new Size(900, 640);
             Name = "PrincipalForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestion de Alquiler de Automoviles";

@@ -59,6 +59,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             // panelAccesos
             //
+            panelAccesos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panelAccesos.AutoScroll = true;
             panelAccesos.Location = new Point(40, 150);
             panelAccesos.Name = "panelAccesos";
             panelAccesos.Size = new Size(820, 220);
@@ -66,6 +68,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             // lblPista
             //
+            lblPista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblPista.AutoSize = true;
             lblPista.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             lblPista.ForeColor = Color.FromArgb(120, 120, 140);
@@ -79,12 +82,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
             Controls.Add(lblBienvenida);
             Controls.Add(lblRol);
             Controls.Add(lblAccesos);
             Controls.Add(panelAccesos);
             Controls.Add(lblPista);
+            MinimumSize = new Size(750, 450);
             Name = "InicioVista";
             Size = new Size(900, 450);
             ResumeLayout(false);
