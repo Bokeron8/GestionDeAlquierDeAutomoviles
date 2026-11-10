@@ -147,12 +147,25 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             btnConfirmar.FlatStyle = FlatStyle.Flat;
             btnConfirmar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnConfirmar.ForeColor = Color.White;
-            btnConfirmar.Location = new Point(265, 370);
+            btnConfirmar.Location = new Point(265, 450);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(220, 45);
-            btnConfirmar.TabIndex = 11;
+            btnConfirmar.TabIndex = 12;
             btnConfirmar.Text = "Confirmar Devolución";
             btnConfirmar.UseVisualStyleBackColor = false;
+            //
+            // lblResumenFinanciero
+            //
+            lblResumenFinanciero.BackColor = Color.White;
+            lblResumenFinanciero.BorderStyle = BorderStyle.FixedSingle;
+            lblResumenFinanciero.Font = new Font("Segoe UI", 10F);
+            lblResumenFinanciero.ForeColor = Color.FromArgb(51, 51, 76);
+            lblResumenFinanciero.Location = new Point(40, 360);
+            lblResumenFinanciero.Name = "lblResumenFinanciero";
+            lblResumenFinanciero.Padding = new Padding(10);
+            lblResumenFinanciero.Size = new Size(630, 75);
+            lblResumenFinanciero.TabIndex = 11;
+            lblResumenFinanciero.Text = "Resumen financiero del alquiler...";
             //
             // DevolucionVista
             //
@@ -171,10 +184,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(txtCombustibleEntrada);
             Controls.Add(lblMontoMora);
             Controls.Add(txtMontoMora);
+            Controls.Add(lblResumenFinanciero);
             Controls.Add(btnConfirmar);
             Name = "DevolucionVista";
-            MinimumSize = new Size(750, 440);
-            Size = new Size(750, 440);
+            MinimumSize = new Size(750, 530);
+            Size = new Size(750, 530);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -192,6 +206,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private TextBox txtCombustibleEntrada;
         private Label lblMontoMora;
         private TextBox txtMontoMora;
+        private Label lblResumenFinanciero;
         private Button btnConfirmar;
     }
 }

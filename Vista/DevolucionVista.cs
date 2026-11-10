@@ -14,7 +14,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         {
             InitializeComponent();
             btnConfirmar.Click += btnConfirmar_Click;
-            dtpFechaDevolucion.ValueChanged += (_, _) => RecalcularMora();
+            dtpFechaDevolucion.ValueChanged += (_, _) => { RecalcularMora(); ActualizarResumenFinanciero(); };
+            txtMontoMora.TextChanged += (_, _) => ActualizarResumenFinanciero();
         }
 
         public void SetAlquiler(int idAlquiler)
@@ -33,6 +34,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             txtCombustibleEntrada.Text = "";
             dtpFechaDevolucion.Value = DateTime.Now < _contrato.FechaEntregaReal ? _contrato.FechaEntregaReal : DateTime.Now;
             RecalcularMora();
+            ActualizarResumenFinanciero();
 
             btnConfirmar.Enabled = _contrato.Activo;
         }
@@ -62,6 +64,27 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             int diasAtraso = (dtpFechaDevolucion.Value.Date - _contrato.FechaFinReserva.Date).Days;
             decimal mora = diasAtraso > 0 ? diasAtraso * _contrato.PrecioDiarioPactado : 0;
             txtMontoMora.Text = mora.ToString("0.00");
+        }
+
+        private void ActualizarResumenFinanciero()
+        {
+            if (_contrato == null)
+            {
+                lblResumenFinanciero.Text = "Seleccione un alquiler.";
+                return;
+            }
+
+            int dias = (dtpFechaDevolucion.Value.Date - _contrato.FechaEntregaReal.Date).Days;
+            if (dias < 1) dias = 1;
+
+            decimal subtotal = dias * _contrato.PrecioDiarioPactado;
+            decimal.TryParse(txtMontoMora.Text, out decimal mora);
+            decimal total = subtotal + mora;
+
+            lblResumenFinanciero.Text =
+                $"Días facturados: {dias} (desde {_contrato.FechaEntregaReal:dd/MM} hasta {dtpFechaDevolucion.Value:dd/MM}){Environment.NewLine}" +
+                $"Subtotal alquiler: ${subtotal:0.00}  |  Mora por atraso: ${mora:0.00}{Environment.NewLine}" +
+                $"TOTAL A COBRAR AL CLIENTE: ${total:0.00}";
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)

@@ -266,5 +266,70 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 ? row[columna].ToString() ?? ""
                 : "";
         }
+
+        public static List<IngresosPorCategoriaDto> ObtenerIngresosPorCategoria()
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT cat.nombre AS categoria,
+                         COUNT(a.id_alquiler) AS cantidad,
+                         ISNULL(SUM(r.precio_diario_pactado *
+                                    CASE WHEN DATEDIFF(DAY, a.fechaEntregaReal, a.fechaEntregaDevolucion) < 1 THEN 1
+                                         ELSE DATEDIFF(DAY, a.fechaEntregaReal, a.fechaEntregaDevolucion) END
+                                   + ISNULL(a.montoMora, 0)), 0) AS total_ingresos
+                  FROM Alquiler a
+                  INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Categoria cat ON cat.id_categoria = v.id_categoria
+                  WHERE a.activo = 0
+                  GROUP BY cat.nombre
+                  ORDER BY total_ingresos DESC");
+            var lista = new List<IngresosPorCategoriaDto>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(new IngresosPorCategoriaDto
+                {
+                    Categoria = row["categoria"].ToString() ?? "",
+                    CantidadAlquileres = Convert.ToInt32(row["cantidad"]),
+                    TotalIngresos = Convert.ToDecimal(row["total_ingresos"])
+                });
+            }
+            return lista;
+        }
+
+        public static List<AlquilerFinalizadoDto> ObtenerFinalizadosRecientes()
+        {
+            var dt = DatabaseHelper.ExecuteQuery(
+                @"SELECT TOP 15 a.id_alquiler,
+                                c.apellido + ', ' + c.nombre AS cliente,
+                                v.matricula + ' — ' + ma.marca + ' ' + mo.modelo AS vehiculo,
+                                a.fechaEntregaReal,
+                                a.fechaEntregaDevolucion,
+                                (r.precio_diario_pactado *
+                                 CASE WHEN DATEDIFF(DAY, a.fechaEntregaReal, a.fechaEntregaDevolucion) < 1 THEN 1
+                                      ELSE DATEDIFF(DAY, a.fechaEntregaReal, a.fechaEntregaDevolucion) END
+                                 + ISNULL(a.montoMora, 0)) AS monto_total
+                  FROM Alquiler a
+                  INNER JOIN Reserva r ON r.id_reserva = a.id_reserva
+                  INNER JOIN Cliente c ON c.id_cliente = r.id_cliente
+                  INNER JOIN Vehiculo v ON v.id_vehiculo = r.id_vehiculo
+                  INNER JOIN Modelo mo ON mo.id_modelo = v.id_modelo
+                  INNER JOIN Marca ma ON ma.id_marca = mo.id_marca
+                  WHERE a.activo = 0
+                  ORDER BY a.fechaEntregaDevolucion DESC");
+            var lista = new List<AlquilerFinalizadoDto>();
+            foreach (DataRow row in dt.Rows)
+            {
+                lista.Add(new AlquilerFinalizadoDto
+                {
+                    IdAlquiler = Convert.ToInt32(row["id_alquiler"]),
+                    Cliente = row["cliente"].ToString() ?? "",
+                    Vehiculo = row["vehiculo"].ToString() ?? "",
+                    FechaEntrega = Convert.ToDateTime(row["fechaEntregaReal"]),
+                    FechaDevolucion = row["fechaEntregaDevolucion"] != DBNull.Value ? Convert.ToDateTime(row["fechaEntregaDevolucion"]) : null,
+                    MontoTotal = Convert.ToDecimal(row["monto_total"])
+                });
+            }
+            return lista;
+        }
     }
 }

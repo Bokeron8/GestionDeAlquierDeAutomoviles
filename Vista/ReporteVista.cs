@@ -37,6 +37,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
                 MostrarReservas(resumen.ReservasActivas);
                 MostrarVehiculos(resumen.VehiculosDisponibles);
+                MostrarIngresosCategoria(resumen.IngresosPorCategoria);
+                MostrarAlquileresFinalizados(resumen.AlquileresFinalizadosRecientes);
             }
             catch (Exception ex)
             {
@@ -56,6 +58,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
             dgvReservas.DataSource = null;
             dgvVehiculos.DataSource = null;
+            dgvIngresosCategoria.DataSource = null;
+            dgvAlquileresFinalizados.DataSource = null;
         }
 
         private void MostrarReservas(List<Reserva> reservas)
@@ -125,6 +129,50 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             }
 
             OrdenarColumnas(dgvVehiculos, ["Matricula", "MarcaModelo", "NombreCategoria"]);
+        }
+
+        private void MostrarIngresosCategoria(List<IngresosPorCategoriaDto> lista)
+        {
+            dgvIngresosCategoria.DataSource = null;
+            dgvIngresosCategoria.DataSource = lista;
+
+            if (dgvIngresosCategoria.Columns["Categoria"] != null)
+                dgvIngresosCategoria.Columns["Categoria"].HeaderText = "Categoría";
+            if (dgvIngresosCategoria.Columns["CantidadAlquileres"] != null)
+                dgvIngresosCategoria.Columns["CantidadAlquileres"].HeaderText = "Alq.";
+            if (dgvIngresosCategoria.Columns["TotalIngresos"] != null)
+            {
+                dgvIngresosCategoria.Columns["TotalIngresos"].HeaderText = "Ingresos";
+                dgvIngresosCategoria.Columns["TotalIngresos"].DefaultCellStyle.Format = "C2";
+            }
+            OrdenarColumnas(dgvIngresosCategoria, ["Categoria", "CantidadAlquileres", "TotalIngresos"]);
+        }
+
+        private void MostrarAlquileresFinalizados(List<AlquilerFinalizadoDto> lista)
+        {
+            dgvAlquileresFinalizados.DataSource = null;
+            dgvAlquileresFinalizados.DataSource = lista;
+
+            if (dgvAlquileresFinalizados.Columns["Cliente"] != null)
+                dgvAlquileresFinalizados.Columns["Cliente"].HeaderText = "Cliente";
+            if (dgvAlquileresFinalizados.Columns["Vehiculo"] != null)
+                dgvAlquileresFinalizados.Columns["Vehiculo"].HeaderText = "Vehículo";
+            if (dgvAlquileresFinalizados.Columns["FechaDevolucion"] != null)
+                dgvAlquileresFinalizados.Columns["FechaDevolucion"].HeaderText = "Devolución";
+            if (dgvAlquileresFinalizados.Columns["MontoTotal"] != null)
+            {
+                dgvAlquileresFinalizados.Columns["MontoTotal"].HeaderText = "Total Cobrado";
+                dgvAlquileresFinalizados.Columns["MontoTotal"].DefaultCellStyle.Format = "C2";
+            }
+
+            string[] ocultas = ["IdAlquiler", "FechaEntrega"];
+            foreach (string col in ocultas)
+            {
+                if (dgvAlquileresFinalizados.Columns[col] != null)
+                    dgvAlquileresFinalizados.Columns[col].Visible = false;
+            }
+
+            OrdenarColumnas(dgvAlquileresFinalizados, ["Cliente", "Vehiculo", "FechaDevolucion", "MontoTotal"]);
         }
 
         /// <summary>

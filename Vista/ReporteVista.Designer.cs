@@ -168,6 +168,76 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvVehiculos.Size = new Size(310, 280);
             dgvVehiculos.TabIndex = 15;
             //
+            // lblIngresosCategoriaTitulo
+            //
+            lblIngresosCategoriaTitulo.AutoSize = true;
+            lblIngresosCategoriaTitulo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblIngresosCategoriaTitulo.ForeColor = Color.FromArgb(51, 51, 76);
+            lblIngresosCategoriaTitulo.Location = new Point(25, 435);
+            lblIngresosCategoriaTitulo.Name = "lblIngresosCategoriaTitulo";
+            lblIngresosCategoriaTitulo.Size = new Size(220, 20);
+            lblIngresosCategoriaTitulo.TabIndex = 16;
+            lblIngresosCategoriaTitulo.Text = "Ingresos por Categoría";
+            //
+            // dgvIngresosCategoria
+            //
+            dgvIngresosCategoria.AllowUserToAddRows = false;
+            dgvIngresosCategoria.AllowUserToDeleteRows = false;
+            dgvIngresosCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            dgvIngresosCategoria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvIngresosCategoria.BackgroundColor = Color.White;
+            dgvIngresosCategoria.BorderStyle = BorderStyle.None;
+            dgvIngresosCategoria.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(51, 51, 76);
+            dgvIngresosCategoria.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvIngresosCategoria.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dgvIngresosCategoria.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvIngresosCategoria.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
+            dgvIngresosCategoria.DefaultCellStyle.SelectionBackColor = Color.FromArgb(200, 200, 220);
+            dgvIngresosCategoria.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvIngresosCategoria.EnableHeadersVisualStyles = false;
+            dgvIngresosCategoria.Location = new Point(25, 460);
+            dgvIngresosCategoria.Name = "dgvIngresosCategoria";
+            dgvIngresosCategoria.ReadOnly = true;
+            dgvIngresosCategoria.RowHeadersVisible = false;
+            dgvIngresosCategoria.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvIngresosCategoria.Size = new Size(350, 250);
+            dgvIngresosCategoria.TabIndex = 17;
+            //
+            // lblAlquileresFinalizadosTitulo
+            //
+            lblAlquileresFinalizadosTitulo.AutoSize = true;
+            lblAlquileresFinalizadosTitulo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblAlquileresFinalizadosTitulo.ForeColor = Color.FromArgb(51, 51, 76);
+            lblAlquileresFinalizadosTitulo.Location = new Point(395, 435);
+            lblAlquileresFinalizadosTitulo.Name = "lblAlquileresFinalizadosTitulo";
+            lblAlquileresFinalizadosTitulo.Size = new Size(250, 20);
+            lblAlquileresFinalizadosTitulo.TabIndex = 18;
+            lblAlquileresFinalizadosTitulo.Text = "Alquileres Finalizados Recientes";
+            //
+            // dgvAlquileresFinalizados
+            //
+            dgvAlquileresFinalizados.AllowUserToAddRows = false;
+            dgvAlquileresFinalizados.AllowUserToDeleteRows = false;
+            dgvAlquileresFinalizados.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dgvAlquileresFinalizados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAlquileresFinalizados.BackgroundColor = Color.White;
+            dgvAlquileresFinalizados.BorderStyle = BorderStyle.None;
+            dgvAlquileresFinalizados.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(51, 51, 76);
+            dgvAlquileresFinalizados.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvAlquileresFinalizados.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dgvAlquileresFinalizados.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvAlquileresFinalizados.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
+            dgvAlquileresFinalizados.DefaultCellStyle.SelectionBackColor = Color.FromArgb(200, 200, 220);
+            dgvAlquileresFinalizados.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvAlquileresFinalizados.EnableHeadersVisualStyles = false;
+            dgvAlquileresFinalizados.Location = new Point(395, 460);
+            dgvAlquileresFinalizados.Name = "dgvAlquileresFinalizados";
+            dgvAlquileresFinalizados.ReadOnly = true;
+            dgvAlquileresFinalizados.RowHeadersVisible = false;
+            dgvAlquileresFinalizados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAlquileresFinalizados.Size = new Size(485, 250);
+            dgvAlquileresFinalizados.TabIndex = 19;
+            //
             // ReporteVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -184,11 +254,17 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             Controls.Add(dgvReservas);
             Controls.Add(lblVehiculosTitulo);
             Controls.Add(dgvVehiculos);
+            Controls.Add(lblIngresosCategoriaTitulo);
+            Controls.Add(dgvIngresosCategoria);
+            Controls.Add(lblAlquileresFinalizadosTitulo);
+            Controls.Add(dgvAlquileresFinalizados);
             Name = "ReporteVista";
-            MinimumSize = new Size(900, 450);
-            Size = new Size(900, 450);
+            MinimumSize = new Size(900, 750);
+            Size = new Size(900, 750);
             ((System.ComponentModel.ISupportInitialize)dgvReservas).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvIngresosCategoria).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAlquileresFinalizados).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -205,5 +281,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblVehiculosTitulo;
         private DataGridView dgvReservas;
         private DataGridView dgvVehiculos;
+        private Label lblIngresosCategoriaTitulo;
+        private DataGridView dgvIngresosCategoria;
+        private Label lblAlquileresFinalizadosTitulo;
+        private DataGridView dgvAlquileresFinalizados;
     }
 }

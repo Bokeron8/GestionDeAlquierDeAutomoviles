@@ -23,7 +23,9 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
                 AlquileresEnCurso = Alquiler.ObtenerEnCurso().Count,
                 IngresosDelMes = Alquiler.ObtenerIngresos(inicioMes, inicioMes.AddMonths(1)),
                 ReservasActivas = Reserva.ObtenerActivas(),
-                VehiculosDisponibles = Vehiculo.ObtenerDisponibles()
+                VehiculosDisponibles = Vehiculo.ObtenerDisponibles(),
+                IngresosPorCategoria = Alquiler.ObtenerIngresosPorCategoria(),
+                AlquileresFinalizadosRecientes = Alquiler.ObtenerFinalizadosRecientes()
             };
         }
     }
