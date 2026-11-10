@@ -20,6 +20,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblTitulo = new Label();
             btnActualizar = new Button();
             lblActualizado = new Label();
+            pnlContenido = new Panel();
             pnlVehiculos = new Panel();
             lblVehiculosEtiqueta = new Label();
             lblVehiculosValor = new Label();
@@ -56,6 +57,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblAlquileresFinalizadosTitulo = new Label();
             dgvAlquileresFinalizados = new DataGridView();
             lblSinAlquileresFinalizados = new Label();
+            pnlContenido.SuspendLayout();
             pnlVehiculos.SuspendLayout();
             pnlAlquileres.SuspendLayout();
             pnlPendientes.SuspendLayout();
@@ -414,7 +416,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             dgvIngresosCategoria.AllowUserToAddRows = false;
             dgvIngresosCategoria.AllowUserToDeleteRows = false;
-            dgvIngresosCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            dgvIngresosCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvIngresosCategoria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvIngresosCategoria.BackgroundColor = Color.White;
             dgvIngresosCategoria.BorderStyle = BorderStyle.None;
@@ -436,6 +438,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             //
             // lblSinIngresos
             //
+            lblSinIngresos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lblSinIngresos.Font = new Font("Segoe UI", 10F);
             lblSinIngresos.ForeColor = Color.FromArgb(90, 90, 110);
             lblSinIngresos.Location = new Point(25, 589);
@@ -543,34 +546,45 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblSinAlquileresFinalizados.TextAlign = ContentAlignment.MiddleCenter;
             lblSinAlquileresFinalizados.Visible = false;
             //
+            // pnlContenido
+            //
+            pnlContenido.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pnlContenido.BackColor = Color.FromArgb(240, 240, 245);
+            pnlContenido.Controls.Add(lblTitulo);
+            pnlContenido.Controls.Add(btnActualizar);
+            pnlContenido.Controls.Add(lblActualizado);
+            pnlContenido.Controls.Add(pnlVehiculos);
+            pnlContenido.Controls.Add(pnlAlquileres);
+            pnlContenido.Controls.Add(pnlPendientes);
+            pnlContenido.Controls.Add(pnlIngresos);
+            pnlContenido.Controls.Add(pnlOcupacion);
+            pnlContenido.Controls.Add(pnlClientes);
+            pnlContenido.Controls.Add(lblReservasTitulo);
+            pnlContenido.Controls.Add(dgvReservas);
+            pnlContenido.Controls.Add(lblSinReservas);
+            pnlContenido.Controls.Add(lblIngresosCategoriaTitulo);
+            pnlContenido.Controls.Add(dgvIngresosCategoria);
+            pnlContenido.Controls.Add(lblSinIngresos);
+            pnlContenido.Controls.Add(lblVehiculosTitulo);
+            pnlContenido.Controls.Add(dgvVehiculos);
+            pnlContenido.Controls.Add(lblSinVehiculos);
+            pnlContenido.Controls.Add(lblAlquileresFinalizadosTitulo);
+            pnlContenido.Controls.Add(dgvAlquileresFinalizados);
+            pnlContenido.Controls.Add(lblSinAlquileresFinalizados);
+            pnlContenido.Location = new Point(0, 0);
+            pnlContenido.Name = "pnlContenido";
+            pnlContenido.MinimumSize = new Size(875, 926);
+            pnlContenido.Size = new Size(900, 926);
+            pnlContenido.TabIndex = 0;
+            //
             // ReporteVista
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(240, 240, 245);
-            Controls.Add(lblTitulo);
-            Controls.Add(btnActualizar);
-            Controls.Add(lblActualizado);
-            Controls.Add(pnlVehiculos);
-            Controls.Add(pnlAlquileres);
-            Controls.Add(pnlPendientes);
-            Controls.Add(pnlIngresos);
-            Controls.Add(pnlOcupacion);
-            Controls.Add(pnlClientes);
-            Controls.Add(lblReservasTitulo);
-            Controls.Add(dgvReservas);
-            Controls.Add(lblSinReservas);
-            Controls.Add(lblIngresosCategoriaTitulo);
-            Controls.Add(dgvIngresosCategoria);
-            Controls.Add(lblSinIngresos);
-            Controls.Add(lblVehiculosTitulo);
-            Controls.Add(dgvVehiculos);
-            Controls.Add(lblSinVehiculos);
-            Controls.Add(lblAlquileresFinalizadosTitulo);
-            Controls.Add(dgvAlquileresFinalizados);
-            Controls.Add(lblSinAlquileresFinalizados);
-            MinimumSize = new Size(900, 680);
+            Controls.Add(pnlContenido);
+            MinimumSize = new Size(300, 240);
             Name = "ReporteVista";
             Size = new Size(900, 926);
             pnlVehiculos.ResumeLayout(false);
@@ -585,6 +599,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             pnlOcupacion.PerformLayout();
             pnlClientes.ResumeLayout(false);
             pnlClientes.PerformLayout();
+            pnlContenido.ResumeLayout(false);
+            pnlContenido.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvReservas).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvIngresosCategoria).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).EndInit();
@@ -598,6 +614,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         private Label lblTitulo;
         private Button btnActualizar;
         private Label lblActualizado;
+        private Panel pnlContenido;
         private Panel pnlVehiculos;
         private Label lblVehiculosEtiqueta;
         private Label lblVehiculosValor;

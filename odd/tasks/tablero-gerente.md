@@ -31,10 +31,15 @@ sin ingresos el mes anterior → `Ingresos del mes`; variación menor a medio pu
 `Ingresos del mes · sin variación`; en otro caso `Ingresos del mes · +12%` (signo explícito,
 redondeo a entero).
 
-S6 **Layout con scroll vertical.** Ancho de diseño `900`, `MinimumSize = 900×680`,
-`AutoScroll = true`. Orden: título y acciones; dos filas de tres tarjetas; `Reservas Activas` a
-ancho completo; `Ingresos por Categoría` y `Vehículos Disponibles` en dos columnas; `Alquileres
-Finalizados Recientes` a ancho completo. Al ancho mínimo no aparece scroll horizontal.
+S6 **Layout con scroll vertical.** `AutoScroll = true` en el `UserControl`, con
+`MinimumSize = 300×240`: el control tiene que poder encogerse al tamaño del panel anfitrión para
+que WinForms muestre la barra vertical en vez de recortar el contenido (un `MinimumSize` mayor que
+el panel fuerza al control a crecer y el panel lo recorta sin scrollbar). El contenido vive en
+`pnlContenido`, de `900×926`, `MinimumSize = 875×926` y anclado `Top|Left|Right`: a 875 de ancho
+las dos columnas siguen sin solaparse, y por debajo de eso aparece scroll horizontal en vez de
+recortes. Orden: título y acciones; dos filas de tres tarjetas; `Reservas Activas` a ancho
+completo; `Ingresos por Categoría` y `Vehículos Disponibles` en dos columnas; `Alquileres
+Finalizados Recientes` a ancho completo.
 
 S7 **Columnas por allowlist.** Cada grilla muestra sólo las columnas declaradas por la vista y
 oculta todas las demás. Esto elimina la columna residual `VehiculoDescripcion` que hoy se escapa
@@ -115,3 +120,11 @@ recortes, sin solapamientos, sin scroll horizontal).
 Pendiente anotado, fuera de alcance: las `Lista*` siguen ocultando columnas con una lista
 hardcodeada (`ListaAlquilerVista.cs:72`, entre otras) y comparten la fragilidad que esta vista ya
 corrigió con allowlist.
+
+L8 (2026-11-10) — Revisión del usuario, verbatim: «asi se ve mas grande, y en pantalla mas chica la
+parte de abajo se corta». Diagnóstico: `MinimumSize` del `UserControl` mayor que el panel
+`panelContenido` de `PrincipalForm` (que aporta unos 660 px de alto útil) fuerza al control a
+crecer por encima del panel, y el panel recorta en lugar de scrollear. Causa común a la versión
+anterior y a la primera versión nueva. Corrección: S6 reescrita con `pnlContenido` interno de
+tamaño fijo y `MinimumSize` chico en el `UserControl`; `dotnet build` 0 errores, 0 warnings en los
+archivos tocados. La captura del usuario corresponde al build previo a `b2435b8`.
