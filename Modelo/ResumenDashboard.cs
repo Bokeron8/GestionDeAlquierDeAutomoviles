@@ -21,8 +21,9 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
     }
 
     /// <summary>
-    /// Read-only snapshot the manager dashboard renders: the four counters, the income earned
-    /// during the current month, category-wise revenue breakdown, recent finalized rentals and the lists.
+    /// Read-only snapshot the manager dashboard renders: the counters, the income earned during
+    /// the current month (plus the previous one, so the card can show the variation), the fleet
+    /// occupancy, category-wise revenue breakdown, recent finalized rentals and the lists.
     /// </summary>
     public class ResumenDashboard
     {
@@ -30,7 +31,10 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public int Clientes { get; set; }
         public int Empleados { get; set; }
         public int AlquileresEnCurso { get; set; }
+        public int ReservasPendientes { get; set; }
         public decimal IngresosDelMes { get; set; }
+        public decimal IngresosMesAnterior { get; set; }
+        public decimal PorcentajeOcupacion { get; set; }
         public List<Reserva> ReservasActivas { get; set; } = [];
         public List<Vehiculo> VehiculosDisponibles { get; set; } = [];
         public List<IngresosPorCategoriaDto> IngresosPorCategoria { get; set; } = [];

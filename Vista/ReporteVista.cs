@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using GestionDeAlquierDeAutomoviles.Controlador;
 using GestionDeAlquierDeAutomoviles.Modelo;
@@ -16,6 +17,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
         public ReporteVista()
         {
             InitializeComponent();
+            btnActualizar.Click += (_, _) => Refrescar();
         }
 
         /// <summary>
@@ -29,16 +31,22 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             {
                 var resumen = _controller.ObtenerResumen();
 
-                lblMetricVehiculos.Text = $"Vehículos: {resumen.Vehiculos}";
-                lblMetricClientes.Text = $"Clientes: {resumen.Clientes}";
-                lblMetricEmpleados.Text = $"Empleados: {resumen.Empleados}";
-                lblMetricAlquileres.Text = $"Alquileres en curso: {resumen.AlquileresEnCurso}";
-                lblMetricIngresos.Text = $"Ingresos (mes actual): {resumen.IngresosDelMes.ToString("C0", Cultura)}";
+                lblVehiculosValor.Text = resumen.Vehiculos.ToString("N0", Cultura);
+                lblAlquileresValor.Text = resumen.AlquileresEnCurso.ToString("N0", Cultura);
+                lblPendientesValor.Text = resumen.ReservasPendientes.ToString("N0", Cultura);
+                lblClientesValor.Text = resumen.Clientes.ToString("N0", Cultura);
+                lblIngresosValor.Text = resumen.IngresosDelMes.ToString("C0", Cultura);
+                lblIngresosEtiqueta.Text = EtiquetaIngresos(resumen.IngresosDelMes, resumen.IngresosMesAnterior);
+                lblOcupacionValor.Text =
+                    $"{resumen.AlquileresEnCurso} de {resumen.Vehiculos} · " +
+                    $"{resumen.PorcentajeOcupacion.ToString("0", Cultura)}%";
 
                 MostrarReservas(resumen.ReservasActivas);
                 MostrarVehiculos(resumen.VehiculosDisponibles);
                 MostrarIngresosCategoria(resumen.IngresosPorCategoria);
                 MostrarAlquileresFinalizados(resumen.AlquileresFinalizadosRecientes);
+
+                lblActualizado.Text = $"Actualizado {DateTime.Now:dd/MM/yyyy HH:mm}";
             }
             catch (Exception ex)
             {
@@ -50,91 +58,95 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void Limpiar()
         {
-            lblMetricVehiculos.Text = "Vehículos: 0";
-            lblMetricClientes.Text = "Clientes: 0";
-            lblMetricEmpleados.Text = "Empleados: 0";
-            lblMetricAlquileres.Text = "Alquileres en curso: 0";
-            lblMetricIngresos.Text = $"Ingresos (mes actual): {0m.ToString("C0", Cultura)}";
+            lblVehiculosValor.Text = "0";
+            lblAlquileresValor.Text = "0";
+            lblPendientesValor.Text = "0";
+            lblClientesValor.Text = "0";
+            lblIngresosValor.Text = 0m.ToString("C0", Cultura);
+            lblIngresosEtiqueta.Text = "Ingresos del mes";
+            lblOcupacionValor.Text = "0 de 0 · 0%";
+            lblActualizado.Text = "Sin datos";
 
             dgvReservas.DataSource = null;
             dgvVehiculos.DataSource = null;
             dgvIngresosCategoria.DataSource = null;
             dgvAlquileresFinalizados.DataSource = null;
+
+            lblSinReservas.Visible = true;
+            lblSinVehiculos.Visible = true;
+            lblSinIngresos.Visible = true;
+            lblSinAlquileresFinalizados.Visible = true;
+        }
+
+        private static string EtiquetaIngresos(decimal actual, decimal mesAnterior)
+        {
+            if (mesAnterior <= 0m)
+                return "Ingresos del mes";
+
+            decimal variacion = (actual - mesAnterior) * 100m / mesAnterior;
+            if (Math.Abs(variacion) < 0.5m)
+                return "Ingresos del mes · sin variación";
+
+            // The sign is explicit so the manager reads growth and drop at a glance.
+            return $"Ingresos del mes · {variacion.ToString("+0;-0", Cultura)}%";
         }
 
         private void MostrarReservas(List<Reserva> reservas)
         {
             dgvReservas.DataSource = null;
             dgvReservas.DataSource = reservas;
+            MostrarColumnas(dgvReservas,
+                "NombreCliente", "MatriculaVehiculo", "FechaInicioReserva", "FechaFinReserva", "NombreEstado");
 
             if (dgvReservas.Columns["NombreCliente"] != null)
                 dgvReservas.Columns["NombreCliente"].HeaderText = "Cliente";
             if (dgvReservas.Columns["MatriculaVehiculo"] != null)
                 dgvReservas.Columns["MatriculaVehiculo"].HeaderText = "Vehículo";
             if (dgvReservas.Columns["FechaInicioReserva"] != null)
+            {
                 dgvReservas.Columns["FechaInicioReserva"].HeaderText = "Desde";
+                dgvReservas.Columns["FechaInicioReserva"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            }
             if (dgvReservas.Columns["FechaFinReserva"] != null)
+            {
                 dgvReservas.Columns["FechaFinReserva"].HeaderText = "Hasta";
+                dgvReservas.Columns["FechaFinReserva"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            }
             if (dgvReservas.Columns["NombreEstado"] != null)
             {
                 dgvReservas.Columns["NombreEstado"].HeaderText = "Estado";
                 dgvReservas.Columns["NombreEstado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvReservas.Columns["NombreEstado"].Width = 100;
+                dgvReservas.Columns["NombreEstado"].Width = 110;
             }
 
-            string[] ocultas =
-            [
-                "IdReserva", "PrecioDiarioPactado", "FechaSolicitud", "Activo",
-                "IdEstado", "IdEmpleado", "IdVehiculo", "IdCliente",
-                "DniCliente", "NombreEmpleado", "DescripcionCliente", "DescripcionCombo"
-            ];
-            foreach (string columna in ocultas)
-            {
-                if (dgvReservas.Columns[columna] != null)
-                    dgvReservas.Columns[columna].Visible = false;
-            }
-
-            OrdenarColumnas(dgvReservas,
-            [
-                "NombreCliente", "MatriculaVehiculo", "FechaInicioReserva",
-                "FechaFinReserva", "NombreEstado"
-            ]);
+            lblSinReservas.Visible = reservas.Count == 0;
         }
 
         private void MostrarVehiculos(List<Vehiculo> vehiculos)
         {
             dgvVehiculos.DataSource = null;
             dgvVehiculos.DataSource = vehiculos;
+            MostrarColumnas(dgvVehiculos, "Matricula", "MarcaModelo", "NombreCategoria");
 
             if (dgvVehiculos.Columns["Matricula"] != null)
             {
                 dgvVehiculos.Columns["Matricula"].HeaderText = "Matrícula";
                 dgvVehiculos.Columns["Matricula"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvVehiculos.Columns["Matricula"].Width = 90;
+                dgvVehiculos.Columns["Matricula"].Width = 100;
             }
             if (dgvVehiculos.Columns["MarcaModelo"] != null)
                 dgvVehiculos.Columns["MarcaModelo"].HeaderText = "Marca y modelo";
             if (dgvVehiculos.Columns["NombreCategoria"] != null)
                 dgvVehiculos.Columns["NombreCategoria"].HeaderText = "Categoría";
 
-            string[] ocultas =
-            [
-                "IdVehiculo", "Chasis", "Color", "Anio", "Activo", "IdModelo", "IdCategoria",
-                "NombreMarca", "NombreModelo", "Descripcion"
-            ];
-            foreach (string columna in ocultas)
-            {
-                if (dgvVehiculos.Columns[columna] != null)
-                    dgvVehiculos.Columns[columna].Visible = false;
-            }
-
-            OrdenarColumnas(dgvVehiculos, ["Matricula", "MarcaModelo", "NombreCategoria"]);
+            lblSinVehiculos.Visible = vehiculos.Count == 0;
         }
 
         private void MostrarIngresosCategoria(List<IngresosPorCategoriaDto> lista)
         {
             dgvIngresosCategoria.DataSource = null;
             dgvIngresosCategoria.DataSource = lista;
+            MostrarColumnas(dgvIngresosCategoria, "Categoria", "CantidadAlquileres", "TotalIngresos");
 
             if (dgvIngresosCategoria.Columns["Categoria"] != null)
                 dgvIngresosCategoria.Columns["Categoria"].HeaderText = "Categoría";
@@ -145,46 +157,48 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 dgvIngresosCategoria.Columns["TotalIngresos"].HeaderText = "Ingresos";
                 dgvIngresosCategoria.Columns["TotalIngresos"].DefaultCellStyle.Format = "C2";
             }
-            OrdenarColumnas(dgvIngresosCategoria, ["Categoria", "CantidadAlquileres", "TotalIngresos"]);
+
+            lblSinIngresos.Visible = lista.Count == 0;
         }
 
         private void MostrarAlquileresFinalizados(List<AlquilerFinalizadoDto> lista)
         {
             dgvAlquileresFinalizados.DataSource = null;
             dgvAlquileresFinalizados.DataSource = lista;
+            MostrarColumnas(dgvAlquileresFinalizados, "Cliente", "Vehiculo", "FechaDevolucion", "MontoTotal");
 
             if (dgvAlquileresFinalizados.Columns["Cliente"] != null)
                 dgvAlquileresFinalizados.Columns["Cliente"].HeaderText = "Cliente";
             if (dgvAlquileresFinalizados.Columns["Vehiculo"] != null)
                 dgvAlquileresFinalizados.Columns["Vehiculo"].HeaderText = "Vehículo";
             if (dgvAlquileresFinalizados.Columns["FechaDevolucion"] != null)
+            {
                 dgvAlquileresFinalizados.Columns["FechaDevolucion"].HeaderText = "Devolución";
+                dgvAlquileresFinalizados.Columns["FechaDevolucion"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+            }
             if (dgvAlquileresFinalizados.Columns["MontoTotal"] != null)
             {
                 dgvAlquileresFinalizados.Columns["MontoTotal"].HeaderText = "Total Cobrado";
                 dgvAlquileresFinalizados.Columns["MontoTotal"].DefaultCellStyle.Format = "C2";
             }
 
-            string[] ocultas = ["IdAlquiler", "FechaEntrega"];
-            foreach (string col in ocultas)
-            {
-                if (dgvAlquileresFinalizados.Columns[col] != null)
-                    dgvAlquileresFinalizados.Columns[col].Visible = false;
-            }
-
-            OrdenarColumnas(dgvAlquileresFinalizados, ["Cliente", "Vehiculo", "FechaDevolucion", "MontoTotal"]);
+            lblSinAlquileresFinalizados.Visible = lista.Count == 0;
         }
 
         /// <summary>
-        /// Both grids are narrow, so the column order is explicit instead of whatever the
-        /// binding happens to produce.
+        /// Shows exactly the columns this view declares and hides every other one. Binding a
+        /// model class produces a column per public property, so a hardcoded list of hidden
+        /// columns silently leaks new properties (it already leaked VehiculoDescripcion).
         /// </summary>
-        private static void OrdenarColumnas(DataGridView grilla, string[] orden)
+        private static void MostrarColumnas(DataGridView grilla, params string[] visibles)
         {
-            for (int i = 0; i < orden.Length; i++)
+            foreach (DataGridViewColumn columna in grilla.Columns)
+                columna.Visible = visibles.Contains(columna.Name);
+
+            for (int i = 0; i < visibles.Length; i++)
             {
-                if (grilla.Columns[orden[i]] != null)
-                    grilla.Columns[orden[i]].DisplayIndex = i;
+                if (grilla.Columns[visibles[i]] != null)
+                    grilla.Columns[visibles[i]].DisplayIndex = i;
             }
         }
     }
