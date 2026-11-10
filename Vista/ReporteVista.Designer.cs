@@ -27,8 +27,14 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             dgvReservas = new DataGridView();
             lblVehiculosTitulo = new Label();
             dgvVehiculos = new DataGridView();
+            lblIngresosCategoriaTitulo = new Label();
+            dgvIngresosCategoria = new DataGridView();
+            lblAlquileresFinalizadosTitulo = new Label();
+            dgvAlquileresFinalizados = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvReservas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvVehiculos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvIngresosCategoria).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAlquileresFinalizados).BeginInit();
             SuspendLayout();
             //
             // lblTitulo

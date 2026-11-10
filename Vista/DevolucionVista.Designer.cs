@@ -29,6 +29,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMontoMora = new Label();
             txtMontoMora = new TextBox();
             btnConfirmar = new Button();
+            lblResumenFinanciero = new Label();
             SuspendLayout();
             //
             // lblTitulo
