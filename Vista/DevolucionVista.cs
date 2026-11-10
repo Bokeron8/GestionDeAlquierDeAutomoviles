@@ -68,6 +68,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         private void ActualizarResumenFinanciero()
         {
+            if (lblResumenFinanciero == null) return;
             if (_contrato == null)
             {
                 lblResumenFinanciero.Text = "Seleccione un alquiler.";
