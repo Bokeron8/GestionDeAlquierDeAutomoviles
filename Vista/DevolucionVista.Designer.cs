@@ -146,15 +146,18 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblMontoMora.Name = "lblMontoMora";
             lblMontoMora.Size = new Size(175, 19);
             lblMontoMora.TabIndex = 10;
-            lblMontoMora.Text = "Mora por atraso (opcional)";
+            lblMontoMora.Text = "Mora por atraso (automática)";
             //
             // txtMontoMora
             //
+            txtMontoMora.BackColor = Color.FromArgb(245, 245, 250);
             txtMontoMora.Font = new Font("Segoe UI", 10F);
             txtMontoMora.Location = new Point(370, 305);
             txtMontoMora.Name = "txtMontoMora";
+            txtMontoMora.ReadOnly = true;
             txtMontoMora.Size = new Size(300, 25);
             txtMontoMora.TabIndex = 11;
+            txtMontoMora.TabStop = false;
             //
             // lblErrores
             //

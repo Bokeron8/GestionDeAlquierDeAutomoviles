@@ -67,7 +67,8 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
         /// <summary>
         /// The late fee is derived from the contract: days past the agreed end multiplied by
-        /// the agreed daily price. It stays editable so a manager can adjust it.
+        /// the agreed daily price. It is not editable, so the amount shown can never disagree
+        /// with the dates on screen.
         /// </summary>
         private void RecalcularMora()
         {
@@ -102,11 +103,6 @@ namespace GestionDeAlquierDeAutomoviles.Vista
                 errores.Add("Ingrese el combustible al devolver (0 a 100).");
             else if (combustible < 0 || combustible > 100)
                 errores.Add("El combustible al devolver debe estar entre 0 y 100.");
-
-            if (!LeerDecimal(txtMontoMora.Text, out decimal mora))
-                errores.Add("El monto de mora debe ser un valor numérico.");
-            else if (mora < 0)
-                errores.Add("El monto de mora no puede ser negativo.");
 
             lblErrores.Text = string.Join("   ·   ", errores);
             btnConfirmar.Enabled = errores.Count == 0 && _contrato.Activo;

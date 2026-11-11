@@ -18,7 +18,7 @@ en el modelo.
 S2 **Terminología de usuario.** "Salida" y "entrada" desaparecen de la interfaz y de los mensajes.
 Etiquetas exactas: `Combustible al entregar (%)`, `Kilometraje al entregar (km)`,
 `Kilometraje al devolver (km)`, `Combustible al devolver (%)`, `Fecha de devolución`,
-`Mora por atraso (opcional)`.
+`Mora por atraso (automática)`.
 
 S3 **Sin precarga del kilometraje.** `txtKilometrajeEntrada` arranca vacío: precargarlo con el
 kilometraje de entrega permitía registrar 0 km recorridos sin aviso. Los datos de entrega se
@@ -32,8 +32,8 @@ entregado, la línea se muestra en rojo (`180, 40, 40`).
 
 S5 **Validación inline.** El error se informa junto a los campos mientras se escribe, no en un
 `MessageBox` al confirmar: kilometraje vacío o menor al de entrega, combustible vacío o fuera de
-`0..100`, mora no numérica o negativa. `Confirmar Devolución` queda deshabilitado mientras haya
-algún error o el alquiler no esté activo.
+`0..100`. `Confirmar Devolución` queda deshabilitado mientras haya algún error o el alquiler no esté
+activo. La mora no se valida como entrada porque no se escribe: ver S10.
 
 S6 **Formato y parseo.** La vista usa una única cultura `es-AR` explícita para parsear y para
 mostrar importes (`C2`), en lugar de depender de la cultura del sistema: `$ 10.700,00`.
@@ -49,6 +49,11 @@ otras clases no cambian. `PrincipalForm` no se toca.
 S9 **Verificación.** `dotnet build` en 0 errores y 0 warnings nuevos. El usuario valida en Windows:
 los textos nuevos, la referencia de entrega, los derivados y el botón deshabilitado con datos
 inválidos.
+
+S10 **Mora no editable.** El importe de mora es calculado (días de atraso × precio diario) y el
+campo es de sólo lectura, con `TabStop = false` y fondo apenas distinto para leerse como valor
+derivado. Cambiar la fecha recalcula el importe sin pisar ninguna edición manual, porque no existe
+tal edición. La etiqueta lo declara: `Mora por atraso (automática)`.
 
 ## Tasks
 
@@ -89,3 +94,9 @@ compatible. Total del contenido: 517 px, dentro del panel de 527 px del tamaño 
 
 Pendiente anotado, fuera de alcance: `CargaAlquilerVista` conserva sus validaciones en
 `MessageBox` al confirmar; sólo se renombraron sus etiquetas y mensajes.
+
+L6 — Pedido del usuario, verbatim: «Ajustalo para que no se pueda escribir a mano». El monto de
+mora pasa a ser de sólo lectura (`ReadOnly = true`, `TabStop = false`, fondo `245,245,250`) y la
+etiqueta lo declara como automática. Se quita la validación inline de mora, que queda inalcanzable,
+y se mantiene el parseo defensivo al confirmar. Nueva S10; S2 y S5 ajustadas. `dotnet build`: 0
+errores, 0 warnings en los archivos tocados.
