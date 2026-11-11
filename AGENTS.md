@@ -11,7 +11,7 @@ Targets `net10.0-windows` with `Microsoft.Data.SqlClient` 7.0.2 against SQL Serv
 - Run: `dotnet run` (launches the WinForms app)
 - Solution: `GestionDeAlquierDeAutomoviles.slnx` (single project).
 - `EnableWindowsTargeting` is `true`, so the project *compiles* on Linux, but the app only *runs* on Windows with SQL Server Express reachable.
-- This development environment has **no .NET SDK installed** (`dotnet-install.sh` is present but unused). `dotnet build` and any runtime check must happen on the user's Windows machine.
+- This environment **does** build the project on Linux: the .NET SDK lives at `~/.dotnet/dotnet` (not on `PATH`), so use `~/.dotnet/dotnet build`. The app itself only *runs* on Windows with SQL Server Express reachable, so runtime and visual checks happen on the user's machine.
 - Database scripts are run by hand, in this order: `db_structure.sql` → `db_restricciones.sql` → `db_datos_prueba.sql`.
 
 ## Architecture
