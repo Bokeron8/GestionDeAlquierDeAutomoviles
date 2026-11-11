@@ -58,13 +58,11 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             if (_contrato == null) return;
 
             lblContrato.Text =
-                $"Reserva #{_contrato.IdReserva}{Environment.NewLine}" +
+                $"Reserva #{_contrato.IdReserva} · {(_contrato.Activo ? "En curso" : "Devuelto")}{Environment.NewLine}" +
                 $"Cliente: {_contrato.Cliente}{Environment.NewLine}" +
                 $"Vehículo: {_contrato.Vehiculo}{Environment.NewLine}" +
-                $"Fecha de entrega: {_contrato.FechaEntregaReal:dd/MM/yyyy}{Environment.NewLine}" +
-                $"Fin pactado: {_contrato.FechaFinReserva:dd/MM/yyyy}{Environment.NewLine}" +
-                $"Precio diario pactado: {_contrato.PrecioDiarioPactado.ToString("C2", Cultura)}{Environment.NewLine}" +
-                $"Estado: {(_contrato.Activo ? "En curso" : "Devuelto")}";
+                $"Entrega: {_contrato.FechaEntregaReal:dd/MM/yyyy} · Fin pactado: {_contrato.FechaFinReserva:dd/MM/yyyy}{Environment.NewLine}" +
+                $"Precio diario pactado: {_contrato.PrecioDiarioPactado.ToString("C2", Cultura)}";
         }
 
         /// <summary>
@@ -77,7 +75,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
 
             int diasAtraso = (dtpFechaDevolucion.Value.Date - _contrato.FechaFinReserva.Date).Days;
             decimal mora = diasAtraso > 0 ? diasAtraso * _contrato.PrecioDiarioPactado : 0;
-            txtMontoMora.Text = mora.ToString("0.00", Cultura);
+            txtMontoMora.Text = mora.ToString("N2", Cultura);
         }
 
         /// <summary>

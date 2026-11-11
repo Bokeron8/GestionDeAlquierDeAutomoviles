@@ -77,5 +77,15 @@ vista (S6). Respuesta del usuario, verbatim: «Todo es correcto».
 L4 — Implementación cerrada. `dotnet build`: 0 errores, 0 warnings en los archivos tocados.
 Pendiente: validación visual del usuario en Windows.
 
+L5 — Revisión visual del usuario (captura). Dos defectos: (a) `btnConfirmar` con `Anchor = Bottom`
+dentro de un `UserControl` con `AutoScroll` se ancla al área de scroll y queda fuera de la vista,
+y `AutoScroll` no detecta desborde porque el hijo anclado se reubica en el rectángulo de scroll:
+se quitó el anclaje y el botón fluye con el contenido; (b) `lblContrato` de 145 px recortaba la
+última línea, así que el contrato se compactó a cinco líneas (`Reserva #16 · En curso`, fechas de
+entrega y fin en una sola línea) y el bloque bajó a 128 px. Además `txtMontoMora` ahora se
+formatea `N2` para mostrar `320.000,00` en vez de `320000,00`, con parseo `NumberStyles.Number`
+compatible. Total del contenido: 517 px, dentro del panel de 527 px del tamaño mínimo de ventana;
+`MinimumSize = 300×300` mantiene el scroll disponible si el panel es aún más bajo.
+
 Pendiente anotado, fuera de alcance: `CargaAlquilerVista` conserva sus validaciones en
 `MessageBox` al confirmar; sólo se renombraron sus etiquetas y mensajes.
