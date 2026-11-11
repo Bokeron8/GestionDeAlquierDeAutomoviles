@@ -90,7 +90,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblCombustibleSalida.Name = "lblCombustibleSalida";
             lblCombustibleSalida.Size = new Size(125, 19);
             lblCombustibleSalida.TabIndex = 4;
-            lblCombustibleSalida.Text = "Combustible Salida";
+            lblCombustibleSalida.Text = "Combustible al entregar (%)";
             //
             // txtCombustibleSalida
             //
@@ -109,7 +109,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             lblKilometrajeSalida.Name = "lblKilometrajeSalida";
             lblKilometrajeSalida.Size = new Size(120, 19);
             lblKilometrajeSalida.TabIndex = 6;
-            lblKilometrajeSalida.Text = "Kilometraje Salida";
+            lblKilometrajeSalida.Text = "Kilometraje al entregar (km)";
             //
             // txtKilometrajeSalida
             //

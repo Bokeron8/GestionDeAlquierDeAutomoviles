@@ -14,6 +14,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public DateTime FechaFinReserva { get; set; }
         public decimal PrecioDiarioPactado { get; set; }
         public decimal KilometrajeSalida { get; set; }
+        public decimal CombustibleSalida { get; set; }
         public bool Activo { get; set; }
         public string Cliente { get; set; } = "";
         public string Vehiculo { get; set; } = "";

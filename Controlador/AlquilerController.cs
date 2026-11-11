@@ -36,9 +36,9 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
             }
 
             if (alq.CombustibleSalida < 0 || alq.CombustibleSalida > 100)
-                errores.Add("El porcentaje de combustible de salida debe estar entre 0 y 100.");
+                errores.Add("El porcentaje de combustible al entregar debe estar entre 0 y 100.");
             if (alq.KilometrajeSalida < 0)
-                errores.Add("El kilometraje de salida no puede ser negativo.");
+                errores.Add("El kilometraje al entregar no puede ser negativo.");
             if (alq.MontoMora < 0)
                 errores.Add("El monto de mora no puede ser negativo.");
 
@@ -47,9 +47,9 @@ namespace GestionDeAlquierDeAutomoviles.Controlador
                 if (alq.FechaEntregaDevolucion.Value < alq.FechaEntregaReal)
                     errores.Add("La fecha de devolución no puede ser anterior a la fecha de entrega real.");
                 if (alq.CombustibleEntrada.HasValue && (alq.CombustibleEntrada.Value < 0 || alq.CombustibleEntrada.Value > 100))
-                    errores.Add("El porcentaje de combustible de entrada debe estar entre 0 y 100.");
+                    errores.Add("El porcentaje de combustible al devolver debe estar entre 0 y 100.");
                 if (alq.KilometrajeEntrada.HasValue && alq.KilometrajeEntrada.Value < alq.KilometrajeSalida)
-                    errores.Add("El kilometraje de entrada no puede ser menor al kilometraje de salida.");
+                    errores.Add("El kilometraje al devolver no puede ser menor al kilometraje al entregar.");
             }
 
             return errores;

@@ -148,13 +148,13 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             {
                 if (!decimal.TryParse(txtCombustibleSalida.Text, out decimal combustibleSalida))
                 {
-                    MessageBox.Show("El combustible de salida debe ser un valor numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El combustible al entregar debe ser un valor numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (!decimal.TryParse(txtKilometrajeSalida.Text, out decimal kilometrajeSalida))
                 {
-                    MessageBox.Show("El kilometraje de salida debe ser un valor numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El kilometraje al entregar debe ser un valor numérico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 

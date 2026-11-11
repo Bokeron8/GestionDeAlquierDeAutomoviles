@@ -120,7 +120,8 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
         public static ContratoAlquiler? ObtenerContrato(int idAlquiler)
         {
             var dt = DatabaseHelper.ExecuteQuery(
-                @"SELECT a.id_alquiler, a.id_reserva, a.fechaEntregaReal, a.kilometrajeSalida, a.activo,
+                @"SELECT a.id_alquiler, a.id_reserva, a.fechaEntregaReal, a.kilometrajeSalida,
+                         a.combustibleSalida, a.activo,
                          r.fecha_fin_reserva, r.precio_diario_pactado,
                          c.apellido + ', ' + c.nombre + ' — DNI ' + c.dni AS cliente,
                          v.matricula + ' — ' + ma.marca + ' ' + mo.modelo + ' ' + CONVERT(VARCHAR(4), v.anio) AS vehiculo
@@ -143,6 +144,7 @@ namespace GestionDeAlquierDeAutomoviles.Modelo
                 FechaFinReserva = Convert.ToDateTime(row["fecha_fin_reserva"]),
                 PrecioDiarioPactado = Convert.ToDecimal(row["precio_diario_pactado"]),
                 KilometrajeSalida = Convert.ToDecimal(row["kilometrajeSalida"]),
+                CombustibleSalida = Convert.ToDecimal(row["combustibleSalida"]),
                 Activo = Convert.ToBoolean(row["activo"]),
                 Cliente = row["cliente"].ToString() ?? "",
                 Vehiculo = row["vehiculo"].ToString() ?? ""
