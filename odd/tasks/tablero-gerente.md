@@ -75,6 +75,12 @@ S13 **Verificación.** `~/.dotnet/dotnet build` en 0 errores y 0 warnings nuevos
 visual la valida el usuario con captura de pantalla en Windows: al ancho mínimo no hay controles
 recortados, no hay solapamientos y no aparece scroll horizontal.
 
+S14 **Moneda en grillas.** Las columnas monetarias fijan `DefaultCellStyle.FormatProvider` con la
+cultura `es-AR` explícita. Un `DataGridView` formatea con la cultura del hilo: en una máquina con
+configuración regional de España, `Format = "C2"` imprimía `€` en las grillas mientras las tarjetas,
+que usan la cultura explícita, imprimían `$`. El símbolo debe ser `$` con independencia de la
+configuración regional del equipo.
+
 ## Tasks
 
 - [x] T1 — S1, S3, S4, S5: `ResumenDashboard` + `ReporteController` con `ReservasPendientes`,

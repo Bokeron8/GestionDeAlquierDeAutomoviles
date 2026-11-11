@@ -156,6 +156,9 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             {
                 dgvIngresosCategoria.Columns["TotalIngresos"].HeaderText = "Ingresos";
                 dgvIngresosCategoria.Columns["TotalIngresos"].DefaultCellStyle.Format = "C2";
+                // The grid formats with the thread culture unless a provider is set, which on a
+                // Spanish (Spain) machine printed euros next to the peso amounts in the labels.
+                dgvIngresosCategoria.Columns["TotalIngresos"].DefaultCellStyle.FormatProvider = Cultura;
             }
 
             lblSinIngresos.Visible = lista.Count == 0;
@@ -180,6 +183,7 @@ namespace GestionDeAlquierDeAutomoviles.Vista
             {
                 dgvAlquileresFinalizados.Columns["MontoTotal"].HeaderText = "Total Cobrado";
                 dgvAlquileresFinalizados.Columns["MontoTotal"].DefaultCellStyle.Format = "C2";
+                dgvAlquileresFinalizados.Columns["MontoTotal"].DefaultCellStyle.FormatProvider = Cultura;
             }
 
             lblSinAlquileresFinalizados.Visible = lista.Count == 0;
